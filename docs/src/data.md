@@ -21,7 +21,7 @@ Inspiration:
 
 The table-SQL can be found here: https://github.com/map5nl/map5topo/tree/main/tools/etl/sql/map5/tables.
 
-Each table in the map5 schema has a simlar setup, i.e. columns:
+Each table in the map5 schema has a similar setup, i.e. columns:
 
 ```
 CREATE TABLE map5.xyz (

@@ -1,5 +1,5 @@
 ---
-title: map5topo documentation
+title: map5topo.nl
 ---
 
 # Welcome to the map5topo website!

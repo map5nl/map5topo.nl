@@ -1,5 +1,5 @@
-site_name: map5topo documentation
-site_description: "map5topo is a topograhic map of the Netherlands made with OpenStreetMap and Dutch Open Datasets"
+site_name: map5topo.nl
+site_description: "map5topo is a topographic map of the Netherlands made with OpenStreetMap and Dutch Open Datasets"
 site_author: Just van den Broecke
 copyright: "&copy; 2023 Just Objects B.V."
 site_url: https://map5topo.nl
