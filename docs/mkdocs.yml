@@ -1,0 +1,54 @@
+site_name: map5topo documentation
+site_description: "map5topo is a topograhic map of the Netherlands made with OpenStreetMap and Dutch Open Datasets"
+site_author: Just van den Broecke
+copyright: "&copy; 2023 Just Objects B.V."
+site_url: https://map5topo.nl
+repo_url: https://github.com/map5/map5topo
+docs_dir: src
+nav:
+    - Home: index.md
+    - Introduction: introduction.md
+    - Specification: spec.md
+    - Development: develop.md
+    - Creation:
+        - Setup: setup.md
+        - Prepare: prepare.md
+    - Data: data.md
+    - Research: research.md
+    - Logbook: logbook.md
+    - TODO: todo.md
+
+use_directory_urls: true
+
+theme:
+    name: material
+    palette:
+        # See https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-scheme
+        # Default is indigo (blue)
+        scheme: map5topo
+    features:
+        - navigation.indexes 
+    favicon: assets/favicon.ico
+    logo: assets/images/map5-logo.png
+
+plugins:
+    - search
+
+markdown_extensions:
+    - meta # option to add some meta tags on top, title, author, date, etc
+    - admonition # adds the note, question, tip boxes, eg: !!! tip "my tip"
+    - pymdownx.details # advanced collapsible panels
+    - pymdownx.superfences # advanced features; such as line number, flow chart, python shell
+    - footnotes # notes bottom of page
+    - attr_list # used to size images
+    - md_in_html # used to size images
+
+extra_css:
+    # light and dark variations from material.io
+    # https://material.io/resources/color/#!/?view.left=0&view.right=1
+    - assets/stylesheets/termynal.css
+    - assets/stylesheets/custom.css
+
+extra_javascript:
+    - assets/javascripts/termynal.js
+    - assets/javascripts/custom.js

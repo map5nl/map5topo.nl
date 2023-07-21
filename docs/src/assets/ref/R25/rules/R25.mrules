@@ -1,0 +1,4884 @@
+﻿//Créé par JB en 2013 (version 0), sous licence CC by-sa (). 
+//Version 8 de la fin d'été 2015
+
+//Contact :	- messagerie OSM : (http://www.openstreetmap.org/user/JBacc1) 
+//  		- courriel : jbxosmx chez mailoo pointx org, en supprimant les x que vous rencontrez
+
+//Je mets à disposition ce rendu pour qu'il puisse être utilisé facilement, je suis cependant curieux de voir ce que vous en faites. 
+//         	Si vous le voulez bien, merci de me faire parvenir les résultats de projets significatifs réalisés à partir de ce travail. 
+//         	Je suis également preneur de vos remarques à propos de cette feuille de style.
+
+//Je peux également adapter, modifier, compléter la feuille de style selon vos besoins. Pour cela, n'hésitez pas à me contacter. 
+
+//Cette feuille de style a été créée pour produire une carte normalement lisible pour une impression au 25000ème, soit acceptable pour les zooms 13 à 15. 
+//Pour les cartes urbaines, un zoom au 15000ème est souvent plus adapté.
+//Une utilisation réussie au 100 000ème a été rapportée.
+//Bon nombre d'éléments sont dessinés à petite taille. Préférer un travail à haut DPI ou exporter en SVG pour une impression papier. 
+
+//version 0 en beta de démonstration publique
+
+//améliorations de la version 1 :
+// - diminution de la visibilité des tunnels, et amélioration de leur cohérence.
+// - diminution de l'emprise des voies ferrées
+// - diminution de la visibilité des courbes de niveau majeures
+// - résolutions de diverses coquilles
+
+//améliorations de la version 2 :
+// - ajout d'une deuxième épaisseur d'itinéraires balisés
+// - cohérence de l'épaisseur des itinéraires balisés
+// - modifications et améliorations mineures
+
+//amélioration de la version 3 :
+// - rendu des barrières linéaires avant les routes
+// - ajout des frontières nationales
+// - diverses améliorations mineures
+
+//améliorations de la version 4 :
+// - ajout des routes secondaires étroites
+// - affinage des épaisseurs des routes et ponts
+// - prise en compte des taggages erratiques des man_made=pipeline souterrains
+// - modification des remonte-pente, rendu asymétrique
+// - diminution de la taille des points altitude
+// - modification du rouge des accès interdits
+// - augmentation de la visibilité des arbres
+// - augmentation de la visibilité et modification du rendu des landes
+// - diminution de la visibilité des rochers
+// - diminution de l'emprise des clôtures
+// - meilleure prise en compte des haies
+// - modification du trait des ruines
+// - modification de la classification et du rendu de certains batiments
+// - ajout d'une croix au centre des cimetières en plus de la texture
+// - diminution de la largeurs des ponts de chemins 1-2
+// - réintroduction de l'icône manquante de levée de terre seule
+// - priorité du rendu des hameaux sur les habitations isolées
+// - correction coquille double rendu de certains chateaux
+// - modification du texte de nom des hôpitaux et de leur priorité 
+// - suppression du rendu des trottoirs en tant que voie séparée
+// - prise en compte des villages avec réf INSEE notés en hameaux
+// - rendu différencié des tours et tours de télécommunication
+// - simplification des catégories de voies ferrées
+
+//améliorations de la version 5 :
+// - corrections de diverses coquilles (pont sur route de service, chapelles et hameaux)
+// - correction des tunnels sur les voies étroites
+// - diminution de la visibilité des pylones electriques
+// - affinage de l'affichage des surfaces acces interdit
+// - integration du rendu des clotures en divers lineaire
+// - ajout des chateaux d'eau souterrains
+// - modification du rouge des accès interdits
+// - remontée des eglises
+// - rendu des natural=tree/tourism=yes
+// - diminue largeur weir de 2 a 1.5
+// - ajout des gues ford=yes
+// - rendu des point de vue en rouge touristique
+// - rendu des icones de piscine a partir de sport=swimming a la place de access
+// - rendu des traces gps en bleu decale par rapport à l'itinéraire
+// - remplacement de la police des rivieres et ruisseaux par FreeSerif et font-stretch adapte
+// - affinage de l'icone des calvaires
+
+//améliorations de la version 6 :
+// - corrections diverses coquilles (nom des reservoir souterrains, curved sur pont d'autoroute, dam ponctuel, footway+subway=yes)
+// - ajout du rendu touristique des aqueducs, viaducs. ##pas encore implemente sur les way, suite a bug maperitive. Prevu ok sur prochaine version.
+// - rendu touristique des elements classes monuments historiques ref:mhs
+// - ajout du rendu du petit patrimoine (lavoir, chapelle, oeuvres d'art, beaucoup de tags historic)
+// - ajout des panneaux indicateurs, carte, panneaux informatif.
+// - raffinement des shelter_type et double choix possible
+// - suppression du rendu de tourism=guest_house
+// - reprise a zero des points d'eau et ajout de drinking_water=yes
+// - modification des bordures des points d'eau selon la potabilite, couleur plus coherente, meilleure distinction avec chateau d'eau et station epuration
+// - modification des stations d'epuration et chateau d'eau pour meilleure distinction des points d'eau
+// - rendu grade5/sans tracktype et smoothness=very_horrible/impassable plus fin, tracktype=grade4 non modifie
+// - modification des epaisseurs de sentiers selon trail_visibility et stabilisation de l'opacite 
+// - assombrissement du rouge des voies privees
+// - affinage des ponts sur sentiers - essai de suppression du tiret central non conclusif
+// - modification du rendu des bornes historic=boundary_stone
+// - dissymetrisation des murs d'enceinte.
+// - prise en compte du man_made=mast et evolution du man_made=tower, prise en compte de man_made=communication_tower
+// - grues maintenant rendues en croix noire (avant en rond hache), rendu aussi disused:man_made=crane
+// - point de vue au dessus des sommets
+// - affinage du rendu des gues
+// - rendu des cascades
+// - modification des impressions des halos des villes et autres place=
+// - passage des voiries _link sous les pas _link
+// - rassemble pompier et gendarmerie sous la meme regle (rendu identique)
+// - diminue priorite rendu des textes de fontaines et sources
+
+//améliorations de la version 7 :
+// - rendu des sentiers en dash8to2
+// - rendu des layons en dash
+// - indication du nombre de place dans les abris/cabanes/gites
+// - ajout d'un fin lisere blanc autour des bornes
+// - ajout des moulins a vent en petit patrimoine
+// - baisse importante de la priorite du rendu des arbres
+// - rendu des man_made=cross et summit_cross=yes
+// - prise en compte de intermittent=yes sur les points d'eau
+// - prise en compte de tourism=* sur les cascades
+// - prise en compte de gendarmerie en operator=
+// - prise en compte de l'evolution du schema natural=rock/bare_rock. Rock rendu uniquement en ponctuel
+// - prise en compte des nouveaux tags leaf_type. Support conserve pour wood=*
+// - diminution de la visibilite des reservoirs de stockage et prise en compte des man_made=silo
+
+//améliorations de la version 8 :
+// - suppression des courbes de niveau sur les étendues d'eau
+// - rendu des courbes de niveau sous les lacs et sous les batiments
+// - murs, falaises, cutting/embankment : rendu des icones sous les autres linéaires 
+// - diminution de l'épaisseur des sentiers par défaut 
+// - diminution largeur des sentiers en trail_visibility=no
+// - diminution largeur pedestrian
+// - tertiary rendu plus étroit que secondary
+// - diminution de la bordure des track5
+// - modification du rendu des taillis, basé sur les landes
+// - symbole pour les tables d'orientation
+// - rendu de man_made=bridge comme batiment
+// - diminution de la taille des grottes/mines
+// - diminution taille texte police/gendarmerie/pompiers/gares et terrains de sport de 9 a 8
+// - prise en compte de drinking_water/drinkable=unwatched
+// - note Abr. pour les abreuvoirs en point d'eau
+// - suppression du rendu des shelter_type=sun_shelter
+// - rendu des parkings avec hiking=yes
+// - rendu les anciens terrains de sport comme les terrains de sport privés
+// - layon non rendu si highway
+// - légère diminution de la largeur des ruisseaux et rivieres
+// - cours d'eau intermittents : rendu en pointillés dash8to2
+// - légère diminution de la visibilité des falaise
+// - modification des tunnels sur ruisseaux et rivieres
+// - diminution de la priorité du texte cascade Casc.
+// - modification du halo autour des hameaux
+// - résolution bug nom d'attraction non rendu (suite ajout des ponts en attraction)
+// - divers bug: relations de type=site sur les surfaces
+
+
+//À faire
+//Plus rien !
+// - Probleme de rendu des ponts touristiques.##attendu dans la prochaine version de Maperitive
+// - rendre cascades, barrieres, barrages, ecluses orientees.##attendre l'evolution de Maperitive.
+//Imprimer la legende
+
+//notes d'évolution : 
+// - accès interdit : red à red purple 8% puis #f74c53 puis #f74c53 black 10%
+
+//Non rendu actuellement, par choix :
+// - leisure=fishing, common, miniature_golf, marina
+// - sport=free_flying, paragliding
+// - nom des plages et autre natural 
+
+//À voir, en attente de retour
+// - vert et largeur des haies
+// - diminuer taille du texte villages
+// - voir taille mine/entrée de mine/grotte
+// - rouge des voies interdites d'accès
+// - aérer les forets feuillus/resineux/melanges
+// - largeur des falaises
+// - taille des entrees de grotte/mine et symbole ?
+// - ferry en blanc sur bleu a la place de bleu plus intense
+
+features
+	attraction: node[tourism=attraction OR @isOneOf(historic,monument,city_gate,castle,fort) OR (natural=tree AND tourism=yes) OR ref:mhs OR @isOneOf(bridge,aqueduct,viaduct)] area[tourism=attraction OR @isOneOf(historic,monument,city_gate,castle,fort) OR (natural=tree AND tourism=yes) OR ref:mhs OR @isOneOf(bridge,aqueduct,viaduct)] way[@isOneOf(bridge,aqueduct,viaduct)]
+	petit patrimoine: node[((amenity=lavoir OR building=chapel OR bridge=movable OR (man_made=windmill) OR (tourism=artwork) OR (waterway=waterfall AND tourism) OR @isOneOf(historic,archaeological_site,aircraft,battlefield,ruins,rune_stone,tomb,wayside_shrine,yes)) AND NOT legende) AND NOT (tourism=attraction OR @isOneOf(historic,monument,city_gate,castle,fort) OR (natural=tree AND tourism=yes) OR ref:mhs OR @isOneOf(bridge,aqueduct,viaduct))] area[(amenity=lavoir OR building=chapel OR bridge=movable OR (man_made=windmill) OR (tourism=artwork) OR (waterway=waterfall AND tourism) OR @isOneOf(historic,archaeological_site,aircraft,battlefield,ruins,rune_stone,tomb,wayside_shrine,yes)) AND NOT (tourism=attraction OR @isOneOf(historic,monument,city_gate,castle,fort) OR (natural=tree AND tourism=yes) OR ref:mhs OR @isOneOf(bridge,aqueduct,viaduct))] 
+//##way[bridge=movable]
+	camping: node[tourism=camp_site] area[tourism=camp_site]
+	gite: node[@isOneOf(tourism,alpine_hut,hostel)] area[@isOneOf(tourism,alpine_hut,hostel)]
+	cabane: node[tourism=wilderness_hut] area[tourism=wilderness_hut]
+//## abri, modele a choisir entre contraignant ou simple
+	abri: node[amenity=shelter AND tourism!=wilderness_hut AND NOT @isOneOf(shelter_type,public_transport,field_shelter,picnic_shelter,sun_shelter) AND access!=private AND access!=no] area[amenity=shelter AND tourism!=wilderness_hut AND NOT @isOneOf(shelter_type,public_transport,field_shelter,picnic_shelter,sun_shelter) AND access!=private AND access!=no]
+//	abri: node[amenity=shelter AND tourism!=wilderness_hut AND @isOneOf(shelter_type,basic_hut,lean_to,rock_shelter,weather_shelter) AND access!=private AND access!=no] area[amenity=shelter AND tourism!=wilderness_hut AND @isOneOf(shelter_type,basic_hut,lean_to,rock_shelter,weather_shelter) AND access!=private AND access!=no]
+	eglise: node[amenity=place_of_worship OR @isOneOf(building,church,chapel,cathedral)] area[amenity=place_of_worship OR @isOneOf(building,church,chapel,cathedral)]
+	point eau: node[amenity=drinking_water OR natural=spring OR amenity=fountain OR amenity=watering_place] area[amenity=drinking_water OR natural=spring OR amenity=fountain OR amenity=watering_place]
+	autre eau potable: node[@isOneOf(drinking_water,yes,conditional,conditionnal) AND NOT(amenity=drinking_water OR natural=spring OR amenity=fountain OR amenity=watering_place)] area[@isOneOf(drinking_water,yes,conditional,conditionnal) AND NOT(amenity=drinking_water OR natural=spring OR amenity=fountain OR amenity=watering_place)]
+//	eau potable: node[amenity=drinking_water OR @isOneOf(drinkable,yes,mineral) OR drinking_water=yes] area[amenity=drinking_water OR @isOneOf(drinkable,yes,mineral) OR drinking_water=yes]
+//	source: node[(natural=spring OR amenity=fountain OR amenity=watering_place) AND NOT @isOneOf(drinkable,yes,mineral) AND NOT amenity=drinking_water] area[(natural=spring OR amenity=fountain OR amenity=watering_place) AND NOT @isOneOf(drinkable,yes,mineral) AND NOT amenity=drinking_water]
+	rocher: node[natural=stone OR natural=rock] area[natural=stone OR natural=rock]
+	gue: node[ford=yes] way[ford=yes]
+	parking: node[amenity=parking AND NOT @isOneOf(access,no,private,customer,customers)] area[amenity=parking  AND NOT @isOneOf(access,no,private,customer,customers)]
+//##	parking: node[amenity=parking AND (capacity>=15 OR @isOneOf(parking,multi-storey,underground) OR hiking=yes) AND NOT @isOneOf(access,no,private,customer,customers)] area[amenity=parking AND (capacity>=15 OR @isOneOf(parking,multi-storey,underground) OR hiking=yes) AND NOT @isOneOf(access,no,private,customer,customers)]
+	hopital: node[amenity=hospital] area[amenity=hospital]
+	office de tourisme: node[tourism=information AND information=office] area[tourism=information AND information=office]
+	musee: node[(@isOneOf(tourism,museum,zoo) OR historic=farm) AND NOT(tourism=attraction OR @isOneOf(historic,monument,city_gate) OR @isOneOf(historic,castle,fort))] area[(@isOneOf(tourism,museum,zoo) OR historic=farm) AND NOT(tourism=attraction OR @isOneOf(historic,monument,city_gate) OR @isOneOf(historic,castle,fort))]
+	parc d attraction: node[tourism=theme_park] area[tourism=theme_park]
+	station_remontepente: node[aerialway=station] 
+	calvaire: node[@isOneOf(historic, wayside_cross, wayside_shrine, rune_stone) OR ((man_made=cross OR summit_cross=yes) AND NOT natural=peak)] area[@isOneOf(historic, wayside_cross, wayside_shrine, rune_stone) OR ((man_made=cross OR summit_cross=yes) AND NOT natural=peak)]
+	pylone remontepente: way[aerialway AND aerialway!=platter].node[aerialway=pylon]
+	grue: node[man_made=crane OR disused:man_made=crane] area[man_made=crane OR disused:man_made=crane]
+	balise maritime special: node[man_made=lighthouse] area[man_made=lighthouse]
+	mine: node[man_made=mineshaft] area[man_made=mineshaft]
+	grotte: node[natural=cave_entrance] area[natural=cave_entrance]
+	volcan: node[natural=volcano AND NOT natural=peak] area[natural=volcano AND NOT natural=peak]
+	baie: node[natural=bay] area[natural=bay]
+	reservoirstockage: node[@isOneOf(man_made,storage_tank,silo)] area[@isOneOf(man_made,storage_tank,silo) AND NOT building]
+	station epuration: node[@isOneOf(man_made,wastewater_plant,water_works)] area[@isOneOf(man_made,wastewater_plant,water_works)]
+	reservoir eau: node[(landuse=reservoir AND covered=yes) OR man_made=reservoir_covered] area[(landuse=reservoir AND covered=yes) OR man_made=reservoir_covered]
+	cascade: way[waterway].node[waterway=waterfall]
+	moulin a vent: node[man_made=windmill] area[man_made=windmill]
+	eolienne: node[generator:source=wind] area[generator:source=wind]
+	tour: node[@isOneOf(man_made,lighthouse,mast,communication_tower) OR (man_made=tower AND ((NOT(tower:type)) OR @isOneOf(tower:type,communication,observation)))] area[@isOneOf(man_made,lighthouse,mast,communication_tower) OR (man_made=tower AND ((NOT(tower:type)) OR @isOneOf(tower:type,communication,observation)))]
+	chateau deau: node[man_made=water_tower] area[man_made=water_tower]
+	table train: node[railway=turntable] area[railway=turntable]
+	douane: node[barrier=border_control] area[barrier=border_control]
+	peage: node[barrier=toll_booth] area[barrier=toll_booth] 
+	mairie: node[amenity=townhall] area[amenity=townhall] 
+	plage gardee: node[leisure=beach_resort] area[leisure=beach_resort] 
+	patinoire: node[leisure=ice_rink] area[leisure=ice_rink] 
+	minigolf: node[leisure=miniature_golf] area[leisure=miniature_golf] 
+	piscine: node[(leisure=swimming_pool OR amenity=swimming_pool)] area[(leisure=swimming_pool OR amenity=swimming_pool)] 
+	jeux deau: node[leisure=water_park] area[leisure=water_park] 
+	sport: node[@isOneOf(leisure,pitch,sports_centre,stadium,track) OR @isOneOf(disused:leisure,pitch,sports_centre,stadium,track)] area[@isOneOf(leisure,pitch,sport_center,stadium,track) OR @isOneOf(disused:leisure,pitch,sports_centre,stadium,track)] 
+	escalade: node[sport=climbing] way[sport=climbing]
+	police pompier: node[amenity=police OR amenity=fire_station] area[amenity=police OR amenity=fire_station]
+	ecole: node[@isOneOf(amenity,college,kindergarten,school,university)] area[@isOneOf(amenity,college,kindergarten,school,university)]
+	divers ponctuel surface: area[@isOneOf(leisure,bird_hide,wildlife_hide,hunting_stand,playground)]
+//	port plaisance: node[leisure=marina] area[leisure=marina] 
+	
+	legende: node[legende:FR] way[legende:FR AND NOT area=yes] area [legende:FR AND area=yes]
+//	legende: impression conseillée à l'échelle équivalent au 20000ème avec le fichier fourni
+		
+	points
+		ville: @isOneOf(place, city, town)
+		village: place=village OR (place=hamlet AND ref:INSEE)
+		quartier: place=suburb
+		hameau: @isOneOf(place,hamlet,isolated_dwelling,neighbourhood) AND NOT (place=hamlet AND ref:INSEE)
+		lieudit: @isOneOf(place,locality,farm)
+		sommet: natural=peak
+		col: mountain_pass=yes OR (natural=saddle AND NOT mountain_pass=yes)
+		arbre: natural=tree
+		gare: (@isOneOf(railway,station,halt) AND @isOneOf(operator,SNCF,sncf,Sncf)) OR amenity=ferry_terminal
+		arret tram: railway=tram_stop
+		entree metro: railway=subway_entrance
+		
+		altitude: man_made=survey_point AND ele AND NOT @isMatch(ref," - 2| - 3| - 4| - 5| - B| - C| - D| - E")
+		borne: historic=boundary_stone OR man_made=boundary_stone
+		point de vue: tourism=viewpoint OR map_type=toposcope
+		panneau information: tourism=information AND @isOneOf(information,guidepost,map,board) AND NOT map_type=toposcope
+		bateau: @isOneOf(historic,wreck,ship)
+		
+		pylone electrique: power=tower
+		barrage travers: node[@isOneOf(waterway,weir,dam)]
+		ecluse: waterway=lock_gate OR lock=yes
+		
+		entree mine: man_made=adit
+		balise maritime: man_made=beacon OR seamark=beacon OR airmark=beacon OR @isOneOf(seamark:type, light_major, light_minor, light_vessel, light_float,  buoy_cardinal, buoy_installation, buoy_isolated_danger, buoy_lateral, buoy_safe_water, buoy_special_purpose)
+		cheminee: man_made=chimney
+		puitpetrole: man_made=petroleum_well
+		bloc: @isOneOf(barrier,block,bollard,debris,full-height_turnstile,gate,horse_stile,jersey_barrier,kissing_gate,lift_gate,log,stile,swing_gate,turnstile)
+		
+		divers ponctuel: @isOneOf(man_made,flagpole,kiln,monitoring_station,watermill,water_well) OR aeroway=windsock OR @isOneOf(leisure,bird_hide,wildlife_hide,hunting_stand,playground)
+
+		point GPS: gpswaypoint[]
+//		point GPS: node[legende=pointgps]
+		
+	lines
+		autoroute: @isOneOf(highway, motorway, trunk) AND NOT area=yes
+		bretelle autoroute: @isOneOf(highway, motorway_link, trunk_link) AND NOT area=yes
+		route majeure: @isOneOf(highway,primary) AND NOT area=yes
+		bretelle route majeure: @isOneOf(highway,primary_link) AND NOT area=yes
+		route mineure: @isOneOf(highway,secondary) AND NOT area=yes
+		bretelle route mineure: @isOneOf(highway,secondary_link) AND NOT area=yes
+		route mineure etroite: @isOneOf(highway,tertiary,tertiary_link) AND NOT area=yes
+		route residentielle: @isOneOf(highway,unclassified,residential,road,living_street) AND NOT area=yes AND NOT lanes=1 AND NOT (access=no OR access=private)
+		route residentielle etroite: (@isOneOf(highway,unclassified,residential,road,living_street) AND NOT area=yes AND (lanes=1 OR (access=no OR access=private))) OR (highway=pedestrian AND NOT area=yes)
+		route service: highway=service AND NOT area=yes
+
+		railprincipal: @isOneOf(railway,rail,funicular,light_rail,monorail,narrow_gauge,preserved) AND ((NOT tunnel OR tunnel=no) OR NOT (@isOneOf(operator,RATP,ratp,Ratp))) AND (NOT service OR service=no)
+		railsecondaire: @isOneOf(railway,disused,miniature,tram) OR (@isOneOf(railway,rail,funicular,light_rail,monorail,narrow_gauge,preserved) AND ((NOT tunnel OR tunnel=no) OR NOT (@isOneOf(operator,RATP,ratp,Ratp))) AND (service AND service!=no))
+
+		track12: highway=track AND (tracktype=grade1 OR tracktype=grade2) AND NOT (@isOneOf(smoothness,very_bad,horrible,very_horrible,impassable))
+		track3: highway=track AND (tracktype=grade3 OR ((tracktype=grade1 OR tracktype=grade2) AND @isOneOf(smoothness,very_bad,horrible))) AND NOT (@isOneOf(smoothness,very_horrible,impassable))
+		track45: (highway=track AND ((tracktype!=grade3 AND tracktype!=grade2 AND tracktype!=grade1) OR (@isOneOf(smoothness,very_horrible,impassable)))) OR highway=bridleway
+		sentier: @isOneOf(highway,footway,path,cycleway,steps) AND NOT footway=sidewalk AND NOT subway=yes
+		layon: man_made=cutline AND NOT highway
+		ponton: man_made=pier OR leisure=slipway
+		
+		tunnel seul: tunnel=yes AND NOT highway AND NOT waterway AND NOT @isOneOf(railway,rail,funicular,light_rail,monorail,narrow_gauge,preserved,disused, miniature, tram) AND NOT (railway=subway OR @isOneOf(operator,RATP,ratp,Ratp)) AND NOT man_made=pipeline
+		pont seul: bridge AND bridge!=no AND NOT highway AND NOT waterway AND NOT @isOneOf(railway,rail,funicular,light_rail,monorail,narrow_gauge,preserved,disused, miniature, tram) AND NOT aeroway AND NOT @isOneOf(aerialway,cable_car,chair_lift,drag_lift,gondola,goods,mixed_lift,platter)
+		
+		piste aterrissage: @isOneOf(aeroway,runway,taxiway)
+		ferry: route=ferry
+
+		fosse: waterway=ditch OR waterway=drain OR barrier=ditch
+		ruisseau: waterway=stream
+		riviere: waterway=river OR waterway=canal
+		barrage lineaire: @isOneOf(waterway,dam,weir)
+		
+		remontepente: @isOneOf(aerialway,cable_car,chair_lift,drag_lift,gondola,goods,mixed_lift,platter)
+		ligne electrique: power=line
+		pipeline: man_made=pipeline AND NOT location=underground AND NOT tunnel=yes
+
+		rangeearbres: natural=tree_row
+		brisemer: way[@isOneOf(man_made,breakwater,groyne)] 
+		leveeterre: man_made=embankment AND (NOT highway) AND (NOT railway) AND (NOT waterway)
+		tranchee: cutting=yes AND (NOT highway) AND (NOT railway) AND (NOT waterway)
+		levee: embankment=yes AND (NOT highway) AND (NOT railway) AND (NOT waterway)
+		falaise: natural=cliff
+		divers lineaire: @isOneOf(man_made,snow_fence,snow_net) OR barrier=fence
+//		cloture: barrier=fence //passe en divers lineaires
+		
+		mur: @isOneOf(barrier,city_wall,wall)
+		haie: barrier=hedge OR natural=hedge
+		soutainement: barrier=retaining_wall
+		
+		niveau majeur : contour[@isMulti(elevation, 50) and not elevation=0]
+		niveau mineur : contour[@isMulti(elevation, 5) and not @isMulti(elevation, 50)]
+		niveau legende: @isOneOf(legende,contour_majeur,contour_mineur)
+
+//##		itineraire balise : relation[type=route AND (route=foot OR route=hiking) AND NOT ref=HRP] way[(trailblazed=yes OR trailblazed=major OR marked_trail=yes) AND NOT name="HRP"]
+//		itineraire balise : relation[type=route AND (route=foot OR route=hiking) AND NOT @isOneOf(network,iwn,nwn)] way[(trailblazed=yes OR marked_trail=yes) AND NOT @isOneOf(network,iwn,nwn)]
+//celle-là		itineraire balise : relation[type=route AND (route=foot OR route=hiking)] way[(@isOneOf(trailblazed,yes,foot,hiking,major) OR @isOneOf(marked_trail,yes,foot,hiking,major) OR rendu=trailblazed_major)]
+		
+		trace GPS: gpstrack[] 
+//		trace GPS: legende=tracegps 
+
+		limite administrative: boundary=administrative AND @isOneOf(admin_level,2,4,6,7,8)
+		limite maritime: boundary=maritime
+		
+	areas
+//		batiment mairie: amenity=townhall
+//		batiment public: @isOneOf(building,civic,hospital,school,train_station,transportation,university,public)
+//		batiment eglise: @isOneOf(building,church,cathedral,chapel) OR amenity=place_of_worship
+//		batiment normal: @isOneOf(building,apartments,dormitory,hotel,house,residential,terrace)
+//		batiment hangar: @isOneOf(building,garages,hangar) OR aeroway=hangar OR railway=roundhouse 
+//		batiment industriel: @isOneOf(building,commercial,industrial,retail,warehouse,farm_auxiliary,greenhouse,stable)
+//		batiment militaire: building=bunker OR @isOneOf(military,bunker,barracks) OR building=military
+//		batiment leger: @isOneOf(building,hut,cabin,shed) OR (building=yes AND wall=no)
+//		batiment toit: building=roof
+//		batiment magasin: building AND building!=no AND (amenity OR shop) 
+//		batiment construction: building=construction
+//		batiment defaut: building=yes
+//		batiment: building AND NOT building=no
+		batiment: (building AND NOT building=no) OR amenity=townhall OR amenity=place_of_worship OR aeroway=hangar OR railway=roundhouse  OR building=military OR ruins=yes OR man_made=bridge
+
+//		terrain cultive: @isOneOf(landuse,farm,farmland,allotments,greenhouse_horticulture)
+//		terrain foret: landuse=forest OR natural=wood 
+//		terrain prairie: landuse=meadow 
+//		terrain residentiel: @isOneOf(landuse,residential,retail,commercial,farmyard,garages,industrial)
+//		terrain ferroviaire: landuse=railway
+//		terrain vigne: landuse=vineyard
+//		terrain herbe: @isOneOf(natural,fell,grassland)
+//		terrain lande: natural=heath
+//		terrain plage: @isOneOf(natural,sand,beach)
+//		terrain parc: @isOneOf(landuse,grass,village_green,recreation_ground) OR leisure=garden OR (@isOneOf(leisure,golf_course,park) AND (NOT natural) AND (NOT landuse))
+//		terrain salin: landuse=salt_pond
+		terrain: (@isOneOf(landuse,farm,farmland,allotments,greenhouse_horticulture,plant_nursery) OR landuse=forest OR natural=wood OR landuse=meadow OR @isOneOf(landuse,residential,retail,commercial,farmyard,s,industrial) OR landuse=railway OR landuse=vineyard OR @isOneOf(natural,fell,grassland) OR natural=heath OR @isOneOf(natural,sand,beach) OR @isOneOf(landuse,grass,village_green,recreation_ground) OR leisure=garden OR landuse=salt_pond OR (@isOneOf(leisure,golf_course,park))) AND NOT type=site
+//		zone a verger: landuse=orchard
+//		zone a taillis: natural=scrub
+//		zone a eboulement: @isOneOf(natural,scree,bare_rock)
+//		zone a construction: @isOneOf(landuse,brownfield,greenfield)
+//		zone humide: @isOneOf(natural,mud,wetland)
+//		zone glacier: natural=glacier
+//		zone decharge: landuse=landfill
+//		zone carriere: landuse=quarry
+		zone: landuse=orchard OR natural=scrub OR @isOneOf(natural,scree,bare_rock) OR @isOneOf(landuse,brownfield,greenfield,construction) OR @isOneOf(natural,mud,wetland) OR natural=glacier OR landuse=landfill OR landuse=quarry
+
+		zone militaire: @isOneOf(military, danger_area, naval_base, range) OR landuse=military
+		lac: natural=water OR @isOneOf(waterway,riverbank,dock) OR (@isOneOf(landuse,reservoir,basin) AND NOT covered=yes)
+		barrage surfacique: waterway=dam
+		cimetiere: landuse=cemetery OR amenity=grave_yard
+		transformateur electrique: @isOneOf(power, station, sub_station)
+		centrale electrique: power=generator AND NOT (generator:source=wind)
+		aeroport: aeroway=aerodrome
+		aeroport militaire: military=airfield
+		acces interdit: access=no AND (NOT foot=yes) AND (NOT(@isOneOf(military, danger_area, naval_base, range) OR @isOneOf(landuse,military,railway) OR @isOneOf(leisure,swimming_pool,pitch,sports_centre) OR amenity=parking))
+
+//		brisemer surface: @isOneOf(man_made,breakwater,groyne) //ne fonctionne pas, pas la possibilité de trouver area[] AND NOT way[]
+		ponton: man_made=pier AND NOT area=no
+		mur surface: @isOneOf(barrier,city_wall,wall) AND area=yes
+		parcnat national: boundary=national_park
+		parcnat protege: boundary=protected_area OR (leisure=nature_reserve AND NOT @isOneOf(boundary,protected_area,national_park))
+
+properties
+	user.use-metric: true		
+	map.decoration.scale: true
+	
+rules
+	target: ville
+		define
+			font-family: Open Sans
+			font-weight: bold
+			font-size: 15
+			text-halo-width: 1
+			text-opacity: 1
+			text-halo-opacity: 0.7
+			font-stretch: 0.95
+			text: @up(name)
+			placement-value: 1000
+		draw: text
+	target: village
+		define
+			font-family: Open Sans
+			font-weight: bold
+			font-size: 14
+			text-line-spacing: 0.9
+			text-halo-width: 1
+			text-opacity: 1
+			text-halo-opacity: 0.7
+			font-stretch: 0.9
+			placement-value: 100
+		for: (legende=yes) 
+		//OR (NOT legende) 
+			define
+				shape: square
+				fill-color: white
+				fill-opacity: 0.5
+				shield-padding-left: 0
+				shield-padding-right: 0
+				shield-padding-top: 0
+				shield-padding-bottom: 0
+				shield-resize-mode: free
+				line-style: none
+				text-offset-vertical: -1
+			draw: shield
+			stop
+		for: place=hamlet
+			define
+				font-size: 12.5
+				placement-value: 90
+		draw: text
+
+	target: quartier
+		define
+			text: @up(name)
+			font-family: Open Sans
+			font-weight: bold
+			font-style: italic
+			font-size: 12
+			font-stretch: 0.7
+			text-letter-spacing: -0.05
+			text-line-spacing: 0.9
+			text-halo-width: 1.2
+			text-halo-width: 1.15
+			text-opacity: 1
+			text-halo-opacity: 0.7
+			placement-value: 99.9
+		for: legende=yes
+			define
+				shape: square
+				fill-color: white
+				fill-opacity: 0.5
+				shield-padding-left: 0
+				shield-padding-right: 0
+				shield-padding-top: 0
+				shield-padding-bottom: 0
+				shield-resize-mode: free
+				line-style: none
+				text-offset-vertical: -1
+			draw: shield
+			stop
+		draw: text
+	target: hameau
+		define
+			font-family: Open Sans
+			font-style: italic
+			font-size: 10
+			text-line-spacing: 0.8
+			text-halo-width: 0.7
+			text-opacity: 1
+			text-halo-opacity: 0.75
+			font-stretch: 0.85
+			text: name
+			placement-value: 5
+		for: place=isolated_dwelling
+			define
+				placement-value: 4.85
+		for: legende=yes
+			define
+				shape: square
+				fill-color: white
+				fill-opacity: 0.5
+				shield-padding-left: 0
+				shield-padding-right: 0
+				shield-padding-top: 0
+				shield-padding-bottom: 0
+				shield-resize-mode: free
+				line-style: none
+				text-offset-vertical: -1
+			draw: shield
+			stop
+		draw: text
+	target: lieudit
+		define
+			font-family: Open Sans
+			font-style: italic
+			font-size: 9
+			text-line-spacing: 0.8
+			font-stretch: 0.75
+			text-halo-width: 0.6
+			text-opacity: 1
+			text-halo-opacity: 0.7
+			text: name
+			placement-value: 0.1
+		draw: text
+	
+	target: point GPS
+		define
+			icon-image: R25/icons/Perso/etoileb_tr.png
+			icon-width: 12
+		draw: icon
+		define
+			text: name
+			font-family: DejaVu Sans Condensed
+			text-opacity: 0.9
+			font-style: italic
+			font-weight: bold
+			text-color: fuchsia black 10%
+			font-stretch: 0.85
+			text-halo-width: 0.8
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 5
+			text-offset-vertical: -5
+			placement-value: 99
+		draw: text
+
+	target: ecole
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			text-color: yellow brown 50%
+			text-color: #800000
+			font-stretch: 0.9
+			text-letter-spacing: -0.03
+			font-size: 9
+			text-opacity: 0.9
+			text-halo-width: 1
+			text-halo-color: white
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: center
+		for: @isOneOf(school:FR,maternelle,"élémentaire",primaire)
+			define
+				text: "Éc."
+				placement-value: 1.5
+		elsefor: school:FR="collège"
+			define
+				text: "Coll."
+				placement-value: 2.5
+		elsefor: @isOneOf(school:FR,"lycée",secondaire)
+			define
+				text: "Lyc."
+				placement-value: 3.5
+		elsefor: @isOneOf(amenity,university,college)
+			define
+				text: "Univ."
+				placement-value: 3.5
+		elsefor: @isOneOf(amenity,kindergarten,school)
+			define
+				text: "Éc."
+				placement-value: 1
+		else
+			stop
+		draw: text
+
+		
+	target: office de tourisme
+		define
+			shape: square
+			shape-size: 10
+			fill-color: red 
+			fill-opacity: 0.6
+			line-color: red
+			line-opacity: 0.9
+			line-width: 1
+		draw: shape
+		define
+			icon-image: R25/icons/Perso/information1_tr.png
+			icon-width: 4.5
+		draw: icon
+		define
+			text: @if(name, name, "Office de Tourisme")
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.95
+			font-size: 9
+			text-color: red 
+			text-opacity: 0.9
+			text-halo-width: 0.2
+			text-halo-color: white
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 8
+			text-offset-vertical: -4
+			placement-value: 11
+		for: NOT name
+			define
+				placement-value: 1.85
+		draw: text
+	target: gare
+		for: railway=station OR amenity=ferry_terminal
+			define
+				shape: square
+				shape-size: 10
+		elsefor: railway=halt
+			define
+				shape: circle
+				shape-size: 3.5			
+		define
+			fill-color: yellow 
+			fill-opacity: 0.6
+			line-color: yellow red 40%
+			line-opacity: 0.95
+			line-width: 1
+		draw: shape
+		for: legende
+			stop
+		elsefor: railway=station
+			define
+				text: "Gare"
+				text-offset-horizontal: 7
+				placement-value: 99
+		elsefor: railway=halt
+			define
+				text: "halte"
+				text-offset-horizontal: 5
+				placement-value: 4
+		elsefor: amenity=ferry_terminal
+			define
+				text: "ferry"
+				text-offset-horizontal: 7
+				placement-value: 2
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.9
+			font-size: 8
+			text-color: red black 10%
+			text-opacity: 0.8
+			text-halo-width: 0
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-vertical: -4
+			shape: square
+			fill-color: yellow white 50%
+			fill-opacity: 0.5
+			shield-padding-left: 1
+			shield-padding-right: 1
+			shield-padding-top: 0
+			shield-padding-bottom: 0
+			shield-resize-mode: free
+			line-style: none
+		draw: shield
+	
+	target: cabane
+		define
+			icon-image: R25/icons/Perso/cabane1_tr.png
+			icon-width: 12
+		draw: icon
+		define
+			text: name
+		for: capacity
+			define
+				text: name" ("capacity")"
+		define
+			font-family: DejaVu Sans Condensed
+			font-weight: bold
+			font-style: italic
+			font-size: 9
+			font-stretch: 0.9
+			text-color: red 
+			text-opacity: 0.9
+			text-halo-width: 0.2
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 5.5
+			text-offset-vertical: -4
+			placement-value: 11.9
+		draw: text		
+	target: camping
+		for: NOT landuse AND NOT natural
+			define
+				fill-color: green
+				fill-color: #bffd8f
+				fill-opacity: 0.3
+				line-style: solid
+				line-width: 0.8
+				line-color: #bffd8f
+				line-opacity: 0.8
+			draw: fill
+		define
+			icon-image: R25/icons/Perso/tente2_tr.png
+			icon-width: 12
+		draw: icon
+		define
+			text: name
+			font-family: DejaVu Sans Condensed
+			font-weight: bold
+			font-style: italic
+			font-size: 9
+			font-stretch: 0.9
+			text-color: red 
+			text-opacity: 0.9
+			text-halo-width: 0.2
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 5
+			text-offset-vertical: -4
+			placement-value: 2.5
+		draw: text		
+	target: gite
+		define
+			icon-image: R25/icons/Perso/gite3_tr.png
+			icon-width: 12
+		draw: icon
+		define
+			text: name
+		for: capacity
+			define
+				text: name" ("capacity")"
+		define
+			font-family: DejaVu Sans Condensed
+			font-weight: bold
+			font-style: italic
+			font-size: 9
+			font-stretch: 0.9
+			text-color: red 
+			text-opacity: 0.9
+			text-halo-width: 0.2
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 6
+			text-offset-vertical: -4
+			placement-value: 2
+		draw: text		
+	target: abri
+		define
+			icon-image: R25/icons/Perso/abri2_tr.png
+			icon-width: 12
+			shape-mode: center
+		draw: icon
+		define
+			text: name
+		for: capacity
+			define
+				text: name" ("capacity")"
+		define
+			font-family: DejaVu Sans Condensed
+			font-weight: bold
+			font-style: italic
+			font-size: 9
+			font-stretch: 0.9
+			text-color: red 
+			text-opacity: 0.9
+			text-halo-width: 0.2
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			placement-value: 2.1
+			text-offset-horizontal: 5
+			text-offset-vertical: -4
+		draw: text
+		
+
+	target: point eau
+		define
+			shape: circle
+			fill-color: #0099ff white 50%
+			fill-color: cyan #0099ff 30%
+			shape-size: 2.4
+			line-width: 0.4
+			line-width: 0.5
+			fill-opacity: 0.9
+			line-color: cyan blue 40%
+		for: drinking_water=no OR drinkable=no
+			define
+				fill-hatch: diagonalcross
+				fill-hatch: swne
+				fill-hatch-color: cyan #0099ff 30%
+				fill-color: red
+				fill-hatch-opacity: 0.9
+				fill-opacity: 0.9
+				shape-size: 1.9
+				line-color: red
+		elsefor: @isOneOf(drinkable,unchecked,unwatched) OR @isOneOf(drinking_water,unchecked,unwatched,conditional,conditionnal)
+			define
+				fill-hatch: diagonalcross
+				fill-hatch: swne
+				fill-hatch-color: cyan #0099ff 30%
+				fill-color: blue
+				fill-hatch-opacity: 0.9
+				fill-opacity: 0.9
+				line-color: blue
+		elsefor: drinking_water=yes OR drinkable=yes OR amenity=drinking_water
+			define
+				line-color: blue black 20%
+				fill-color: blue
+		elsefor: intermittent=yes
+			define
+				fill-hatch: diagonalcross
+				fill-hatch: swne
+				fill-hatch-color: cyan #0099ff 30%
+				fill-color: white
+				fill-hatch-opacity: 0.9
+				fill-opacity: 0.9
+				line-color: white
+		draw: shape
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-size: 8
+			text-color: blue black 10%
+			font-stretch: 0.85
+			text-halo-width: 0.2
+			text-opacity: 0.9
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 4.3
+			text-offset-vertical: -3.9
+			placement-value: 4.99
+			text: @if(name,name)
+		for: @isOneOf(name,Fontaine,fontaine,FONTAINE)
+			define
+				text: "Font."
+				placement-value: 2
+		elsefor: @isOneOf(name,Source,source,SOURCE)
+			define
+				text: "Sce"
+				placement-value: 1.9
+		elsefor: name
+			define
+				text: name
+				font-size: 8
+		elsefor: amenity=fountain
+			define
+				text: "Font."
+				placement-value: 1.8
+		elsefor: natural=spring
+			define
+				text: "Sce"
+				placement-value: 0.6
+		elsefor: amenity=watering_place
+			define
+				text: "Abr."
+				placement-value: 0.5
+		for: legende=yes
+			define
+				text: ""
+		draw: text
+	target: autre eau potable
+		define
+			shape: circle
+			fill-color: blue
+			shape-size: 1.7
+			line-width: 0.3
+			fill-opacity: 0.9
+			line-color: blue black 20%
+		for: drinkable=unchecked OR drinking_water=unchecked OR drinking_water=conditional OR drinking_water=conditionnal
+			define
+				fill-hatch: diagonalcross
+				fill-hatch: swne
+				fill-hatch-color: cyan #0099ff 30%
+				fill-color: blue
+				fill-hatch-opacity: 0.9
+				fill-opacity: 0.9
+				line-color: blue
+		draw: shape
+
+
+	target: parc d attraction
+		define
+			shape: circle
+			shape-size: 10
+			fill-color: blue
+			fill-opacity: 0.45
+			line-color: blue
+			line-opacity: 0.9
+			line-width: 1
+		for: legende=yes
+			define
+				shape-size: 8.5
+		draw: shape
+		define
+			shape: triangle
+			shape-size: 11
+			fill-color: blue
+			fill-opacity: 0.45
+			line-color: blue
+			line-opacity: 0.9
+			line-width: 1
+		for: legende=yes
+			define
+				shape-size: 9.5
+		draw: shape
+		define
+			text: @if(name,name,"Parc d'attraction")
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.9
+			font-size: 9
+			text-color: blue black 10%
+			text-opacity: 0.8
+			text-halo-width: 0
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 11
+			text-offset-vertical: -5
+			placement-value: 9.991
+		draw: text
+	target: musee
+		define
+			shape: square
+			shape-size: 10
+			fill-color: cyan green 20%
+			fill-color: cyan yellow 50%
+			fill-opacity: 0.4
+			line-color: cyan green 45%
+			line-opacity: 0.9
+			line-width: 1.5
+		draw: shape
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.9
+			font-size: 9
+			text-color: green cyan 25%
+			text-opacity: 0.9
+			text-halo-width: 0.4
+			text-halo-color: white
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 8
+			text-offset-vertical: -4
+			placement-value: 8.5
+		for: name
+			define
+				text: @if(short_name,short_name,name)
+		else 
+			for: tourism=museum
+				define
+					text: "Musée"
+			elsefor: tourism=zoo
+				define
+					text: "Zoo"
+			elsefor: historic=farm
+				define
+					text: "Ferme historique"
+			else
+				stop
+		for: importance=international
+			define
+				placement-value: 48.5
+		elsefor: importance=national
+			define
+				placement-value: 20.5
+		draw: text
+	target: bateau
+		define
+			shape: circle
+			shape-size: 10
+			fill-color: blue
+			fill-opacity: 0.5
+			line-color: blue
+			line-opacity: 0.9
+			line-width: 1
+		for: legende=yes
+			define
+				shape-size: 8.5
+		draw: shape
+		for: historic=wreck
+			define
+				icon-image: R25/icons/Perso/naufrage_tr.png
+				icon-width: 21
+			for: legende=yes
+				define
+					icon-width: 18
+		elsefor: historic=ship
+			define
+				icon-image: R25/icons/Perso/bateau2_tr.png
+				icon-width: 15
+		else
+			stop		
+		draw: icon			
+		define
+			text: name
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.9
+			font-size: 9
+			text-color: blue black 10%
+			text-opacity: 0.8
+			text-halo-width: 0
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 10.5
+			text-offset-vertical: -5
+			placement-value: 5
+		draw: text
+	target: attraction
+		define
+			shape: square
+			shape-size: 10
+			fill-color: red 
+			fill-opacity: 0.6
+			line-color: red
+			line-opacity: 0.9
+			line-width: 1
+			shape-mode: center
+			shape-orientation: fixed
+		draw: shape
+		for: name
+			define
+				text: name
+				placement-value: 9
+			for: building=cathedral
+				define
+					placement-value: 21
+		elsefor: historic=memorial
+			define
+				text: "Mémorial"
+				placement-value: 6
+		elsefor: historic=city_gate
+			define
+				text: "Porte fortifiée"
+				placement-value: 4
+		elsefor: historic=castle
+			define
+				text: "Château"
+		elsefor: historic=fort
+			define
+				text: "Fort"
+		else
+			stop
+		for: bridge=aqueduct
+			for: bridge:name
+				define
+					text: [[bridge:name]] 
+			else
+				define
+					text: "Aqueduc"
+			define
+				placement-value: 4.5
+				text-orientation: fixed
+		elsefor: bridge=viaduct
+			for: bridge:name
+				define
+					text: [[bridge:name]] 
+			else
+				define
+					text: "Viaduc"
+			define
+				placement-value: 4.4
+				text-orientation: fixed
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.9
+			font-size: 9
+			text-color: red black 10%
+			text-color: red
+			text-opacity: 0.9
+			text-halo-width: 0.2
+			text-halo-color: white
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 8
+			text-offset-vertical: -4
+		for: importance=international
+			define
+				placement-value: 49
+		elsefor: importance=national
+			define
+				placement-value: 21
+		draw: text
+	target: petit patrimoine
+		define
+			shape: square
+			shape-size: 5.5
+			fill-color: red 
+			fill-opacity: 0.6
+			line-color: red
+			line-opacity: 0.9
+			line-width: 0.9
+			shape-mode: center
+			shape-orientation: fixed
+//		for: temp=test
+//			define
+//				shape: circle
+//				shape-size: 3
+		draw: shape
+		for: name
+			define
+				text: name
+				placement-value: 4.5
+		elsefor: amenity=lavoir AND NOT legende
+			define
+				text: "Lavoir"
+				placement-value: 2
+		elsefor: building=chapel
+			define
+				text: "Chap."
+				placement-value: 4.2
+		elsefor: man_made=windmill
+			define
+				text: "Moulin à vent"
+				text-max-width: 4
+				placement-value: 2
+		elsefor: waterway=waterfall
+			define
+				text: "Casc."
+				placement-value: 1.6
+		elsefor: historic=aircraft
+			define
+				text: "Avion"
+				placement-value: 2
+		elsefor: historic=battlefield
+			define
+				text: "Ch de bataille"
+				placement-value: 2
+		elsefor: historic=rune_stone
+			define
+				text: "Pierre Runique"
+				placement-value: 2
+		elsefor: historic=tomb
+			define
+				text: "Tombe"
+				placement-value: 2
+		elsefor: historic=wayside_shrine
+			define
+				text: "Orat."
+				placement-value: 3.9
+		elsefor: historic=archaeological_site
+			define
+				text: "Arch."
+				placement-value: 3
+			for: site_type=tumulus
+				define
+					text: "Tumulus"
+					placement-value: 3.5
+			elsefor: megalith_type=dolmen
+				define
+					text: "Dolmen"
+					placement-value: 3.5
+			elsefor: megalith_type=menhir
+				define
+					text: "Menhir"
+					placement-value: 3.5
+			elsefor: megalith_type=alignment
+				define
+					text: "Align. mégalithique"
+					placement-value: 3.5
+			elsefor: megalith_type=stone_circle
+				define
+					text: "Cromlech"
+					placement-value: 5.5
+			elsefor: site_type=necropolis
+				define
+					text: "Nécrop."
+					placement-value: 3.5
+			elsefor: site_type=fortification
+				define
+					text: "Fortif."
+					placement-value: 3.5
+		elsefor: bridge=movable
+			define
+				text: "Pt mobile"
+				placement-value: 3
+				text-orientation: fixed
+			for: bridge:movable=bascule
+				define
+					text: "Pt basc."
+					placement-value: 3.5
+			elsefor: bridge:movable=drawbridge
+				define
+					text: "Pt levis"
+					placement-value: 2.5
+			elsefor: bridge:movable=lift
+				define
+					text: "Pt levant"
+					placement-value: 2.5
+			elsefor: bridge:movable=submersible
+				define
+					text: "Pt subm."
+					placement-value: 2.5
+			elsefor: bridge:movable=swing
+				define
+					text: "Pt tournant"
+					placement-value: 2.5
+		elsefor: military=bunker OR building=bunker
+			define
+				text: "Bker"
+				placement-value: 1.9
+		elsefor: tourism=artwork
+			define
+				text: "Art"
+				placement-value: 1.91
+			for: artwork_type=architecture
+				define
+					text: "Arch."
+			elsefor: @isOneOf(artwork_type,mural,painting)
+				define
+					text: "Peint."
+			elsefor: artwork_type=sculpture
+				define
+					text: "Sculp."
+			elsefor: artwork_type=statue
+				define
+					text: "St."
+
+		elsefor: historic=ruins
+			define
+				text: "Rne"
+				placement-value: 2
+		else
+			stop
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.9
+			font-size: 9
+			text-color: red black 10%
+			text-color: red
+			text-opacity: 0.9
+			text-halo-width: 0.2
+			text-halo-color: white
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 6
+			text-offset-vertical: -4
+			
+		for: importance=international
+			define
+				placement-value: 49
+		elsefor: importance=national
+			define
+				placement-value: 21
+		draw: text
+	target: panneau information
+		define
+			shape: diamond
+			shape-size: 2.0
+			fill-color: red 
+			fill-opacity: 0.6
+			line-color: red
+			line-opacity: 0.9
+			line-width: 0.6
+			shape-mode: center
+			shape-orientation: fixed
+		for: @isOneOf(information,map,board)
+			define
+				shape-size: 3
+		draw: shape
+		
+		
+	target: plage gardee
+		define
+			shape: circle
+			shape-size: 10
+//			shape-angle: 30
+			fill-color: blue
+			fill-opacity: 0.45
+			line-color: blue
+			line-opacity: 0.9
+			line-width: 1
+		for: legende=yes
+			define
+				shape-size: 8.5
+		draw: shape
+		define
+			icon-image: R25/icons/Perso/plage_tr.png
+			icon-width: 17
+		for: legende=yes
+			define
+				icon-width: 14.5
+		draw: icon
+	target: port plaisance
+		define
+			shape: circle
+			shape-size: 10
+			fill-color: blue
+			fill-opacity: 0.45
+			line-color: blue
+			line-opacity: 0.9
+			line-width: 1
+//		draw: shape
+		define
+			icon-image: R25/icons/Perso/ancre_tr.png
+			icon-width: 12
+//		draw: icon
+	target: patinoire
+		define
+			shape: circle
+			shape-size: 8.5
+			fill-color: blue
+			fill-opacity: 0.45
+			line-color: blue
+			line-opacity: 0.9
+			line-width: 1
+		draw: shape
+		define
+			shape: diamond
+			shape-size: 8
+			fill-color: blue
+			fill-opacity: 0.45
+			line-color: blue
+			line-opacity: 0.9
+			line-width: 1
+		draw: shape
+	target: piscine
+//##		for: NOT @isOneOf(access,no,private)
+		for: (NOT @isOneOf(access,no,private)) AND sport=swimming
+			define
+				shape: circle
+				shape-size: 8.5
+				fill-color: blue
+				fill-opacity: 0.45
+				line-color: blue
+				line-opacity: 0.9
+				line-width: 1
+			draw: shape
+			define
+				shape: square
+				shape-size: 8
+				fill-color: blue
+				fill-opacity: 0.45
+				line-color: blue
+				line-opacity: 0.9
+				line-width: 1
+			draw: shape
+	target: jeux deau
+		define
+			shape: circle
+			shape-size: 8.5
+			fill-color: blue
+			fill-opacity: 0.45
+			line-color: blue
+			line-opacity: 0.9
+			line-width: 1
+		draw: shape
+		define
+			shape: square
+			shape-size: 8
+			fill-color: blue
+			fill-opacity: 0.2
+			line-color: blue
+			line-opacity: 0.9
+			line-width: 1
+		draw: shape
+		define
+			shape: diamond
+			shape-size: 4.5
+			fill-color: blue
+			fill-opacity: 0.45
+			line-color: blue
+			line-opacity: 0.9
+			line-width: 1
+		draw: shape
+	target: minigolf
+		define
+			shape: circle
+			shape-size: 8.5
+			fill-color: blue
+			fill-opacity: 0.45
+			line-color: blue
+			line-opacity: 0.9
+			line-width: 1
+//		draw: shape
+		define
+			shape: triangle
+			shape-size: 6.5
+			fill-color: blue
+			fill-opacity: 0.5
+			line-color: blue
+			line-opacity: 0.9
+			line-width: 1
+//		draw: shape
+
+		
+
+	target: point de vue
+		define
+			icon-image: R25/icons/Perso/pointdevue6_tr.png
+			icon-width: 8
+			shape-mode: center			
+		draw: icon
+		for: map_type=toposcope
+			define
+				shape: circle
+				line-color: red
+				line-opacity: 0.75
+				line-width: 1.35
+				fill-color: red
+				fill-opacity: 0
+				shape-size: 5.4
+			draw:shape
+		define
+			text: name
+//			text-color: maroon black 10%
+			text-offset-horizontal: 6
+			text-offset-vertical: -4
+			placement-value: 4.1
+			
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.9
+			font-size: 9
+			text-color: red black 10%
+			text-color: red
+			text-opacity: 0.9
+			text-halo-width: 0.2
+			text-halo-color: white
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+//			text-offset-horizontal: 8
+		for: map_type=toposcope
+			define
+				text-offset-horizontal: 8.2
+				text-offset-vertical: -4.6
+				text-opacity: 0.9
+				placement-value: 3.5
+		draw: text
+
+	target: volcan
+		define
+			shape: triangle
+			fill-color: brown
+			line-width: 1
+			line-color: brown
+			line-opacity: 1
+			shape-size: 5
+			fill-opacity: 1
+		draw: shape
+		for: ele 
+			for: name
+				define
+					text: name " (" ele ")"
+			else
+				define
+					text: "Volcan (" ele ")"
+		elsefor: NOT legende
+			define
+				text: @if(name,name,"Volcan")
+		define
+			font-family: Open Sans
+			font-weight: bold
+			font-style: italic
+			font-size: 10
+			text-color: brown black 10%
+			font-stretch: 0.9
+			text-halo-width: 0.2
+			text-halo-opacity: 0.6
+			text-line-spacing: 0.8
+			text-offset-vertical: -3.5
+			text-align-vertical: far
+			placement-value: 9.5
+		draw: text
+	target: sommet
+		define
+			shape: triangle
+			fill-color: white
+			line-width: 1
+			line-color: black
+			line-opacity: 1
+			shape-size: 5
+			fill-opacity: 1
+		draw: shape
+		for: summit_cross=yes
+			define
+				icon-image: R25/icons/Perso/croix1_tr.png
+				icon-width: 4
+		draw: icon
+		for: ele 
+			define
+				text: name " (" @elevation(ele) ")"
+		else
+			define
+				text: name
+		define
+			font-family: Open Sans
+			font-weight: bold
+			font-style: italic
+			font-size: 10
+			text-color: black
+			font-stretch: 0.9
+			text-halo-width: 0.3
+			text-halo-opacity: 0.6
+			text-line-spacing: 0.8
+			text-offset-vertical: -3
+			text-align-vertical: far
+			placement-value: 15
+		draw: text
+	target: col
+		define
+			shape: custom
+//			shape-def: p:black;pw:2;m:10,10;l:-10,-10;m:10,-10;l:-10,10;
+			shape-def: p:black;pw:2;m:4,10;l:4,-10;m:-4,-10;l:-4,10;
+			shape-size: 7
+		draw: shape
+		for: ele 
+			define
+				text: name " (" ele ")"
+		else
+			define
+				text: name
+		define
+			font-family: Open Sans
+			font-weight: bold
+			font-style: italic
+			font-size: 10
+			text-color: black
+			font-stretch: 0.9
+			text-halo-width: 0.2
+			text-halo-opacity: 0.6
+			text-line-spacing: 0.8
+			text-offset-vertical: -3
+			text-align-vertical: far
+			placement-value: 14
+		draw: text
+		
+	
+	target: mairie
+		define 
+			shape: square
+			shape-size: 5
+			line-width: 1
+			fill-color: red
+		draw: shape
+	target: police pompier
+		define
+			shape: diamond
+			shape-size: 8
+			fill-color: yellow 
+			fill-opacity: 0.6
+			line-color: yellow red 40%
+			line-opacity: 0.95
+			line-width: 1
+			shape-mode: center
+		draw: shape
+		for: amenity=fire_station
+			define
+				text: "pompiers"
+				placement-value: 9
+		elsefor: @isMatch(name, "olice|OLICE")
+			define
+				text: "police"
+				placement-value: 4
+		elsefor: @isMatch(name, "endarmeri|ENDARMERI") OR @isMatch(operator, "endarmeri|ENDARMERI")
+			define
+				text: "gend."
+				placement-value: 4
+		else
+			define
+				text: "pol."
+				placement-value: 1
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.9
+			font-size: 8
+			text-color: red black 10%
+			text-opacity: 0.8
+			text-halo-width: 0
+			text-line-spacing: 0.8
+			text-offset-horizontal: 6
+			text-align-horizontal: near
+			text-offset-vertical: -4
+			shape: square
+			fill-color: yellow white 50%
+			fill-opacity: 0.5
+			shield-padding-left: 1
+			shield-padding-right: 1
+			shield-padding-top: 0
+			shield-padding-bottom: 0
+			shield-resize-mode: free
+			line-style: none
+		draw: shield
+	
+
+	target: arret tram
+		define
+			shape: circle
+			fill-color: white
+			fill-opacity: 1
+			line-width: 0.8
+			line-color: black
+			line-opacity: 1
+			shape-size: 2
+		draw: shape
+	target: entree metro
+		define
+			shape: diamond
+			fill-color: white
+			fill-opacity: 1
+			line-width: 0.8
+			line-color: black
+			line-opacity: 1
+			shape-size: 2.5
+		draw: shape
+	target: table train
+		define
+			shape: circle
+			shape-size: 2.5
+			line-color: black
+			line-width: 1.5
+			line-opacity: 1
+			fill-hatch: swne
+			fill-color: black
+			fill-opacity: 1
+			fill-hatch-color: white
+			fill-hatch-opacity: 0.5
+		draw: shape
+// ici il y avait target=arbre jusqu'a la version 6
+	target: rocher
+		define
+			icon-image: R25/icons/Perso/rocher1_tr.png
+			icon-width: 3
+			shape-mode: center
+		draw: icon
+	
+	target: barrage travers
+		define
+			shape: square
+			shape-size: 2
+			line-color: black
+			line-width: 1	
+			fill-color: blue black 10%
+		draw: shape
+	target: ecluse
+		define
+			shape: square
+			shape-size: 2
+			line-color: blue black 10%
+			line-width: 1	
+			fill-color: white
+		draw: shape
+	target: cascade
+		define
+			shape: diamond
+			shape-size: 2.5
+			line-color: blue black 10%
+			line-width: 1	
+			fill-color: white
+		draw: shape
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-size: 8
+			text-color: blue black 10%
+			font-stretch: 0.85
+			text-halo-width: 0.2
+			text-opacity: 0.9
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 4.3
+			text-offset-vertical: -3.9
+			placement-value: 4.9
+			text: @if(name,name,"Casc.")
+		for: NOT name
+			define
+				placement-value: 1.7
+		for: legende=yes OR tourism
+			stop
+		draw: text
+
+	target: altitude
+		define
+			shape: diamond
+			shape-size: 1.1
+			fill-color: black
+			fill-opacity: 0.95
+			line-style: none
+		draw: shape
+		define
+			text: @elevation(ele) " m"
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-size: 6
+			text-color: black
+			font-stretch: 0.9
+			text-halo-width: 0.2
+			text-halo-opacity: 0.8
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 2
+			text-offset-vertical: -4
+			placement-value: 0.01
+//0.0001
+		draw: text
+	target: borne
+		define
+			shape: triangle
+			line-width: 1.1
+			line-color: white
+			line-opacity: 0.65
+			shape-size: 3
+			fill-color: white
+			fill-opacity: 0
+		draw: shape
+		define
+			shape: triangle
+			line-width: 0.7
+			line-color: black
+			line-opacity: 1
+			shape-size: 3
+			fill-color: white
+			fill-opacity: 0
+		draw: shape
+	target: calvaire
+		for: historic=wayside_shrine
+			define
+				icon-image: R25/icons/Perso/oratoire_tr.png
+				icon-width: 5
+		elsefor: man_made=cross OR summit_cross=yes
+			define
+				icon-image: R25/icons/Perso/croix1_tr.png
+				icon-width: 4
+		else
+			define
+				icon-image: R25/icons/Perso/calvaire1_tr.png
+				icon-width: 4.5
+		draw: icon
+		for: historic=wayside_shrine
+			define
+				text: "Orat."
+				font-family: Open Sans
+				font-style: italic
+				font-size: 6
+				text-halo-width: 0.2
+				text-opacity: 1
+				text-halo-opacity: 0.7
+				font-stretch: 0.95
+				placement-value: 3
+				text-line-spacing: 0.8
+				text-align-horizontal: near
+				text-offset-horizontal: 2.2
+				text-offset-vertical: -3
+//			draw: text
+
+
+
+
+
+
+
+	
+	target: hopital
+		define
+			shape: square
+			shape-size: 10
+			line-width: 1
+			fill-color: blue black 10%
+			line-color: blue black 10%
+			fill-opacity: 0.6
+			line-opacity: 0.8
+		draw: shape
+		define
+			shape: custom
+			shape-def: p:white,0.8;pw:1.6;m:-5,10;l:-5,-10;m:5,10;l:5,-10; m:-5,0;l:5,0;
+//			shape-def: p:white,0.8;pw:2;m:0,8;l:0,-8;m:8,0;l:-8,0;
+			shape-size: 7.5
+		draw: shape
+		for: @isMatch(name,"psych|Psych")
+			define
+				text: "Hôp. Psych."
+		elsefor: @isMatch(name,"hop|hosp|hôp|Hop|Hosp|Hôp")
+			define
+				text: "Hôp."
+		elsefor: @isMatch(name,"clin|Clin")
+			define
+				text: "Cl."
+		elsefor: name
+			define
+				text: name
+		else
+			stop
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-size: 9
+			text-color: blue black 30%
+			font-stretch: 0.9
+			text-halo-width: 0.2
+			text-halo-opacity: 0.8
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 8
+			text-offset-vertical: -4.5
+			placement-value: 0.1
+		draw: text
+		
+		
+	target: parking
+		define
+			shape: square
+			shape-size: 10
+			line-width: 1
+			fill-color: blue black 10%
+			line-color: blue black 10%
+			fill-opacity: 0.6
+			line-opacity: 0.8
+		draw: shape
+		define
+			shape: custom
+			shape-def: p:white,0.85;pw:1.5;m:-5,-1;l:0,-1;a:6,5,0,9;l:1,9;l:-5,9;l:-5,-9;
+			shape-size: 10
+		draw: shape
+		
+		
+		
+	target: eglise
+		for: religion=christian
+			for: building=chapel
+				define
+					icon-image: R25/icons/Perso/chapelle_tr.png
+					icon-width: 6
+			else
+				define
+					icon-image: R25/icons/Perso/eglise2_tr.png				
+					icon-width: 6
+		draw: icon
+		for: religion=christian
+			for: building=chapel
+				define
+					text: ""
+					placement-value: 4.9
+					text-offset-vertical: -2
+					text-offset-horizontal: 2.2
+					font-size: 6
+			elsefor: building=cathedral
+				define
+					text: "Cathédrale"
+					placement-value: 50
+					text-offset-vertical: -1
+					text-offset-horizontal: 2.5
+					font-size: 8
+				for: tourism=attraction
+					define
+						placement-value: 8
+			else
+				stop
+			define
+				font-family: Open Sans
+				font-style: italic
+				text-halo-width: 0.2
+				text-opacity: 1
+				text-halo-opacity: 0.7
+				font-stretch: 0.95
+				text-line-spacing: 0.8
+				text-align-horizontal: near
+			draw: text
+
+
+		
+	target: grotte
+		define
+			shape: circle
+			line-style: none
+			fill-color: brown
+			fill-opacity: 1
+			shape-size: 1.8
+		draw: shape
+		for: legende=yes
+			stop
+		define
+			text: @if(name,name,"grotte")
+			font-family: Open Sans
+			font-style: italic
+			font-size: 6
+			text-color: brown black 10%
+			text-halo-width: 0.2
+			text-opacity: 1
+			text-halo-opacity: 0.7
+			font-stretch: 0.95
+			placement-value: 1.8
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 3
+			text-offset-vertical: -2
+		draw: text
+	target: *mine
+		if: mine
+			define
+				shape: circle
+				line-style: none
+				fill-color: black
+				fill-opacity: 1
+				shape-size: 2
+			draw: shape
+		elseif: entree mine
+			define
+				icon-image: R25/icons/Perso/entreemine1_tr.png
+				icon-width: 3.5
+			draw: icon
+		else
+			stop
+		define
+			text: @if(name,name,"mine")
+			font-family: Open Sans
+			font-style: italic
+			font-size: 6
+			text-halo-width: 0.2
+			text-opacity: 1
+			text-halo-opacity: 0.7
+			font-stretch: 0.95
+			placement-value: 7
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 3.5
+			text-offset-vertical: -2
+		draw: text
+	target: puitpetrole
+		define
+			shape: circle
+			line-style: none
+			fill-color: black
+			fill-opacity: 1
+			shape-size: 2
+		draw: shape
+		define
+			text: @if(name,name,"for.")
+			font-family: Open Sans
+			font-style: italic
+			font-size: 6
+			text-halo-width: 0.2
+			text-opacity: 1
+			text-halo-opacity: 0.7
+			font-stretch: 0.95
+			placement-value: 7.1
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 3
+			text-offset-vertical: -2
+		draw: text
+	target: station epuration
+		define
+			shape: circle
+			line-width: 0.9
+			line-color: cyan blue 30%
+			fill-color: cyan
+			fill-opacity: 0.4
+			shape-size: 2.4
+		draw: shape
+		define
+			shape: custom
+			shape-def: m:10,10; l:-10,-10; m:-10,10; l:10,-10;
+			line-width: 0.6
+			line-color: cyan blue 30%
+			line-opacity: 0.6
+			shape-size: 3.3
+		draw: shape
+		for: name
+			define
+				text: name
+		elsefor: man_made=wastewater_plant			
+			define
+				text: "st ép."
+		elsefor: man_made=water_works
+			define
+				text: "st pot."
+		else
+			stop
+		define
+			font-family: Open Sans
+			font-style: italic
+			font-size: 6
+			text-halo-width: 0.5
+			text-opacity: 1
+			text-halo-opacity: 0.4
+			text-color: cyan blue 40%
+			font-stretch: 0.95
+			placement-value: 7.2
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 4
+			text-offset-vertical: -3
+		draw: text
+	target: reservoir eau
+		define
+			shape: custom
+			shape-def: m:10,10; l:-10,-10; m:-10,10; l:10,-10;
+			line-width: 0.6
+			line-color: cyan blue 40%
+			shape-size: 3.3
+		draw: shape
+	
+	target: balise maritime*
+		define
+			icon-image: R25/icons/Perso/balisemaritime_tr.png
+			icon-width: 9
+		draw: icon
+		for: name
+			define
+				text: name
+		else
+			stop
+		define
+			font-family: Open Sans
+			font-style: italic
+			font-size: 6
+			text-halo-width: 0.2
+			text-opacity: 1
+			text-halo-opacity: 0.7
+			font-stretch: 0.95
+			placement-value: 0.1
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 4
+			text-offset-vertical: -2
+		draw: text
+	target: tour
+		define
+			icon-image: R25/icons/Perso/tour2_tr.png
+			icon-width: 12
+		for: tower:type=communication OR man_made=mast 
+			define
+				icon-width: 8
+		draw: icon
+	target: chateau deau
+		define
+			shape: circle
+			line-width: 0.9
+			line-color: cyan blue 40%
+			fill-color: cyan
+			fill-opacity: 0.5
+			shape-size: 2.4
+		draw: shape
+		define
+			shape: custom
+			shape-def: m:10,10; l:-10,-10; m:-10,10; l:10,-10;
+			line-width: 0.6
+			line-color: cyan blue 40%
+			line-opacity: 0.6
+			shape-size: 3.3
+		draw: shape
+		for: name
+			define
+				text: name
+		elsefor: man_made=water_tower AND NOT legende=yes
+			define
+				text: "Ch. d'eau"
+		else
+			stop
+		define
+			font-family: Open Sans
+			font-style: italic
+			font-size: 6
+			text-halo-width: 0.2
+			text-opacity: 1
+			text-halo-opacity: 0.7
+			text-color: cyan blue 40%
+			font-stretch: 0.95
+			placement-value: 7.3
+			text-line-spacing: 0.8
+			text-align-horizontal: near
+			text-offset-horizontal: 4
+			text-offset-vertical: -3
+		draw: text
+	target: moulin a vent
+//		define
+//			shape: circle
+//			shape-size: 4
+//			line-style: none
+//			fill-color: white
+//			fill-opacity: 0.3
+//		draw: shape
+		define
+			icon-image: R25/icons/Perso/moulin_tr.png
+			icon-width: 5
+		draw: icon
+	target: eolienne
+		define
+			icon-image: R25/icons/Perso/eolienne1_tr.png
+			icon-width: 9
+			shape-mode: center
+		draw: icon
+	target: cheminee
+		define
+			shape: circle
+			shape-size: 2
+			line-color: black
+			fill-color: white
+			line-width: 0.9
+			line-opacity: 1
+			fill-opacity: 0.9
+		draw: shape
+	target: grue
+		define
+			fill-color: black
+			fill-opacity: 0.95
+			fill-hatch: nwse
+			fill-hatch-color: white
+			fill-hatch-opacity: 0
+			line-width: 0.9
+		draw: fill
+		define
+//			shape: circle
+//			shape-size: 3
+//			fill-color: black
+//			fill-opacity: 0.95
+//			fill-hatch: nwse
+//			fill-hatch-color: white
+//			fill-hatch-opacity: 0
+//			line-width: 0.9
+			shape: custom
+			shape-def: m:10,10; l:-10,-10; m:-10,10; l:10,-10;
+			line-width: 0.6
+			line-color: black
+			shape-size: 3.3
+		draw: shape
+	target: reservoirstockage
+		define
+			fill-color: white
+			fill-opacity: 0.2
+			fill-hatch: nwse
+			fill-hatch-color: black gray 20%
+			fill-hatch-opacity: 0.95
+			line-width: 0.8
+		draw: fill
+		define
+			shape: circle
+			shape-size: 2.25
+			fill-hatch-color: black
+			fill-hatch-opacity: 0.95
+			fill-hatch: nwse
+			fill-color: white
+			fill-opacity: 0
+			line-width: 0.8
+		draw: shape
+
+
+
+
+
+
+
+	target: douane
+		define
+			shape: diamond
+			shape-size: 6
+			line-width: 1
+			fill-color: black
+			fill-hatch-color: white
+			fill-hatch-opacity: 0.9
+			fill-hatch: horizontal
+		draw: shape
+	target: peage
+		define
+			shape: diamond
+			shape-size: 4
+			line-width: 0.8
+			fill-color: black
+			fill-hatch-color: white
+			fill-hatch-opacity: 0.9
+			fill-hatch: horizontal
+		draw: shape
+		
+	target: bloc
+		define
+			shape: diamond
+			shape-size: 1.2
+			fill-color: black
+			fill-opacity: 1
+			line-style: solid
+			line-color: white
+			line-width: 0.3
+			line-opacity: 0.95
+		draw: shape
+
+	target: arbre
+		define
+			shape: circle
+			shape-size: 1
+			shape-size: 0.95
+			shape-spacing: 3.5
+			line-width: 0.5
+			line-width: 0.6
+			line-color: green
+			line-color: #bffd8f green 30%
+			fill-color: green
+			fill-color: #bffd8f
+			fill-opacity: 0.1
+			line-opacity: 0.9
+		draw: shape
+		
+		
+	target: divers ponctuel*
+		define
+			shape: circle
+			shape-size: 0.7
+			fill-color: black
+			fill-opacity: 0.95
+			line-style: none
+		draw: shape
+		
+		
+		
+			
+	target: station_remontepente
+		define
+			shape: square
+			shape-mode: center
+			shape-size: 2.5
+			line-width: 0.55
+			line-color: black
+			line-opacity: 1
+			fill-color: black
+			fill-opacity: 0.8
+		draw: shape
+
+
+			
+	target: piscine
+		for: (NOT building) OR (building=no)
+		define
+			fill-color: cyan white 45%
+			line-width: 0.2
+			line-color: cyan blue 40%
+			line-opacity: 0.95
+			fill-opacity: 0.95
+		draw: fill
+
+//		batiment: (building AND building!=no)
+//		batiment mairie: amenity=townhall
+//		batiment public: @isOneOf(building,civic,hospital,school,train_station,transportation,university,public)
+//		batiment eglise: @isOneOf(building,church,cathedral,chapel) OR amenity=place_of_worship
+//		batiment normal: @isOneOf(building,apartments,dormitory,hotel,house,residential,terrace)
+//		batiment hangar: @isOneOf(building,garages,hangar) OR aeroway=hangar OR railway=roundhouse 
+//		batiment industriel: @isOneOf(building,commercial,industrial,retail,warehouse,farm_auxiliary,greenhouse,stable)
+//		batiment militaire: building=bunker OR @isOneOf(military,bunker,barracks) OR building=military
+//		batiment leger: @isOneOf(building,hut,cabin,shed) OR (building=yes AND wall=no)
+//		batiment toit: building=roof
+//		batiment magasin: building AND building!=no AND (amenity OR shop) 
+//		batiment construction: building=construction
+//		batiment defaut: building=yes
+	target: batiment
+		for: (ruins AND NOT ruins=no) OR @isOneOf(building,ruins,ruin,ruined)
+			define
+				line-style: dash
+				line-width: 0.45
+				line-color: black
+				line-opacity: 0.9
+				fill-color: gray black 50%
+				fill-opacity: 0.5
+				fill-hatch: swne
+				fill-hatch-color: white
+				fill-hatch-opacity: 0.2
+		elsefor: amenity=townhall
+			define 
+				line-width: 0.8
+				fill-color: red
+				line-color: black
+				fill-opacity: 1
+		elsefor: @isOneOf(building,civic,hospital,school,train_station,transportation,university,public)
+			define
+				line-width: 0.5
+				line-color: brown black 30%
+				line-opacity: 0.95
+				line-style: solid
+				fill-color: brown black 15%
+				fill-opacity: 0.85
+
+				fill-color: #dbd8d2 black 20%
+				fill-opacity: 1
+				line-style: solid
+				line-width: 0.2
+				line-color: #dbd8d2 black 30%
+				line-color: black
+				line-opacity: 0.9
+				
+		elsefor: @isOneOf(building,church,cathedral,chapel) OR amenity=place_of_worship
+			define
+				fill-color: gray white 50%
+				fill-opacity: 0.8
+				line-style: solid
+				line-width: 1
+				line-color: black 
+				line-opacity: 0.9
+		elsefor: @isOneOf(building,apartments,dormitory,hotel,house,residential,terrace,garages,garage)
+			define
+				line-style: none
+				fill-color: brown black 20%
+				fill-opacity: 0.85
+				
+				fill-color: #dbd8d2 black 30%
+				fill-opacity: 1
+				line-style: solid
+				line-width: 0.2
+				line-color: #dbd8d2 black 30%
+				line-color: black
+				line-opacity: 0.9
+		elsefor: @isOneOf(building,hangar) OR aeroway=hangar OR railway=roundhouse OR @isOneOf(building,commercial,industrial,retail,warehouse)
+			define
+				line-style: solid
+				line-width: 0.6
+				line-color: black
+				line-opacity: 0.9
+				fill-hatch: swne
+				fill-color: white
+				fill-opacity: 0.5
+				fill-hatch-color: #dbd8d2 black 30%
+				fill-hatch-opacity: 1
+//				fill-texture: R25/Textures/hach13b_tr.png
+		elsefor: @isOneOf(building,farm_auxiliary,stable,barn)
+			define
+				line-style: solid
+				line-width: 0.5
+				line-color: #dbd8d2 black 30%
+				line-opacity: 0.9
+				fill-hatch: swne
+				fill-color: white
+				fill-opacity: 0.5
+				fill-hatch-color: #dbd8d2 black 10%
+				fill-hatch-opacity: 1
+		elsefor: building=greenhouse
+			define
+				line-style: solid
+				line-width: 0.5
+				line-color: #dbd8d2 black 30%
+				line-opacity: 0.9
+				fill-hatch: nwse
+				fill-hatch-color: white
+				fill-hatch-opacity: 0.5
+				fill-color: #dbd8d2 black 10%
+				fill-opacity: 1
+//				fill-texture: R25/Textures/ind3_tr.png
+		elsefor: building=bunker OR @isOneOf(military,bunker,barracks) OR building=military
+			define
+				line-style: solid
+				line-color: purple
+				line-width: 0.9
+				fill-hatch: swne
+				fill-color: purple
+				fill-hatch-color: black
+				fill-opacity: 1
+				fill-hatch-opacity: 0.8
+		elsefor: @isOneOf(building,hut,cabin,shed) OR (building=yes AND wall=no)
+			define
+				line-style: solid
+				line-color: brown black 10%
+				line-width: 0.6
+				line-opacity: 0.7
+				fill-color: brown 
+				fill-opacity: 0.55
+				
+				fill-color: #dbd8d2 black 30%
+				fill-opacity: 0.55
+				line-style: solid
+				line-width: 0.2
+				line-color: #dbd8d2 black 30%
+				line-color: black
+				line-opacity: 0.7
+
+		elsefor: building=roof
+			define
+				line-style: solid
+				line-color: brown black 10%
+				line-width: 0.6
+				line-opacity: 0.7
+				fill-color: brown 
+				fill-opacity: 0.3
+				
+				fill-color: #dbd8d2 black 30%
+				fill-opacity: 0.3
+				line-style: solid
+				line-width: 0.2
+				line-color: #dbd8d2 black 30%
+				line-color: black
+				line-opacity: 0.7
+
+		elsefor: amenity OR shop
+			define
+				line-width: 0.5
+				line-color: brown black 30%
+				line-opacity: 0.95
+				line-style: solid
+				fill-color: brown yellow 15%
+				fill-opacity: 0.85
+
+				fill-color: gray yellow 10%
+				fill-opacity: 0.95
+				line-style: solid
+				line-width: 0.2
+				line-color: #dbd8d2 black 30%
+				line-color: black
+				line-opacity: 0.9
+				
+		elsefor: building=construction
+			define
+				line-style: solid
+				line-width: 1
+				line-opacity: 0.9
+				fill-hatch: diagonalcross
+				fill-hatch-color: brown black 20%
+				fill-hatch-opacity: 0.85
+				fill-color: white
+				fill-opacity: 0.5
+				fill-hatch-color: gray black 30%
+		elsefor: man_made=storage_tank
+			define
+				line-style: solid
+				fill-color: white
+				fill-opacity: 0.2
+				fill-hatch: nwse
+				fill-hatch-color: black gray 20%
+				fill-hatch-opacity: 0.95
+				line-width: 1.2
+		else
+			define
+				fill-color: brown black 15%
+				fill-opacity: 0.9	
+				line-style: none
+				fill-color: #dbd8d2 black 30%
+				fill-opacity: 1
+				line-style: solid
+				line-width: 0.2
+				line-color: #dbd8d2 black 30%
+				line-color: black
+				line-opacity: 0.9
+		define
+			painting-cycle: 550
+		draw : fill		
+		define
+			painting-cycle: 800
+			font-family: DejaVu Sans Condensed
+			font-style: normal
+			font-weight: bold
+			text-color: black
+			font-stretch: 0.8
+			font-size: 8
+			text-opacity: 1
+			text-halo-width: 0.5
+			text-halo-color: white
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: center
+		for: @isOneOf(shop,department_store,mall)
+			define
+				text: "C. Cial"
+				placement-value: 8.1
+				text-halo-width: 0.8
+				text-halo-opacity: 0.5
+		elsefor: shop=supermarket
+			define
+				text: "Sp."
+				placement-value: 0.9
+				text-halo-width: 0.8
+				text-halo-opacity: 0.5
+				font-stretch: 0.7
+				text-opacity: 0.95
+				font-style: italic
+		elsefor: building=construction
+			define
+				text: "Constr."
+				placement-value: 0.9
+				text-halo-width: 0.8
+				text-halo-opacity: 0.6
+		else
+			stop
+		draw: text
+
+		
+
+
+		
+	target: itineraire balise*
+//possibilite de definir deux versions, definir dans les targets en debut de fichier
+//definition standard ou majeure
+//		if: *1
+		for: trailblazed=major OR rendu=trailblazed_major
+			define
+				line-opacity: 0.8
+				line-width: 2.6
+				line-offset: 0
+				line-offset-sides: right
+			for: @isOneOf(highway,footway,path,cycleway,steps) AND NOT footway=sidewalk
+				for: trail_visibility=intermediate
+					define
+						line-offset: 1.75
+				elsefor: @isOneOf(trail_visibility,bad,horrible,no)
+					define
+						line-offset: 1.65
+				else
+					define
+						line-offset: 1.8
+			elsefor: highway=track AND (tracktype=grade1 OR tracktype=grade2) AND NOT (@isOneOf(smoothness,very_bad,horrible,very_horrible,impassable))
+				define
+					line-offset: 2.55
+					line-width: 2.7
+			elsefor: highway=track AND (tracktype=grade3 OR ((tracktype=grade1 OR tracktype=grade2) AND @isOneOf(smoothness,very_bad,horrible))) AND NOT (@isOneOf(smoothness,very_horrible,impassable))
+				define
+					line-offset: 2.4
+					line-width: 2.6
+			elsefor: (highway=track AND ((tracktype!=grade3 AND tracktype!=grade2 AND tracktype!=grade1) OR (@isOneOf(smoothness,very_horrible,impassable)))) OR highway=bridleway
+				define
+					line-offset: 1.7
+			elsefor: highway=service AND NOT area=yes
+				define
+					line-offset: 2.35
+					line-width: 2.7
+			elsefor: (@isOneOf(highway,unclassified,residential,road,living_street) AND NOT area=yes AND NOT lanes=1) OR (@isOneOf(highway,tertiary,tertiary_link) AND NOT area=yes)
+				define
+					line-offset: 2.8
+					line-width: 2.7
+			elsefor: (@isOneOf(highway,unclassified,residential,road,living_street) AND NOT area=yes AND lanes=1) OR highway=pedestrian
+				define
+					line-offset: 2.55
+					line-width: 2.7
+			elsefor: @isOneOf(highway,secondary,secondary_link) AND NOT area=yes
+				define
+					line-offset: 3.1
+					line-width: 2.8
+			elsefor: @isOneOf(highway,primary,primary_link) AND NOT area=yes
+				define
+					line-offset: 3.3
+					line-width: 2.8
+			elsefor: @isOneOf(highway, motorway_link, trunk_link) AND NOT area=yes
+				define
+					line-offset: 3
+					line-width: 2.8
+					curved: true
+			elsefor: @isOneOf(highway, motorway, trunk) AND NOT area=yes
+				define
+					line-offset: 3.95
+					line-width: 2.9
+					curved: true
+//definition mineure ou secondaire, largeur moindre.
+		else
+			define
+				line-width: 1.6
+				line-offset: 0
+				line-offset-sides: right
+				line-opacity: 0.6
+				line-opacity: 0.7
+			for: @isOneOf(highway,footway,path,cycleway,steps)
+				for: trail_visibility=intermediate
+					define
+						line-offset: 1.25
+				elsefor: @isOneOf(trail_visibility,bad,horrible,no)
+					define
+						line-offset: 1.15
+				else
+					define
+						line-offset: 1.3
+			elsefor: highway=track AND (tracktype=grade1 OR tracktype=grade2) AND NOT (@isOneOf(smoothness,very_bad,horrible,very_horrible,impassable))
+				define
+					line-offset: 2.1
+					line-width: 1.8
+			elsefor: highway=track AND (tracktype=grade3 OR ((tracktype=grade1 OR tracktype=grade2) AND @isOneOf(smoothness,very_bad,horrible))) AND NOT (@isOneOf(smoothness,very_horrible,impassable))
+				define
+					line-offset: 1.95
+					line-width: 1.7
+			elsefor: (highway=track AND ((tracktype!=grade3 AND tracktype!=grade2 AND tracktype!=grade1) OR (@isOneOf(smoothness,very_horrible,impassable)))) OR highway=bridleway
+				define
+					line-offset: 1.2
+			elsefor: highway=service AND NOT area=yes
+				define
+					line-offset: 1.8
+			elsefor: (@isOneOf(highway,unclassified,residential,road,living_street) AND NOT area=yes AND NOT lanes=1) OR (@isOneOf(highway,tertiary,tertiary_link) AND NOT area=yes)
+				define
+					line-offset: 2.35
+					line-width: 1.8
+			elsefor: (@isOneOf(highway,unclassified,residential,road,living_street) AND NOT area=yes AND lanes=1) OR (highway=pedestrian)
+				define
+					line-offset: 2.1
+					line-width: 1.8
+			elsefor: @isOneOf(highway,tertiary,secondary,tertiary_link,secondary_link) AND NOT area=yes
+				define
+					line-offset: 2.65
+					line-width: 1.9
+			elsefor: @isOneOf(highway,primary,primary_link) AND NOT area=yes
+				define
+					line-offset: 2.85
+					line-width: 1.9
+			elsefor: @isOneOf(highway, motorway_link, trunk_link) AND NOT area=yes
+				define
+					line-offset: 2.55
+					line-width: 1.9
+					curved: true
+			elsefor: @isOneOf(highway, motorway, trunk) AND NOT area=yes
+				define
+					line-offset: 3.55
+					line-width: 2.1
+					curved: true
+
+		define
+			line-color: red
+			line-opacity: 0.7
+
+//			line-offset-sides: right
+			topmost-layer: true
+//			line-start-cap: round
+//			line-end-cap: round
+		for: tunnel AND NOT tunnel=no
+			define
+				line-opacity: 0.45
+		draw: line
+
+		
+	target: trace GPS
+		define
+			line-color: blue
+//##			line-color: red
+			line-width: 3
+			line-opacity: 0.45
+			line-opacity: 0.6
+			line-offset-sides: left
+			line-offset-sides: right
+			line-offset: 2.6
+		draw: line
+	
+	
+	target: ligne electrique
+		define
+			line-width: 0.5
+			line-color: black
+			line-opacity: 0.8
+		draw: line
+	target: remontepente
+		for: bridge AND bridge!=no
+			define
+				line-offset: 0.85
+				line-offset-sides: left
+				line-color: black
+				line-width: 3.6
+			draw: line
+			define
+				line-opacity: 1
+				line-color: white
+				line-width: 2.7
+				line-end-cap: square
+				line-start-cap: square
+			draw: line
+		for: aerialway=platter OR aerialway=cable_car
+			define
+				line-width: 0.4
+		else
+			define
+				line-width: 0.6
+		define
+			line-offset: 0
+			line-color: black
+			line-opacity: 0.8
+		draw: line
+		for: aerialway=platter
+			define
+				line-width: 0.4
+		else
+			define
+				line-width: 0.45
+		for: aerialway=platter
+			define
+				icon-width: 0.6
+				shape-spacing: 20
+		else
+			define
+				icon-width: 0.8
+				shape-spacing: 28
+		define
+			icon-image: R25/icons/Perso/remontepente_tr.png
+			shape-mode: linear
+			shape-orientation: flow
+			//painting cycle normal - au dessus des routes.
+		draw: icon
+	
+
+
+	target: gue
+		define
+			fill-color: white
+			fill-opacity: 0
+			line-color: blue
+			line-opacity: 1
+			line-width: 1.4
+			shape-size: 1.2
+			line-width: 1.1
+			shape-size: 1.35
+		draw: shape
+		
+//routes, interieur	couleur
+	target: route majeure
+		for: bridge AND NOT bridge=no
+			define
+				line-start-cap: round
+				line-end-cap: round
+		for: tunnel AND NOT tunnel=no
+			define
+				line-opacity: 0.5
+		else
+			define
+				line-opacity: 1
+		for: junction=roundabout
+			define
+				curved: true
+		else
+			define
+				curved: false
+		define 
+			line-style: solid
+			line-color: orange
+			line-width: 2
+		draw: line
+	target: autoroute
+		for: bridge AND NOT bridge=no
+			define
+				line-start-cap: round
+				line-end-cap: round
+		for: tunnel AND NOT tunnel=no
+			define
+				line-opacity: 0.5
+		else
+			define
+				line-opacity: 1
+		define
+			curved: true
+			line-color: orange red 30%
+			line-width: 3
+		draw: line
+	target: route mineure
+		for: bridge AND NOT bridge=no
+			define
+				line-start-cap: round
+				line-end-cap: round
+		for: tunnel=yes
+			define
+				line-opacity: 0.5
+		else
+			define
+				line-opacity: 1
+		for: junction=roundabout
+			define
+				curved: true
+		else
+			define
+				curved: false
+		define 
+			line-color: yellow 
+			line-width: 1.7
+		draw: line
+	target: route mineure etroite
+		for: bridge AND NOT bridge=no
+			define
+				line-start-cap: round
+				line-end-cap: round
+		for: tunnel=yes
+			define
+				line-opacity: 0.5
+		else
+			define
+				line-opacity: 1
+		for: junction=roundabout
+			define
+				curved: true
+		else
+			define
+				curved: false
+		define 
+			line-style: solid
+			line-color: yellow
+			line-width: 1.5
+		draw: line
+	target: route residentielle
+		for: bridge AND NOT bridge=no
+			define
+				line-start-cap: round
+				line-end-cap: round
+		for: tunnel=yes
+			define
+				line-opacity: 0.5
+		else
+			define
+				line-opacity: 1
+		for: junction=roundabout
+			define
+				curved: true
+		else
+			define
+				curved: false
+		define 
+			line-style: solid
+			line-color: white
+			line-width: 1.5
+		for: highway=tertiary
+			define
+				line-color: yellow
+		draw: line
+	target: route residentielle etroite
+		for: bridge AND NOT bridge=no
+			define
+				line-start-cap: round
+				line-end-cap: round
+		for: tunnel=yes
+			define
+				line-opacity: 0.5
+		else
+			define
+				line-opacity: 1
+		for: junction=roundabout
+			define
+				curved: true
+		else
+			define
+				curved: false
+		define 
+			line-style: solid
+			line-color: white
+			line-width: 1.2
+		draw: line
+	target: route service
+		for: bridge AND NOT bridge=no
+			define
+				line-start-cap: round
+				line-end-cap: round
+		for: tunnel=yes
+			define
+				line-opacity: 0.5
+		else
+			define
+				line-opacity: 1
+		define 
+			line-offset: 0
+			line-style: solid
+			line-color: white
+			line-width: 0.8
+		draw: line
+	target: bretelle autoroute
+		for: bridge AND NOT bridge=no
+			define
+				line-start-cap: round
+				line-end-cap: round
+		for: tunnel AND NOT tunnel=no
+			define
+				line-opacity: 0.5
+		else
+			define
+				line-opacity: 1
+		define
+			curved: true
+			line-color: orange red 30%
+			line-width: 1.7
+		draw: line
+	target: bretelle route majeure
+		for: bridge AND NOT bridge=no
+			define
+				line-start-cap: round
+				line-end-cap: round
+		for: tunnel AND NOT tunnel=no
+			define
+				line-opacity: 0.5
+		else
+			define
+				line-opacity: 1
+		for: junction=roundabout
+			define
+				curved: true
+		else
+			define
+				curved: false
+		define 
+			line-style: solid
+			line-color: orange
+			line-width: 2
+		draw: line
+	target: bretelle route mineure
+		for: bridge AND NOT bridge=no
+			define
+				line-start-cap: round
+				line-end-cap: round
+		for: tunnel=yes
+			define
+				line-opacity: 0.5
+		else
+			define
+				line-opacity: 1
+		for: junction=roundabout
+			define
+				curved: true
+		else
+			define
+				curved: false
+		define 
+			line-color: yellow 
+			line-width: 1.7
+		draw: line
+	target: track12
+		define 
+			line-style: solid
+			line-color: white
+			line-offset: 0
+			line-width: 1.2
+		draw: line
+	
+	target: track3
+		define 
+			line-style: solid
+			line-color: white
+			line-width: 1.2
+		draw: line
+
+//routes, bordures noires
+	target: autoroute
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_autoroute1_tr.png
+				icon-width: 0.9
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.5
+				curved: true
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				curved: false
+				line-width: 0.9
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 5.8
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 7
+				curved: true
+			draw: line
+			define
+				line-color: white
+				line-width: 5.6
+			draw: line
+		for: NOT(tunnel AND NOT tunnel=no)
+			define
+				line-style: solid
+				line-opacity: 1
+				curved: true
+				line-color: black
+				line-width: 5
+				line-offset: 0
+			draw: line
+		for: tunnel AND NOT tunnel=no
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.55
+				line-width: 0.6
+				line-offset: 2.2
+				curved: true
+			draw: line
+	target: bretelle autoroute
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_majeure_tr.png
+				icon-width: 0.82
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.5
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				line-width: 0.9
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 3.8
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 4.6
+			draw: line
+			define
+				line-color: white
+				line-width: 3.6
+			draw: line
+		for: NOT(tunnel AND NOT tunnel=no)
+			define
+				line-style: solid
+				line-opacity: 1
+				line-offset: 0
+				curved: true
+				line-color: black
+				line-width: 3.3
+			draw: line
+		for: tunnel AND NOT tunnel=no
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.55
+				line-width: 0.6
+				line-offset: 1.4
+				curved: true
+			draw: line
+
+
+	target: *route majeure
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_majeure_tr.png
+				icon-width: 0.9
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.5
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				line-width: 0.9
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 4
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 5.9
+			draw: line
+			define
+				line-color: white
+				line-width: 4.5
+//				line-end-cap: square
+//				line-start-cap: square
+			draw: line
+		for: NOT(tunnel AND NOT tunnel=no)
+			for: junction=roundabout
+				define
+					curved: true
+			else
+				define
+					curved: false
+			define
+				line-style: solid
+				line-color: black
+				line-width: 3.8
+				line-offset: 0
+			draw: line
+		for: tunnel AND NOT tunnel=no
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.55
+				line-width: 0.6
+				line-offset: 1.6
+			draw: line
+	target: *route mineure
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_mineure_tr.png
+				icon-width: 0.9
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.5
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				line-width: 0.9
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 3.7
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 5.4
+			draw: line
+			define
+				line-color: white
+				line-width: 4.1
+			draw: line
+		for: NOT(tunnel AND NOT tunnel=no)
+			for: junction=roundabout
+				define
+					curved: true
+			else
+				define
+					curved: false
+			define
+				line-style: solid
+				line-opacity: 1
+				line-offset: 0
+				line-color: black
+				line-width: 3.4
+			draw: line
+		for: (tunnel AND NOT tunnel=no)
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.55
+				line-width: 0.6
+				line-offset: 1.5
+			draw: line
+	target: route mineure etroite
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_mineure_tr.png
+				icon-width: 0.9
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.5
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				line-width: 0.9
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 3.5
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 4.8
+			draw: line
+			define
+				line-color: white
+				line-width: 3.55
+			draw: line
+		for: NOT(tunnel AND NOT tunnel=no)
+			for: junction=roundabout
+				define
+					curved: true
+			else
+				define
+					curved: false
+			for: access=no OR access=private
+				define
+					line-color: #f74c53 black 10%
+			else
+				define 
+					line-color: black
+			define
+				line-style: solid
+				line-opacity: 1
+				line-offset: 0
+				line-width: 2.9
+			draw: line	
+		for: (tunnel AND NOT tunnel=no)
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.55
+				line-width: 0.6
+				line-offset: 1.2
+			draw: line
+	target: route residentielle
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_mineure_tr.png
+				icon-width: 0.9
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.5
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				line-width: 0.9
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 3.5
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 4.8
+			draw: line
+			define
+				line-color: white
+				line-width: 3.55
+			draw: line
+		for: NOT(tunnel AND NOT tunnel=no)
+			for: junction=roundabout
+				define
+					curved: true
+			else
+				define
+					curved: false
+			for: access=no OR access=private
+				define
+					line-color: #f74c53 black 10%
+			else
+				define 
+					line-color: black
+			define
+				line-style: solid
+				line-opacity: 1
+				line-offset: 0
+				line-width: 2.9
+			draw: line	
+		for: (tunnel AND NOT tunnel=no)
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.55
+				line-width: 0.6
+				line-offset: 1.2
+			draw: line
+	target: route residentielle etroite
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_mineure_tr.png
+				icon-width: 0.9
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.5
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				line-width: 0.9
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 3.5
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 4.3
+			draw: line
+			define
+				line-color: white
+				line-width: 3.05
+			draw: line
+		for: NOT(tunnel AND NOT tunnel=no)
+			for: junction=roundabout
+				define
+					curved: true
+			else
+				define
+					curved: false
+			for: access=no OR access=private
+				define
+					line-color: #f74c53 black 10%
+			else
+				define 
+					line-color: black
+			define
+				line-style: solid
+				line-opacity: 1
+				line-offset: 0
+				line-width: 2.4
+			draw: line	
+		for: (tunnel AND NOT tunnel=no)
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.55
+				line-width: 0.6
+				line-offset: 0.95
+			draw: line
+	target: route service
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_petit_tr.png
+				icon-width: 0.9
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.5
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				line-width: 0.9
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 2.8
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 3.8
+			draw: line
+			define
+				line-color: white
+				line-width: 2.6
+			draw: line
+		for: NOT(tunnel AND NOT tunnel=no)
+			for: @isOneOf(access,no,private) AND NOT foot=yes
+				define
+					line-color: #f74c53 black 10%
+			else
+				define 
+					line-color: black
+			define
+				line-style: solid
+				line-opacity: 1
+				line-offset: 0
+				line-width: 2
+			draw: line
+		for: (tunnel AND NOT tunnel=no)
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.55
+				line-width: 0.55
+				line-offset: 0.75
+			draw: line
+		
+		
+	target: track12
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_petit_tr.png
+				icon-width: 0.8
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.3
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				line-width: 0.5
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 2.4
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 4.3
+			draw: line
+			define
+				line-color: white
+				line-width: 3.4
+			draw: line
+		for: tunnel AND NOT tunnel=no
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.6
+				line-width: 0.6
+				line-offset: 2.1
+			draw: line
+		for: @isOneOf(access,no,private) AND NOT foot=yes
+			define
+				line-color: #f74c53 black 10%
+		else
+			define 
+				line-color: black
+		define
+			line-style: dash
+			line-offset: 0.2
+			line-offset-sides: left
+			line-width: 2
+			line-opacity: 1
+		for: tunnel AND NOT tunnel=no
+			define
+				line-opacity: 0.65
+		draw: line
+		define
+			line-style: solid
+			line-offset: 0.7
+			line-offset-sides: right
+			line-width: 1
+		for: tunnel AND NOT tunnel=no
+			define
+				line-opacity: 0.65
+		draw: line
+	
+	target: track3
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_petit_tr.png
+				icon-width: 0.8
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.3
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				line-width: 0.6
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 2.5
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 4.2
+			draw: line
+			define
+				line-color: white
+				line-width: 3.2
+				line-end-cap: square
+				line-start-cap: square
+			draw: line
+		for: tunnel AND NOT tunnel=no
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.6
+				line-width: 0.6
+				line-offset: 2.1
+			draw: line
+		for: @isOneOf(access,no,private) AND NOT foot=yes
+			define
+				line-color: #f74c53 black 10%
+		else
+			define 
+				line-color: black
+		define
+			line-opacity: 1
+			line-style: dash
+			line-width: 2.2
+			line-offset: 0
+		for: tunnel AND NOT tunnel=no
+			define
+				line-opacity: 0.65
+		draw: line
+
+		
+	target: track45
+		for: @isOneOf(access,no,private) AND NOT foot=yes
+			define
+				line-color: #f74c53 black 10%
+		else
+			define 
+				line-color: black
+		define
+			line-offset: 0
+			line-opacity: 1
+			line-style: solid
+			line-width: 0.8
+		for: tunnel AND NOT tunnel=no
+			define
+				line-opacity: 0.65
+				line-width: 0.7
+		for: tracktype=grade5 OR (@isOneOf(smoothness,very_horrible,impassable)) OR NOT tracktype
+			define
+				line-width:0.6
+		draw: line
+
+
+
+		
+	target: sentier
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_petit_tr.png
+				icon-width: 0.6
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.2
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				line-width: 0.5
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 1.9
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 3.1
+//				line-width: 2.3
+//				line-style: dash
+			draw: line
+			define
+				line-color: white
+				line-width: 1.8
+				line-end-cap: square
+				line-start-cap: square
+//				line-width: 0.8
+//				line-style: solid
+			draw: line
+		for: tunnel AND NOT tunnel=no
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.6
+				line-width: 0.6
+				line-offset: 1.45
+			draw: line
+
+		for: @isOneOf(access,no,private) AND NOT foot=yes
+			define
+				line-color: #f74c53 black 10%
+		else
+			define 
+				line-color: black
+		define
+			line-opacity: 1
+			line-offset: 0
+			line-style: dash
+			line-style: dash8to2
+			line-width: 0.82
+		for: @isOneOf(trail_visibility,excellent,good)
+			define
+				line-width: 0.95
+		elsefor: trail_visibility=intermediate
+			define
+				line-width: 0.82
+		elsefor: trail_visibility=bad
+			define
+				line-width: 0.7
+		elsefor: trail_visibility=horrible
+			define
+				line-width: 0.67
+		elsefor: trail_visibility=no
+			define
+				line-width: 0.6
+		for: tunnel AND NOT tunnel=no
+			define
+				line-width: 0.8
+				line-opacity: 0.65
+		draw: line
+	target: layon
+		define
+			line-style: dashlong
+			line-style: dash10to2
+			line-style: dash
+			line-color: black
+			line-width: 0.5
+			line-opacity: 1
+		draw: line
+
+	target: track45
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_petit_tr.png
+				icon-width: 0.6
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.2
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				line-width: 0.5
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 1.9
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 2.8
+			draw: line
+			define
+				line-color: white
+				line-width: 1.8
+				line-end-cap: square
+				line-start-cap: square
+			draw: line
+		for: tunnel AND NOT tunnel=no
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.6
+				line-width: 0.6
+				line-offset: 1.4
+			draw: line
+		elsefor: NOT(bridge AND bridge!=no)
+			define
+				line-offset: 0
+				line-color: white
+				line-width: 2.2
+				line-opacity: 0.4
+			for: tracktype=grade5 OR (@isOneOf(smoothness,very_horrible,impassable)) OR NOT tracktype
+				define
+					line-width: 1.9
+			draw: line
+			define
+				line-offset: 0
+				line-color: white
+				line-width: 1.5
+				line-opacity: 0.2
+			for: tracktype=grade5 OR (@isOneOf(smoothness,very_horrible,impassable)) OR NOT tracktype
+				define
+					line-width: 1.2
+			draw: line
+		
+		
+	target: tranchee
+		define
+			icon-image: R25/icons/Perso/leveeterre_petit_tr.png
+			icon-width: 0.6
+			shape-mode: linear
+			shape-orientation: flow
+			shape-spacing: 2.2
+			painting-cycle: 599
+		draw: icon
+		define
+			line-width: 0.5
+			line-color: #931900 yellow 20%
+			line-opacity: 0.9
+			line-offset: 1.9
+		draw: line
+	target: levee
+		define
+			icon-image: R25/icons/Perso/leveeterre_petit_plein2b_tr.png
+			icon-width: 0.6
+			shape-mode: linear
+			shape-orientation: flow
+			shape-spacing: 2.2
+			painting-cycle: 599
+		draw: icon
+		define
+			line-width: 0.5
+			line-color: #931900 yellow 20%
+			line-opacity: 0.9
+		draw: line
+
+		
+	target: tunnel seul
+		define
+			line-style: dashlong
+			line-color: black
+			line-opacity: 0.6
+			line-width: 0.6
+			line-offset: 1.5
+		draw: line
+		define
+			line-color: white
+			line-style: solid
+			line-opacity: 0.4
+			line-width: 1.7
+			line-offset: 0
+		draw: line
+	target: pont seul
+		define
+			line-color: black
+			line-style: solid
+			line-opacity: 1
+			line-width: 3.5
+		draw: line
+		define
+			line-color: white
+			line-style: solid
+			line-opacity: 0.95
+			line-width: 2
+		draw: line
+	target: ponton
+		define
+			line-width: 1.6
+			line-color: white
+			line-opacity: 0.9
+		for: leisure=slipway
+			define
+				line-color: white #52a5e9 20%
+		draw: line
+		define
+			fill-color: white
+			fill-opacity: 0.8
+			line-style: none
+		draw: fill
+
+
+	target: railprincipal
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_mineure_tr.png
+				icon-width: 0.85
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.5
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				curved: false
+				line-width: 0.9
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 3.55
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				curved: true
+				line-color: black
+				line-width: 4.4
+			draw: line
+		for: NOT (tunnel AND NOT tunnel=no)
+			define
+				line-offset: 0
+				line-style: solid
+				line-color: white
+				line-width: 2.6
+				curved: true
+			for: bridge AND bridge!=no
+				define
+					line-width: 2.7
+			draw: line
+		define
+			line-style: dot
+			line-color: black
+			line-width: 1.7
+			curved: true
+			line-opacity: 1
+		for: tunnel AND tunnel!=no
+			define
+				line-opacity: 0.6
+				line-width: 1.6
+		draw: line		
+		define 
+			line-style: solid
+			line-color: black
+			line-width: 1.2
+			curved: true
+			line-opacity: 1
+		for: tunnel AND tunnel!=no
+			define
+				line-opacity: 0.6
+				line-width: 1.1
+		draw: line
+		for: tunnel AND tunnel!=no
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.6
+				line-width: 0.6
+				line-offset: 1.7
+			draw: line
+		for: railway=preserved AND name
+			for: tunnel=yes
+				define
+					text-offset-vertical: -6.5
+			else
+				define
+					text-offset-vertical: -5
+			define
+				text: name
+				font-family: DejaVu Sans Condensed
+				font-style: italic
+				font-weight: bold
+				font-stretch: 0.9
+				font-size: 9
+				text-color: red 
+				text-halo-width: 0.2
+				text-halo-color: white
+				text-halo-opacity: 0.5
+				text-opacity: 0.8
+				placement-value: 11
+			draw: text				
+	target: railsecondaire
+		define
+			curved: true
+		for: embankment=yes OR cutting=yes
+			define
+				icon-image: R25/icons/Perso/leveeterre_petit_tr.png
+				icon-width: 0.9
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 2.5
+				painting-cycle: 599
+			draw: icon
+		for: cutting=yes
+			define
+				curved: false
+				line-width: 0.9
+				line-color: #931900 yellow 20%
+				line-opacity: 0.9
+				line-offset: 2.8
+			draw: line
+		for: bridge AND bridge!=no
+			define
+				curved: true
+				line-color: black
+				line-width: 4.1
+			draw: line
+			define
+				curved: true
+				line-color: white
+				line-width: 2.5
+			draw: line
+		for: NOT tunnel OR tunnel=no
+			define
+				line-offset: 0
+				line-style: solid
+				line-color: white
+				line-width: 2.4
+				curved: true
+			draw: line
+		define
+			line-style: dot
+			line-color: black
+			line-width: 1.4
+			line-opacity: 1
+		for: tunnel AND tunnel!=no
+			define
+				line-opacity: 0.6
+				line-width: 1.3
+		draw: line		
+		define 
+			line-style: solid
+			line-color: black
+			line-width: 0.9
+			line-opacity: 1
+		for: tunnel AND tunnel!=no
+			define
+				line-opacity: 0.6
+				line-width: 0.8
+		draw: line
+		for: tunnel AND tunnel!=no
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.6
+				line-width: 0.6
+				line-offset: 1.5
+			draw: line
+		
+
+
+	target: rangeearbres
+		define
+			shape: circle
+			shape-mode: linear
+			shape-size: 1
+			shape-spacing: 3.5
+			line-width: 0.5
+			line-color: green
+			fill-color: green
+			fill-opacity: 0.3
+			line-opacity: 0.9		
+			line-color: #bffd8f green 30%
+			fill-color: #bffd8f
+			fill-opacity: 0.1
+			line-opacity: 0.9
+		draw: shape
+
+	target: leveeterre
+		define
+			icon-image: R25/icons/Perso/leveeterre2_tr.png
+			icon-width: 0.8
+			shape-mode: linear
+			shape-orientation: flow
+			shape-spacing: 2.5
+			painting-cycle: 599
+		draw: icon
+		define
+			line-width: 1
+			line-color: #931900 yellow 20%
+			line-opacity: 0.9
+		draw: line
+	target: falaise
+		define
+			icon-image: R25/icons/Perso/falaise4_tr.png
+			icon-width: 0.85
+			icon-width: 0.7
+			shape-mode: linear
+			shape-orientation: flow
+			shape-spacing: 2.5
+			shape-spacing: 1.9
+			painting-cycle: 599
+		draw: icon
+		define
+			line-width: 1
+			line-width: 0.85
+			line-color: black
+			line-opacity: 1
+		draw: line
+
+	target: mur*
+		define
+//			shape: circle
+//			shape-size: 0.4
+//			line-width: 0.5
+			shape-mode: linear
+			shape-orientation: flow
+			shape-spacing: 1
+//			line-color: black
+//			fill-color: black
+//			fill-opacity: 0
+//			line-opacity: 1
+			shape: custom
+			shape-def: p:black,1;pw:0.5;m:10,0;a:10,10,-10,0;
+			shape-size: 1.2
+			painting-cycle: 599
+		draw: shape
+		for: area=yes
+			define
+				line-style: none
+				fill-color: black
+				fill-opacity: 0.95
+			draw: fill
+		define
+			line-style: solid
+			line-width: 0.4
+			line-color: black
+			line-opacity: 1
+		draw: line
+//	target: cloture
+//		define
+//			line-style: solid
+//			line-width: 0.4
+//			line-color: black
+//			line-opacity: 1
+//		draw: line
+//		define
+//			icon-image: R25/icons/Perso/cloture3.png
+//			icon-width: 1.4
+//			shape-mode: linear
+//			shape-orientation: flow
+//			shape-spacing: 3.85
+//			curved: true
+//		draw: icon
+	target: haie
+		define
+			line-color: green black 10%
+			line-color: green
+			line-width: 0.6
+			line-opacity: 0.9
+		draw: line
+	target: soutainement
+		define
+			line-color: black
+			line-width: 0.5
+		draw: line
+		define
+			icon-image: R25/icons/Perso/falaise3_tr.png
+			icon-width: 0.5
+			shape-mode: linear
+			shape-orientation: flow
+			shape-spacing: 2.2
+			painting-cycle: 599
+		draw: icon
+	
+	target: divers lineaire
+		define
+			line-width: 0.3
+			line-color: black
+			line-opacity: 1
+		draw: line
+
+		
+	target: barrage lineaire
+		for: waterway=dam
+			define
+				line-width: 3
+		else
+			define
+				line-width: 1.5				
+		define
+			line-color: black
+			line-opacity: 1
+			line-start-cap: triangle
+			line-end-cap: triangle
+		draw: line
+		
+	target: riviere
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 5.3
+				line-end-cap: square
+				line-start-cap: square
+			draw: line
+			define
+				line-color: white
+				line-width: 3.8
+				line-end-cap: square
+				line-start-cap: square
+			draw: line
+		define
+			line-width: 2.8
+		for: tunnel AND NOT tunnel=no
+			define
+				line-style: dash8to2
+				line-color: black
+				line-opacity: 0.55
+				line-width: 0.6
+				line-offset: 2
+			draw: line
+		for: intermittent=yes
+			define 
+				line-style: dash8to2
+				line-width: 2
+		else
+			define
+				line-style: solid
+		define
+			line-color: #52a5e9 white 20%
+			line-opacity: 0.9
+			line-offset: 0
+		for: tunnel AND NOT tunnel=no
+			define
+				line-opacity: 0.45
+		draw: line
+		define
+			text: name
+//			font-family: Times New Roman
+			font-family: FreeSerif
+			font-stretch: 1.04
+			font-size: 12
+			font-style: Italic
+			text-color: #52a5e9 black 20%
+			text-halo-width: 1.2
+			text-opacity: 1
+			text-halo-opacity: 0.8
+			text-offset-vertical: -1.8
+			placement-value: 10.01
+		draw: text
+	target: ruisseau
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 3.5
+				line-end-cap: square
+				line-start-cap: square
+			draw: line
+			define
+				line-color: white
+				line-width: 2.35
+				line-end-cap: square
+				line-start-cap: square
+			draw: line
+		define
+			line-width: 1.6
+		for: tunnel AND NOT tunnel=no
+			define
+				line-style: dash8to2
+				line-color: black
+				line-opacity: 0.55
+				line-width: 0.5
+				line-offset: 1.2
+			draw: line
+		for: intermittent=yes
+			define 
+				line-style: dash8to2
+				line-width: 1.2
+		else
+			define
+				line-style: solid
+		define
+			line-color: #52a5e9 white 30%
+			line-opacity: 0.9
+			line-offset: 0
+		for: tunnel AND NOT tunnel=no
+			define
+				line-opacity: 0.45
+		draw: line
+		define
+			text: name
+//			font-family: Times New Roman
+			font-family: FreeSerif
+			font-stretch: 1.04
+			font-size: 8
+			font-style: Italic
+			text-color: #52a5e9 black 20%
+			text-halo-width: 0.9
+			text-opacity: 1
+			text-halo-opacity: 0.8
+			text-offset-vertical: -1.5
+			placement-value: 1.9
+		draw: text
+	target: fosse
+		for: bridge AND bridge!=no
+			define
+				line-color: black
+				line-width: 3
+				line-end-cap: square
+				line-start-cap: square
+			draw: line
+			define
+				line-color: white
+				line-width: 1.8
+				line-end-cap: square
+				line-start-cap: square
+			draw: line
+		for: tunnel AND NOT tunnel=no
+			define
+				line-style: dashlong
+				line-color: black
+				line-opacity: 0.6
+				line-width: 0.6
+				line-offset: 1
+//			draw: line
+		define
+			line-width: 0.9
+		for: intermittent=yes
+			define 
+				line-style: dash8to2
+				line-width: 0.7
+		else
+			define
+				line-style: solid
+		define
+			line-color: #52a5e9 white 35%
+			line-opacity: 0.9
+			line-offset: 0
+		for: tunnel AND NOT tunnel=no
+			stop
+//			define
+//				line-opacity: 0.5
+		draw: line
+		
+	target: ferry
+		define
+			line-width: 1.4
+			line-style: dashlong
+			line-color: blue black 10%
+//			line-color: white
+//			line-width: 1.7
+			line-opacity: 0.8
+		draw: line
+		
+	target: pylone*
+		for: aerialway=pylon
+			define
+				shape-size: 1.5
+				fill-opacity: 1
+		else 
+			define
+				shape-size: 0.8
+				fill-opacity: 0
+				fill-opacity: 1
+		define
+			shape: square
+			line-width: 0.6
+			line-opacity: 0.9
+			fill-color: white
+		draw: shape
+	target: pipeline
+		define
+			line-width: 0.45
+			line-color: black
+			line-opacity: 0.8
+		draw: line
+		define
+			shape: diamond
+			shape-size: 1
+			fill-color: black
+			fill-opacity: 1
+			line-style: none
+			shape-spacing: 50
+		draw: shape
+
+	target: brisemer
+		for: man_made=breakwater
+			define
+				icon-width: 1
+				shape-spacing: 2.5
+		elsefor: man_made=groyne
+			define
+				icon-width: 0.7
+				shape-spacing: 2.8
+		else
+			stop
+		define
+			icon-image: R25/icons/Perso/brisemer.png
+			shape-mode: linear
+			shape-orientation: flow
+		draw: icon
+	
+		for: man_made=breakwater
+			define
+				line-width: 1.8
+		elsefor: man_made=groyne
+			define
+				line-width: 0.8
+		else
+			stop
+		define
+			line-color: black
+			line-opacity: 1
+		draw: line		
+
+	target: parcnat *
+		define
+			line-color: green
+			line-width: 1
+			line-opacity: 0.8
+			line-style: solid
+		draw: line
+		define
+			line-color: green yellow 20%
+			line-width: 6
+			line-opacity: 0.3
+			line-end-cap: round
+			line-start-cap: round
+			line-style: solid
+		draw: line
+		if: *protege
+			define
+				line-style: none
+				fill-texture:  R25/Textures/res10_tr.png
+//			draw: fill
+		define
+			text: @up(@if(name,name,"Parc Naturel"))
+			text-color: green black 10%
+			placement-value: 6
+			font-family: Open Sans
+			font-style: italic
+			font-weight: bold
+			font-stretch: 1
+			font-size: 12
+			text-opacity: 0.8
+			text-halo-width: 1
+			text-line-spacing: 1.1
+		draw: text
+
+
+
+	target: cimetiere
+		define
+			fill-texture: R25/Textures/cimetiere9.png
+			line-color: gray black 50%
+			line-width: 0.8
+			line-opacity: 0.75
+		draw: fill
+		define
+			icon-image: R25/icons/Perso/cimetiere2_tr.png
+			icon-width: 3
+			shape-mode: center
+		draw: icon
+		
+	target: transformateur electrique
+		define
+			fill-color: gray black 30%
+			fill-opacity: 0.5
+			line-width: 1
+			line-color: black
+			line-opacity: 0.9
+		draw: fill
+		
+	target: zone militaire
+		define
+			fill-color: purple
+			fill-opacity: 0.95
+			fill-hatch: swne
+			fill-hatch-color: white
+			fill-hatch-opacity: 0
+			line-color: purple
+			line-width: 1
+		draw: fill
+		define
+			text: name
+			placement-value: 4
+			font-family: Open Sans
+			font-style: italic
+			font-stretch: 0.9
+			font-size: 10
+			text-color: purple black 10%
+			text-opacity: 0.8
+			text-halo-width: 1
+			text-halo-opacity: 0.6
+			text-line-spacing: 0.8
+			placement-value: 5.5
+		draw: text
+	target: acces interdit
+		define
+			fill-color: red purple 8%
+			fill-opacity: 0.95
+			fill-hatch: swne
+			fill-hatch-color: white
+			fill-hatch-opacity: 0
+			line-color: red
+			line-width: 1
+			line-opacity: 0.95
+		draw: fill
+		define
+			text: name
+			placement-value: 0.001
+			font-family: Open Sans
+			font-style: italic
+			font-stretch: 0.9
+			font-size: 10
+			text-color: red black 10%
+			text-opacity: 0.8
+			text-halo-width: 2
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+		draw: text
+		
+	target: aeroport*
+		define
+			shape: square
+			fill-color: white
+			fill-opacity: 0.2
+			line-color: black
+			line-width: 1
+			line-opacity: 0.9
+			shape-size: 20
+		draw: shape
+		define
+			icon-image: R25/icons/Perso/avion.png
+			icon-width: 20
+		draw: icon
+	target: piste aterrissage
+		for: bridge AND bridge!=no
+			for: aeroway=runway
+				define
+					line-width: 8
+			else
+				define
+					line-width: 6
+			define
+				line-color: black 
+				line-end-cap: square
+				line-start-cap: square
+			draw: line
+			for: aeroway=runway
+				define
+					line-width: 6
+			else
+				define
+					line-width: 4
+			define
+				line-color: white
+				line-end-cap: square
+				line-start-cap: square
+			draw: line
+		for: aeroway=runway
+			define
+				line-width: 5
+		else
+			define
+				line-width: 3
+		define
+			line-color: gray yellow 10%
+			line-opacity: 1
+		draw: line
+	target: aeroport
+		define
+			fill-color: yellow
+			fill-opacity: 0.9
+			line-color: yellow red 40%
+			line-width: 1
+		draw: fill
+	target: aeroport militaire
+		define
+			fill-color: purple
+			fill-opacity: 0.9
+			fill-hatch: swne
+			fill-hatch-color: yellow
+			fill-hatch-opacity: 0.95
+			line-color: purple
+			line-width: 1
+		draw: fill
+
+	target: barrage surfacique
+		define
+			line-color: black
+			line-width: 1
+			line-opacity: 1
+			fill-color: white
+			fill-hatch-color: black
+			fill-hatch:swne
+		draw: fill
+	target: lac
+		define 
+			fill-color: white
+			fill-opacity: 1
+			line-style: none
+			painting-cycle: 520
+		draw: fill
+		define 
+			fill-color: #52a5e9
+			//3333FF 
+			fill-opacity: 0.5
+			line-style: solid
+			line-color: #52a5e9 black 20%
+			line-opacity: 0.8
+			line-width: 0.8
+			painting-cycle: 520
+		draw: fill
+		for: (NOT water) AND (NOT waterway=riverbank)
+			define
+				text: name
+				placement-value: 3.5
+		elsefor: @isOneOf(water, lake, cove, lagoon, reservoir, oxbow)
+			define
+				text: name
+				placement-value: 99
+		else
+			stop
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.9
+			font-size: 9
+			text-color: #52a5e9 black 20%
+			text-opacity: 0.9
+			text-halo-width: 0
+			text-halo-color: white
+			text-halo-opacity: 0.8
+			text-line-spacing: 0.8
+			placement-value: 6
+			painting-cycle: 800
+		draw: text
+	target: baie
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.9
+			font-size: 9
+			text-color: #52a5e9 black 20%
+			text-opacity: 0.9
+			text-halo-width: 0
+			text-halo-color: white
+			text-halo-opacity: 0.8
+			text-line-spacing: 0.8
+			placement-value: 0.5
+		draw: text
+		
+	target: escalade
+		define
+			shape: circle
+			shape-size: 8.5
+			fill-color: #347C17
+			fill-opacity: 0.4
+			line-color: #347C17
+			line-opacity: 0.9
+			line-width: 1
+			shape-mode: center
+			shape-orientation: fixed
+		draw: shape
+		define
+			icon-image: R25/icons/Perso/escalade1_tr.png
+			icon-width: 14
+			shape-mode: center
+			shape-orientation: fixed
+		draw: icon
+	target: sport
+		define
+			line-width: 0.6
+			line-color: #808000
+			line-opacity: 0.9
+			fill-color: #347C17
+			fill-opacity: 0.4
+		for: @isOneOf(access,private,no) OR disused:leisure=pitch
+			define
+				fill-hatch: swne
+				fill-hatch-color: #347C17
+				fill-hatch-opacity: 0.4
+				fill-color: white
+		draw: fill
+		define
+			shape: square
+			shape-size: 4
+			line-width: 0.6
+			line-color: #808000
+			line-opacity: 0.9
+			fill-color: #347C17
+			fill-opacity: 0.6
+			shape-mode: points-only
+		draw: shape
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.9
+			font-size: 8
+			text-color: green cyan 25%
+			text-opacity: 0.9
+			text-halo-width: 0.2
+			text-halo-color: white
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: center
+		for: @isOneOf(access,no,private)
+			stop
+		elsefor: sport=tennis
+			define
+				text: @if(name,name,"Tennis")
+				text: "Tennis"
+				placement-value: 0.6
+				font-size: 8
+		elsefor: sport=soccer
+			define
+				text: @if(name,name,"Foot.")
+				text: "Foot."
+				placement-value: 0.6			
+		elsefor: sport=athletics
+			define
+				text: @if(name,name,"Athl.")
+				text: "Athl."
+				placement-value: 0.59	
+		elsefor: sport=karting
+			define
+				text: @if(name,name,"Kart.")
+				text: "Kart."
+				placement-value: 0.59
+		elsefor: sport=equestrian
+			define
+				text: @if(name,name,"Équit.")
+				text: "Équit."
+				placement-value: 0.5
+		elsefor: leisure=pitch AND NOT legende
+			stop
+		elsefor: leisure=stadium
+			define
+				text: @if(name,name,"Stade")
+				placement-value: 10.1
+		elsefor: leisure=sports_centre
+			define
+				text: @if(name,name,"Gymn.")
+				text: "Gymn."
+				placement-value: 9.9
+				font-size: 8
+		elsefor: leisure=track
+			for: sport=running
+				define
+					text: @if(name,name,"Athl.")
+					text: "Athl."
+					placement-value: 9.89
+			elsefor: sport=cycling
+				define
+					text: @if(name,name,"Cycl.")
+					text: "Cycl."
+					placement-value: 9.91
+			elsefor: @isOneOf(sport,horse_racing,equestrian)
+				define
+					text: @if(name,name,"Hippodrome")
+					placement-value: 10.11
+			else
+				stop
+		else
+			stop
+		draw: text
+
+	target: centrale electrique
+		define
+			fill-color: gray black 30%
+			fill-opacity: 0.3
+			line-width: 0.8
+			line-color: black
+			line-opacity: 0.8
+		draw: fill
+		
+	target: zone
+		for: landuse=orchard
+			define
+				fill-texture : R25/Textures/verger1_tr.png
+				line-width: 0.5
+				line-color: #22b14c
+				line-opacity: 0.2
+		elsefor: natural=scrub
+			define
+//				fill-color: #22b14c
+				line-style: none
+//				line-width: 0.2
+//				line-color: #22b14c
+//				line-opacity: 0.9
+				fill-texture : R25/Textures/taillis1_tr.png
+		elsefor: @isOneOf(natural,scree,bare_rock)
+			define
+				fill-texture : R25/Textures/eboullis1_tr.png	
+				line-style: none
+		elsefor: @isOneOf(landuse,brownfield,greenfield,construction)
+			define
+				fill-hatch: diagonalcross
+				fill-hatch-color: white
+				fill-color: gray black 50%
+				line-style: none
+				fill-hatch-opacity: 0.3
+				fill-opacity: 0.5
+		elsefor: @isOneOf(natural,mud,wetland)
+			define
+				fill-color: #1589FF
+//				fill-color: #52a5e9
+				fill-opacity: 0.7
+				fill-hatch: swne
+				fill-hatch-color: white
+				fill-hatch-opacity: 0
+				line-style: none
+		elsefor: natural=glacier
+			define
+				line-style: none
+				fill-texture: R25/Textures/glacier3_tr.png
+		elsefor: landuse=landfill
+			define
+				fill-hatch: diagonalcross
+				fill-color: white
+				fill-hatch-color: gray black 50%
+				line-style: none
+				fill-opacity: 0.3
+				fill-hatch-opacity: 0.5
+		elsefor: landuse=quarry
+			define
+				fill-texture: R25/Textures/carriere_tr2.png
+				line-style: solid
+				line-width: 0.8
+				line-color: #A52A2A
+				line-opacity: 0.8
+		else
+			define
+				fill-color: red
+				fill-opacity: 1
+//##			stop
+		draw: fill	
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			text-color: black
+			font-stretch: 0.9
+			font-size: 9
+			text-opacity: 1
+			text-halo-width: 0.8
+			text-halo-color: white
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: center
+		for: @isOneOf(landuse,brownfield,greenfield,construction)
+			define
+				text: @if(name,name,"Constr.")
+				font-stretch: 0.8
+				font-size: 8
+				font-style: normal
+				font-weight: normal
+				placement-value: 2
+		elsefor: natural=glacier
+			define
+				text: @if(name,name,"Glacier")
+				text-color: cyan white 10%
+				text-halo-width: 1.2
+				text-halo-opacity: 0.8
+				placement-value: 13
+		elsefor: landuse=landfill
+			define
+				text: @if(name,name,"Décharge")
+				placement-value:7.9
+		elsefor: landuse=quarry
+			define
+				text: @if(name,name,"Carr.")
+				placement-value:9.99
+		else
+			stop
+		draw: text
+		
+	target: terrain
+		for: landuse=forest OR natural=wood 
+			for: wood=deciduous OR leaf_type=broadleaved
+				define 
+					fill-texture : R25/Textures/feuillus_petit5_tr.png
+			elsefor: wood=coniferous OR leaf_type=needleleaved
+				define
+					fill-texture : R25/Textures/coniferes_petit9_tr.png
+			elsefor: wood=mixed OR leaf_type=mixed
+				define
+					fill-texture : R25/Textures/melange_petit11_tr.png
+			else 
+				define
+					fill-texture : R25/Textures/autre_tr.png
+			define
+				line-style: none
+		elsefor: @isOneOf(landuse,farm,farmland,allotments,greenhouse_horticulture,plant_nursery)
+			define
+				line-style: solid
+				line-width: 0.7
+				line-opacity: 0.1
+				line-color: brown yellow 60%
+				fill-color: brown yellow 60%
+				fill-hatch-color: white
+				fill-hatch: swne
+				fill-opacity: 0.075
+				fill-hatch-opacity: 0.1
+		elsefor: landuse=meadow
+			define
+				fill-color: yellow green 30%
+				fill-color: #bffd8f
+				fill-opacity: 0.15
+				line-style: none
+		elsefor: landuse=vineyard
+			define
+				line-color: #06e701
+				line-opacity: 0.4
+				line-width: 0.9
+				line-style: solid
+				fill-texture : R25/Textures/vigne3_tr.png
+		elsefor: @isOneOf(landuse,residential,retail,commercial,farmyard,garages,industrial)
+			define
+				fill-color: gray white 50%
+				fill-opacity: 0.05
+				line-style: none
+		elsefor: @isOneOf(landuse,grass,village_green,recreation_ground) OR leisure=garden OR (@isOneOf(leisure,golf_course,park) AND (NOT natural) AND ((NOT landuse) OR landuse=park))
+			define
+				fill-color: green
+				fill-color: #bffd8f
+				fill-opacity: 0.3
+				line-style: solid
+				line-width: 0.8
+				line-color: #bffd8f
+				line-opacity: 0.8
+		elsefor: landuse=railway
+			define
+				fill-color: gray
+				fill-opacity: 0.25
+				line-color: gray black 50%
+				line-opacity: 0.4
+				line-width: 0.5
+				line-style: solid
+		elsefor: @isOneOf(natural,fell,grassland)
+			define
+				fill-color: #bffd8f
+				fill-opacity: 0.12
+				line-style: none
+		elsefor: natural=heath
+			define
+//				fill-color: #ffec00
+				fill-color: #bffd8f
+				fill-opacity: 0.2
+				line-style: none
+			draw: fill
+			define
+				line-style: none
+//				fill-hatch: diagonalcross
+//				fill-hatch-color: #ffec00
+//				fill-hatch-opacity: 0.06
+				fill-texture: R25/Textures/landes_tr.png
+		elsefor: @isOneOf(natural,sand,beach)
+			define
+				fill-color: yellow
+				fill-color: #FFFC17 orange 20%
+				fill-opacity: 0.5
+				line-style:solid
+				line-width: 0.8
+				line-color: yellow brown 20%
+				line-opacity: 0.8
+		elsefor: landuse=salt_pond
+			define
+				fill-texture: R25/Textures/salin_tr.png
+				line-style: solid
+				line-width: 0.6
+				line-color: #52f3ff
+				line-opacity: 0.8
+		else
+			define
+				fill-color: red
+				fill-opacity: 1
+//##			stop
+		draw: fill
+		define
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-weight: bold
+			font-stretch: 0.9
+			font-size: 9
+			text-color: green cyan 25%
+			text-opacity: 0.9
+			text-halo-width: 0.2
+			text-halo-color: white
+			text-halo-opacity: 0.5
+			text-line-spacing: 0.8
+			text-align-horizontal: center
+			placement-value: 3
+		for: leisure=garden
+			define
+				text: @if(name,name,"Jardin")
+				text: @if(name,name)
+		elsefor: leisure=golf_course
+			define
+				text: @if(name,name,"Golf")
+		elsefor: leisure=park
+			define
+				text: @if(name,name,"Parc")
+				text: @if(name,name)
+			for: NOT name
+				define
+					font-size: 8
+		elsefor: landuse=forest OR natural=wood
+			define
+				text: @if(name,name)
+		elsefor: landuse=salt_pond
+			define
+				text: @if(name,name,"Marais salant")
+				text-color: #52f3ff blue 2%
+				text-halo-width: 1.4
+				text-halo-opacity: 0.8
+				placement-value: 13
+		else
+			stop
+		draw: text
+		
+
+		
+	target: niveau majeur
+		define
+			line-color: #931900
+			curved: true
+			line-opacity: 0.8
+			line-width: 0.6
+			font-family: DejaVu Sans Condensed
+			font-style: italic
+			font-size: 6
+			text: elevation
+			text-color: #931900
+			text-halo-width: 0.5
+			text-halo-opacity: 0.5
+			text-opacity: 0.7
+			placement-value: 0.5
+			painting-cycle: 510
+		draw : contour	
+		draw: text
+	target: niveau mineur
+		define
+			line-color: #931900
+			curved: true
+			line-opacity: 0.6
+			line-width: 0.4
+			painting-cycle: 510
+		draw : contour
+	target: niveau legende
+		define
+			curved: true
+			line-color: #931900
+			curved: true
+			line-opacity: 0.6
+			line-width: 0.4
+		for: legende=contour_majeur
+			define
+				line-opacity: 0.8
+				line-width: 1
+		draw : line
+		
+	target: limite administrative
+		define
+			line-width: 0.4
+			line-color: black
+			line-style: dashdot
+			line-opacity: 0.95
+		draw: line
+		for: admin_level=2
+			define
+				icon-image: R25/icons/Perso/plus_tr.png
+				icon-width: 3
+				shape-mode: linear
+				shape-orientation: flow
+				shape-spacing: 1
+			draw: icon
+	target: limite maritime
+		define
+			line-width: 0.4
+			line-color: blue black 10%
+			line-style: dashdot
+			line-opacity: 0.95
+		draw: line
+
+	
+	
+	target: legende
+		define 
+			font-family: DejaVu Sans Condensed
+			font-style: normal
+			font-weight: bold
+			text-color: black
+			font-stretch: 0.8
+			font-size: 8
+			text-opacity: 1
+			text-halo-width: 0.5
+			text-halo-color: white
+			text-halo-width: 1
+			text-halo-opacity: 0.4
+			text-align-horizontal: near
+			placement-value: 10000
+			text: @if([[legende:FR]],[[legende:FR]])
+			
+			text-offset-horizontal: 27.5
+			text-max-width: 18
+		for: NOT area=yes
+			define
+				text-offset-horizontal: 7
+		draw: text
+		
+		

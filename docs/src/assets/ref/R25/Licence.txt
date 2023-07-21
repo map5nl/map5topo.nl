@@ -1,0 +1,11 @@
+Licences:
+
+Stylesheet (R25.mrules) under a CC-by-sa licence (http://creativecommons.org/licenses/by-sa/2.0/fr) by JB (http://www.openstreetmap.org/user/JBacc1).
+Icons and textures under a CC0 licence (http://creativecommons.org/publicdomain/zero/1.0/). Plane icon, in public domain, point of view icon derived from public domain.
+Tutorials under a CC-by-sa licence (http://creativecommons.org/licenses/by-sa/4.0/fr).
+
+La feuille de style est sous licence CC-by-sa (http://creativecommons.org/licenses/by-sa/2.0/fr), c'est-à-dire que la carte produite peut être distribuée, modifiée, à condition de citer l'auteur (JB, http://www.openstreetmap.org/user/JBacc1) et de publier le document sous une licence similaire.
+Les icônes et textures sont sous licence CC0 (http://creativecommons.org/publicdomain/zero/1.0/). L'icône d'avion estdans le domaine public et l'icone de point de vue dérivée du domaine public.
+Les tutoriels sont sous licence CC-by-sa (http://creativecommons.org/licenses/by-sa/4.0/fr).
+
+Contact: JB, http://www.openstreetmap.org/user/JBacc1

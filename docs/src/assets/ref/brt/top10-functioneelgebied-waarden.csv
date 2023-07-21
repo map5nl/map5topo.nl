@@ -1,0 +1,179 @@
+"visualisatiecode","typefunctioneelgebied","soortnaam"
+19660,"attractiepark",NULL
+19010,"bedrijventerrein",NULL
+19020,"begraafplaats","gemeentelijke begraafplaats"
+19020,"begraafplaats","familiebegraafplaats"
+19020,"begraafplaats","oud-katholieke begraafplaats"
+19020,"begraafplaats","bijzondere begraafplaats"
+19020,"begraafplaats",NULL
+19020,"begraafplaats","dierenbegraafplaats"
+19020,"begraafplaats","islamitische begraafplaats"
+19020,"begraafplaats","joodse begraafplaats"
+19020,"begraafplaats","rooms-katholieke begraafplaats"
+19020,"begraafplaats","protestantse begraafplaats"
+19020,"begraafplaats","natuurbegraafplaats"
+19000,"botanische tuin","pinetum"
+19000,"botanische tuin","arboretum"
+19000,"botanische tuin","hortus"
+19040,"bungalowpark","vakantiepark, recreatiepark"
+19040,"bungalowpark","watersportcamping"
+19040,"bungalowpark","minicamping"
+19040,"bungalowpark","chaletpark"
+19040,"bungalowpark",NULL
+19050,"camping, kampeerterrein","motorcamping"
+19050,"camping, kampeerterrein","camperplaats"
+19050,"camping, kampeerterrein","seniorencamping"
+19050,"camping, kampeerterrein","watersportcamping"
+19050,"camping, kampeerterrein","natuurkampeerterrein"
+19050,"camping, kampeerterrein","paalkampeerterrein"
+19050,"camping, kampeerterrein",NULL
+19050,"camping, kampeerterrein","familiecamping"
+19050,"camping, kampeerterrein","stadscamping"
+19050,"camping, kampeerterrein","kanocamping"
+19050,"camping, kampeerterrein","minicamping"
+19050,"camping, kampeerterrein","vakantiepark, recreatiepark"
+19050,"camping, kampeerterrein","groepskampeerterrein"
+19050,"camping, kampeerterrein","naturistencamping"
+19050,"camping, kampeerterrein","boerderijcamping"
+19050,"camping, kampeerterrein","natuur- en landschapscamping"
+19670,"campus",NULL
+19060,"caravanpark",NULL
+19060,"caravanpark","familiecamping"
+19060,"caravanpark","vakantiepark, recreatiepark"
+19060,"caravanpark","chaletpark"
+19060,"caravanpark","watersportcamping"
+19060,"caravanpark","minicamping"
+19070,"circuit","skeelerbaan"
+19070,"circuit","autocircuit"
+19070,"circuit",NULL
+19070,"circuit","wielerbaan"
+19070,"circuit","motorcircuit"
+19080,"crossbaan",NULL
+19080,"crossbaan","fietscrossbaan"
+19080,"crossbaan","motorcircuit"
+19080,"crossbaan","autocrossbaan"
+19080,"crossbaan","motorcrossbaan"
+19090,"dierentuin, safaripark",NULL
+19100,"eendenkooi",NULL
+19110,"emplacement",NULL
+19120,"erebegraafplaats","rooms-katholieke begraafplaats"
+19120,"erebegraafplaats",NULL
+19130,"gaswinning","producerende gaswinlocatie"
+19130,"gaswinning","niet-producerende gaswinlocatie"
+19130,"gaswinning","productieplatform"
+19130,"gaswinning",NULL
+19130,"gaswinning","gastransportstation"
+19790,"gebied voor radioastronomie","LOFAR"
+19150,"gebouwencomplex",NULL
+19150,"gebouwencomplex","asielzoekerscentrum"
+19150,"gebouwencomplex","gevangenis"
+19150,"gebouwencomplex","zorginstelling"
+19160,"golfterrein","pitch en putt-terrein"
+19160,"golfterrein",NULL
+19170,"grafheuvel",NULL
+19180,"grindwinning",NULL
+19190,"groeve","zandgroeve"
+19190,"groeve","grindgroeve"
+19190,"groeve",NULL
+19190,"groeve","kalksteengroeve"
+19200,"haven",NULL
+19210,"heemtuin",NULL
+19220,"helikopterlandingsterrein",NULL
+19580,"ijsbaan","skeelerbaan"
+19580,"ijsbaan",NULL
+19230,"infiltratiegebied",NULL
+19240,"jachthaven",NULL
+19250,"kartingbaan",NULL
+19260,"kassengebied",NULL
+19260,"kazerne, legerplaats",NULL
+19270,"landgoed",NULL
+19280,"mijn",NULL
+19680,"milieustraat",NULL
+19300,"militair oefengebied, schietterrein","oefenterrein"
+19300,"militair oefengebied, schietterrein","schietterrein"
+19300,"militair oefengebied, schietterrein","schietbaan"
+19310,"mosselbank","natuurlijke oesterbank"
+19310,"mosselbank","natuurlijke mossel- en oesterbank"
+19310,"mosselbank","oesterperceel"
+19310,"mosselbank","natuurlijke mosselbank"
+19310,"mosselbank","mosselperceel"
+19310,"mosselbank","verwaterperceel"
+19750,"nationaal park",NULL
+19320,"natuurgebied",NULL
+19320,"natuurgebied","natuurreservaat"
+19320,"natuurgebied","natura2000-gebied"
+19330,"oliewinning","niet-producerende oliewinlocatie"
+19330,"oliewinning","producerende oliewinlocatie"
+19330,"oliewinning",NULL
+19340,"openluchtmuseum",NULL
+19350,"openluchttheater",NULL
+19710,"overig","dierenbegraafplaats"
+19710,"overig","doolhof"
+19710,"overig","fort"
+19710,"overig","grondstation"
+19710,"overig",NULL
+19360,"park",NULL
+19360,"park","hortus"
+19380,"plantsoen","arboretum"
+19380,"plantsoen",NULL
+19390,"productie-installatie",NULL
+19400,"recreatiegebied",NULL
+19410,"renbaan",NULL
+19420,"skibaan",NULL
+19420,"skibaan","kabelskibaan"
+19430,"slipschool",NULL
+19440,"sluizencomplex",NULL
+19440,"sluizencomplex","uitwateringssluis"
+19450,"sportterrein, sportcomplex",NULL
+19450,"sportterrein, sportcomplex","wielerbaan"
+19460,"stortplaats",NULL
+19480,"tennispark","rooms-katholieke begraafplaats"
+19480,"tennispark",NULL
+19650,"transformatorstation",NULL
+19490,"tuincentrum",NULL
+19760,"vakantiepark","natuur- en landschapscamping"
+19760,"vakantiepark","familiecamping"
+19760,"vakantiepark","seniorencamping"
+19760,"vakantiepark",NULL
+19760,"vakantiepark","schans"
+19760,"vakantiepark","groepskampeerterrein"
+19760,"vakantiepark","stadscamping"
+19760,"vakantiepark","vakantiepark, recreatiepark"
+19760,"vakantiepark","watersportcamping"
+19760,"vakantiepark","boerderijcamping"
+19760,"vakantiepark","chaletpark"
+19760,"vakantiepark","camperplaats"
+19760,"vakantiepark","naturistencamping"
+19760,"vakantiepark","kanocamping"
+19760,"vakantiepark","minicamping"
+19760,"vakantiepark","natuurkampeerterrein"
+19780,"verdedigingswerk",NULL
+19780,"verdedigingswerk","schans"
+19780,"verdedigingswerk","fort"
+19780,"verdedigingswerk","stelling"
+19500,"verzorgingsplaats",NULL
+19510,"viskwekerij",NULL
+19770,"visvijvercomplex",NULL
+19520,"vliegveld, luchthaven","luchthaven"
+19520,"vliegveld, luchthaven","vliegbasis"
+19520,"vliegveld, luchthaven","vliegveld"
+19520,"vliegveld, luchthaven",NULL
+19530,"volkstuinen",NULL
+19530,"volkstuinen","gemeentelijke begraafplaats"
+19690,"waterkering",NULL
+19690,"waterkering","binnendijk"
+19540,"werf",NULL
+19550,"wildwissel",NULL
+19560,"windturbinepark",NULL
+19570,"woonwagencentrum",NULL
+19590,"zandwinning",NULL
+19600,"zenderpark",NULL
+19700,"ziekenhuiscomplex","academisch ziekenhuis"
+19700,"ziekenhuiscomplex","algemeen ziekenhuis"
+19720,"zonnepark",NULL
+19610,"zoutwinning","producerende zoutwinlocatie"
+19610,"zoutwinning","niet-producerende zoutwinlocatie"
+19620,"zuiveringsinstallatie",NULL
+19630,"zweefvliegveldterrein",NULL
+19630,"zweefvliegveldterrein","binnendijk"
+19640,"zwembadcomplex",NULL
