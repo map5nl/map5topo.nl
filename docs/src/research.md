@@ -72,8 +72,8 @@ But still very useful to see edits, done in e.g. vi.
  
 Very simple example with just water Dutch generalized Shapefile for demo. 
  
-* project in [work/example1/project.yml.mml](work/example1/project.yml.mml).
-* style in [work/example1/style.mss](work/example1/style.mss).
+* project in work/example1/project.yml.mml.
+* style in work/example1/style.mss.
  
 ### Carto
 
@@ -93,7 +93,7 @@ Using a Dockerfile:
  
 ### Kosmtik
 
-Using an existing Docker Image and [Bash script](kosmtik.sh) 
+Using an existing Docker Image and Bash script `kosmtik.sh`. 
 by https://github.com/Joxit/docker-kosmtik.
  
 * script: https://github.com/Joxit/docker-kosmtik/blob/master/tools/kosmtik
