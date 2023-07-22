@@ -1,8 +1,17 @@
 [data-md-color-scheme="map5topo"] {
-    --md-primary-fg-color:        #3b6a95;
-    --md-primary-fg-color--light: #6c98c6;
-    --md-primary-fg-color--dark:  #004067;
+    --md-primary-fg-color:        #222;
+    --md-primary-fg-color--light: #333;
+    --md-primary-fg-color--dark:  #222;
 }
+
+.md-search__input {
+    background: #ddd
+}
+/*[data-md-color-scheme="map5topo"] {*/
+/*    --md-primary-fg-color:        #3b6a95;*/
+/*    --md-primary-fg-color--light: #6c98c6;*/
+/*    --md-primary-fg-color--dark:  #004067;*/
+/*}*/
 
 .termynal-comment {
     color: #4a968f;

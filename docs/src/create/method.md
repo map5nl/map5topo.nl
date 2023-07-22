@@ -1,8 +1,13 @@
-# Development
+---
+title: Development Methodology
+---
 
-Development takes place using the `map5topo` GitHub repo. For now this is a single 
+# Development Methodology
+
+Development takes place using the [map5topo GitHub repo](https://github.com/map5/map5topo). For now this is a single 
 repository that contains all that is needed to prepare the data, generate the map (tiles) and use
-various tools to inspect and apps to view (map viewers). 
+various tools to inspect and apps to view (map viewers). Website and documentation is in 
+the [map5topo.nl GitHub repo](https://github.com/map5/map5topo.nl) 
 
 There are three main servers in the development chain:
 
@@ -11,7 +16,9 @@ There are three main servers in the development chain:
 * map5.nl the PROD server
 
 The latter two are identical, only the final tiling (in GeoPackages) 
-is done on TEST and then copied to PROD.
+is done on TEST and then copied to PROD. But you can run everything locally!
+
+Below are guidelines how to develop using the map5topo GitHub repository.
 
 ## 0. Startup (once)
  
@@ -35,9 +42,10 @@ GitHub Issues and Milestones are used track progress and releases.
 
 Issues can be opened by anyone. They usually represent a new feature or a bug. 
 Through Labels, Issues can be tagged with a Priority and other characteristics like Bug, Enhancement, Documentation.
+See [map5topo issues](https://github.com/map5nl/map5topo/issues).
 
 When changing and commit/pushing code to the repo, you are strongly encouraged to add the Issue number 
-in the Commit message. That way we know that an issue is worked on and the changes related to the issue.
+in the Commit message. That way we know that an issue is worked on and that your changes are related to that issue number.
 The issue number is prefixed with a 'hash' symbol. For example:
 
 ```
@@ -50,6 +58,7 @@ git push
 For trivial changes or quickfixes there may not be an issue number, so not required.
 
 ### Working with Milestones
+
 A Milestone is basically a list of Issues with a name, state and description. 
 In the GitHub UI you can add or remove an Issue to/from a Milestone.
 A Milestone corresponds to a Release. Milestones, thus Releases, are named YYYY-MM, for example 2023-05. 
@@ -63,7 +72,7 @@ Milestone, thus Release.
 
 The "DEV" server is topo.map5.nl. This server always has the latest version of the GitHub repo `main` branch.
 Whenever something is changed in the repo, that code is refreshed (via a GitHub Workflow). Further Workflow actions depend on 
-the directory the change was made. 
+the directory in which the change was made. 
 
 Whenever something is committed/pushed, a GitHub Workflow is started (from within GitHub) that applies
 to the directory where a change was made. If multiple directories are changed, multiple Workflows are started.
@@ -94,12 +103,16 @@ Style/map inspection:
 
 Data inspection:
 
+* `pg_featureserv` is run to provide ALL PostGIS data schemas plus tables via OGC API Features endpoint
+* in QGIS we connect to that endpoint
 * QGIS: start the project from `tools/qgis/map5topo-inspector.qgz`
 * PostGIS: use PGAdminIV webapp to inpect PostGIS data: https://topo.map5.nl/pgadmin
 
 
 ## 5. Documentation
 
-You are encouraged to write comments and READMEs, but the main documentation is under `services/apps/www/doc`. Docs are in Markdown. 
-[Docsify](https://docsify.js.org/) is used for direct rendering .md files in the browser, so no build is required. We may later switch to something
-like `mkdocs` but this is convenient for now.
+You are encouraged to write comments and READMEs, but the main documentation is has its own repo: 
+the  [map5topo.nl GitHub repo](https://github.com/map5/map5topo.nl) using mkdocs to automatically rebuild the website map5topo.nl
+on commit/push.
+
+Docs are in Markdown. 

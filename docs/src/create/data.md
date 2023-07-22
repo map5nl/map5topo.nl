@@ -1,8 +1,12 @@
-# Prepare
+---
+title: Data Preparation
+---
 
-Describes how to prepare data and eventually tiles using the GitHub repo. 
+# Data
 
-## 0. Startup (once)
+Describes how to prepare data using the GitHub repo. This is also called "ETL".
+
+## 1. Startup (once)
  
 * `git clone https://github.com/map5nl/map5topo.git`
 * edit `git/env.sh` for your local hostname such that the main dirs are set by adding your host to `case` switch
@@ -18,7 +22,7 @@ To override `MAP_AREA`, e.g. to create full NL on local system
 e.g.: `export MAP_AREA=nl` or `export MAP_AREA=utrecht`
 in bash shell before calling any tools.
 
-## 1. Overall
+## 2. Overall
 
 Data steps:
 
@@ -54,7 +58,7 @@ Or run entire service stack, including MapProxy and apps: `cd services; ./start.
 
 Now download and load all data.
 
-```
+``` {.bash linenums="1"}
 cd tools
 
 # all steps in one:  
@@ -67,7 +71,8 @@ This should be guarded to not push these to GitHub!
 
 You can also run individual steps for download and load:
 
-```
+``` {.bash linenums="1"}
+
 # Download multiple datasets
 ./download.sh bgt brk brt osm dem nwb
 
@@ -105,7 +110,7 @@ To prepare entire NL you will need storage for about 600GB. If you only download
 ### Download Ready files
 Use this to download entire NL (hillshade and contours in 5m and 05m). No local preparation needed:
 
-```
+``` {.bash linenums="1"}
 cd tools/dem
 ./dem-download.sh output
 ```
@@ -118,7 +123,8 @@ Using `tools/dem-prepare.sh <muiden|utrecht|nl> 5m [05m]`.
 Full NL, all resolutions:
 
 
-```
+``` {.bash linenums="1"}
+
 cd tools
 ./dem-prepare.sh nl 5m 05m
 ```
@@ -140,7 +146,8 @@ or to GEOKEYS to use custom values from GeoTIFF keys and drop the EPSG code.
 
 For local, small area (muiden or utrecht)
 
-```
+``` {.bash linenums="1"}
+
 cd tools
 ./dem-prepare.sh muiden 5m 05m
 ```
@@ -148,7 +155,8 @@ cd tools
 ### Generate Hillshade
 
 
-```
+``` {.bash linenums="1"}
+
 cd tools
 ./dem-hillshade.sh 5m 05m
 ```
@@ -158,7 +166,8 @@ Start za 11 juni, 2022, 19:45. Ready  june 12, 04:08. About 8.5 hrs.
 
 ### Generate Contour Lines
 
-```
+``` {.bash linenums="1"}
+
 cd tools
 ./dem-contours.sh
 
@@ -198,42 +207,3 @@ gzip ${DUMP_FILE}
 Uploaded to: https://data.nlextract.nl/osm/nl/. 
 Will be imported into the `map5.water` table during `map5` ETL.
 
-## 5. Mapnik Test
-
-Directly render tiles with Mapnik Python script. Output (JPEG) will be
-under `tools/mapnik/output/`.
-
-
-```
-cd tools
-
-render multiple tiles at different zooms per category
-./mapnik-render-cat.sh  roads | resident | rural
-
-Render any single tile by zoom, x, y
-./mapnik-render-tile.sh  z x y
-
-```
-
-## 6. Tile Seeding
-
-Create tile caches (GeoPackages).
-
-
-```
-cd services/mapproxy/seed
-# Entire netherlands, NB takes extremely long!
-./seed-rd.sh
-
-# Muiden Area, takes about 30mins-1h depending on system
-./seed-muiden-rd.sh
-
-```
-
-## 7. Test the Services
-
-Several apps are available.
-
-* Run service stack: `cd services; ./start.sh`
-* Local: http://localhost:8000/mp (MapProxy) http://localhost:8000/app (apps) http://localhost:8000/pgadmin (pgadmin)
-* Production: https://topo.map5.nl/mp https://topo.map5.nl/app

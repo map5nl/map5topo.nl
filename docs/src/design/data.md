@@ -1,4 +1,8 @@
-# Data
+---
+title: Data Design
+---
+
+# Data Design
 
 Source Datasets and Data model.
 

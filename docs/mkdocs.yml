@@ -3,20 +3,21 @@ site_description: "map5topo is a topographic map of the Netherlands made with Op
 site_author: Just van den Broecke
 copyright: "&copy; 2023 Just Objects B.V."
 site_url: https://map5topo.nl
-repo_url: https://github.com/map5/map5topo
+repo_url: https://github.com/map5nl/map5topo.nl
+edit_uri: '/docs/src'
 docs_dir: src
 nav:
     - Home: index.md
-    - Introduction: introduction.md
-    - Specification: spec.md
-    - Development: develop.md
+    - Design:
+        - Specification: design/spec.md
+        - Data: design/data.md
     - Creation:
-        - Setup: setup.md
-        - Prepare: prepare.md
-    - Data: data.md
+        - Method: create/method.md
+        - Setup: create/setup.md
+        - Data: create/data.md
+        - Map: create/map.md
     - Research: research.md
     - Logbook: logbook.md
-    - TODO: todo.md
 
 use_directory_urls: true
 
@@ -27,9 +28,9 @@ theme:
         # Default is indigo (blue)
         scheme: map5topo
     features:
-        - navigation.indexes 
+        - navigation.sections
     favicon: assets/favicon.ico
-    logo: assets/images/map5-logo.png
+    logo: assets/images/map5-logo-bg-black.png
 
 plugins:
     - search

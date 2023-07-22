@@ -1,6 +1,12 @@
+---
+title: System Setup
+---
+
 # Setup
 
 Describes how the server VM has been setup from the [map5topo repo](https://github.com/map5nl/map5topo).
+This basically describes how you can setup your local system to start preparing data and creating maps.
+
 Below all steps are documented. 
 
 ## 1. Ubuntu Server
@@ -24,7 +30,7 @@ Prepare server steps:
 
 300GB for tile caches and Docker storage.
 
-```
+``` {.bash linenums="1"}
 sudo mkfs.ext4 /dev/disk/by-id/scsi-0HC_Volume_19990557
 mkdir /var/map5
 mount -o discard,defaults /dev/disk/by-id/scsi-0HC_Volume_19990557 /var/map5
@@ -37,7 +43,8 @@ Later we will configure Docker daemon to use this storage.
 600GB for AHN source and hillshade Tiffs. After preparation we'll store in long-term storage and remove this volume.
 Output result is around 90GB Hillshade files.
 
-```
+``` {.bash linenums="1"}
+
 
 sudo mkfs.ext4 /dev/disk/by-id/scsi-0HC_Volume_20257946
 sudo mkdir /var/data
@@ -88,7 +95,7 @@ For many files an example file is given.
 Called "Roles" these are third-party Ansible components that help with specific tasks.
 Install these as follows:
 
-```
+``` {.bash linenums="1"}
 cd git/ansible
 ansible-galaxy install --roles-path ./roles -r requirements.yml
 ```
@@ -98,7 +105,7 @@ The hostname is crucial to services functioning. Two steps:
 
 * set content of `git/ansible/hosts/prod.yml` (Inventory) to
 
-```
+``` {.yaml linenums="1"}
 map5topo:
   hosts:
     MAP5TOPO:
@@ -108,10 +115,11 @@ map5topo:
        ansible_python_interpreter: /usr/bin/python3
 ```
 
+
 * note: `MAP5TOPO` will also be the new hostname, and prompt name 
 * set content of `git/env.sh` (common environment Docker-based services) to:
 
-```
+``` {.bash linenums="1"}
 #!/bin/bash
 # Sets global env vars based on host-name
 # Needed for various host-dependent configs, especiallly Traefik SSL-certs.
@@ -148,13 +156,7 @@ export DATA_DIR="${VAR_DIR}/data"
 
 # Set host-dependent vars
 case "${HOSTNAME}" in
-    # Justs
-    "nusa")
-        DEPLOY_SERVER="local"
-        GIT_DIR="/Users/just/project/map5/map5topo.git"
-        MAP_AREA=${MAP_AREA:-muiden}
-        ;;
-    # Production server
+    # map5topo development server
     "MAP5TOPO")
         DEPLOY_SERVER="prod"
         GIT_DIR="/home/madmin/git"
@@ -162,6 +164,7 @@ case "${HOSTNAME}" in
         TRAEFIK_SSL_DOMAIN="topo.map5.nl"
         TRAEFIK_SSL_CERT_RESOLVER="le"
         ;;
+    # map5.nl official test server
     "MAP5TEST")
         DEPLOY_SERVER="prod"
         GIT_DIR="/home/madmin/map5topo.git"
@@ -169,15 +172,23 @@ case "${HOSTNAME}" in
         TRAEFIK_SSL_DOMAIN="test.map5.nl"
         TRAEFIK_SSL_CERT_RESOLVER="default"
         ;;
+    # Just's Mac
+    "nusa")
+        DEPLOY_SERVER="local"
+        GIT_DIR="/Users/just/project/map5/map5topo.git"
+        MAP_AREA=${MAP_AREA:-muiden}
+        ;;
+    # Niene - no 1
     "niene-ThinkPad-P53s")
         DEPLOY_SERVER="local"
         GIT_DIR="/home/niene/Documents/git_projecten/map5topo"
         ;;
+    # Niene - no 2
     "niene-desktop")
         DEPLOY_SERVER="local"
         GIT_DIR="/home/niene/Documents/git_projecten/map5topo"
         ;;
-# fill here the result of 'hostname' on your system, basically your GIT root dir
+# PLACE HERE THE RESULT 'hostname' on your system, basically your GIT root dir
 # for the map5topo GH repo.
 #    "myhost")
 #        DEPLOY_SERVER="local"
@@ -215,6 +226,8 @@ export BRT_TOP50_GZ_FILE_NAME="top50nl-${MAP_AREA}.sql.gz"
 export BRT_TOP100_GZ_FILE_NAME="top100nl-${MAP_AREA}.sql.gz"
 export GRID_RD_1KM_FILE_NAME="grid-rd-1km.sql"
 export NWB_GZ_FILE_NAME="nwb-wegen-${MAP_AREA}.sql.gz"
+export OSM_SEA_GZ_FILE_NAME="sea-polygons-28992-nl.sql.gz"
+export OSM_SEA_SIMP_GZ_FILE_NAME="sea-polygons-simplified-28992-nl.sql.gz"
 
 # Not used (yet)
 export BRT_TOP250_GZ_FILE_NAME="top250nl-${MAP_AREA}.sql.gz"
@@ -234,6 +247,7 @@ export BRT_DATA_DIR="${DATA_DIR}/brt"
 export DEM_DATA_DIR="${DATA_DIR}/dem/${MAP_AREA}"
 export GRID_DATA_DIR="${DATA_DIR}/grid"
 export NWB_DATA_DIR="${DATA_DIR}/nwb"
+export OSM_DATA_DIR="${DATA_DIR}/osm"
 
 echo "env.sh: DEPLOY_SERVER=${DEPLOY_SERVER} - MAP_AREA=${MAP_AREA} - MAP5_SITE_URL=${MAP5_SITE_URL}"
 export LOG_DIR="${VAR_DIR}/log"
@@ -256,7 +270,7 @@ and from your local Ansible setup. Plus a set of authorized_keys for the admin S
 Create new `git/ansible/vars/authorized_keys` with your public key and for others you want to give access to the admin SSH account,
 plus `gh-key.rsa.pub` .
 
-```
+``` {.bash linenums="1"}
 cat gh-key.rsa.pub > authorized_keys
 cat ~/.ssh/id_rsa.pub >> authorized_keys
 cat id.rsa.pub.of.joe >> authorized_keys   # etc
@@ -267,7 +281,7 @@ Set these for the `root` and `<admin user>` in their `.ssh/authorized_keys`.
  
 See `MAP5TOPO_GH`  GitHub Deploy key below.
 
-```
+``` {.bash linenums="1"}
 scp vars/gh-key.rsa root@topo.map5.nl:.ssh/id_rsa
 
 ```
@@ -290,7 +304,7 @@ The first part of `vars.yml` contains generic, less-secret, values.
 Use variables where possible. Format is Python-Jinja2 template-like:
 
 
-```
+``` {.yaml linenums="1"}
 my_ssh_pubkey_file: ~/.ssh/id_rsa.pub
 my_email: my@email.nl
 my_admin_user: the_admin_username
@@ -311,7 +325,7 @@ Note the GitHub repo is SSH-based for deploy-key!
 The second part deals with more secret values, like usernames and passwords for services.
 These will be copied into the VM's `/etc/environment` file.
 
-```
+``` {.yaml linenums="1"}
 etc_environment:
   PG_DB: the_db  # PostGIS service
   PG_USER: the_user  # PostGIS service
@@ -334,7 +348,7 @@ VERY IMPORTANT. UNENCRYPTED FILES SHOULD NEVER BE CHECKED IN!!!
 
 Using `ansible-vault` with password encrypt these:
 
-```
+``` {.bash linenums="1"}
 ansible-vault encrypt --vault-password-file ~/.ssh/ansible-vault/map5topo.txt vars/vars.yml
 ansible-vault encrypt --vault-password-file ~/.ssh/ansible-vault/map5topo.txt vars/gh-key.rsa
 ansible-vault encrypt --vault-password-file ~/.ssh/ansible-vault/map5topo.txt vars/gh-key.rsa.pub 
@@ -348,7 +362,7 @@ ansible-vault encrypt --vault-password-file ~/.ssh/ansible-vault/map5topo.txt va
 We do not want that workflows take effect immediately. 
 So disable them temporary by renaming the dir.
 
-```
+``` {.bash linenums="1"}
 cd git/.github/workflows
 git mv workflows workflows.not
 git add .
@@ -383,12 +397,12 @@ Check with portainer [https://topo.map5.nl/portainer/](https://topo.map5.nl/port
 
 See https://www.guguweb.com/2019/02/07/how-to-move-docker-data-directory-to-another-location-on-ubuntu/
 
-```
+``` {.bash linenums="1"}
 service docker stop
 mkdir -p /var/map5/docker
 
 # Add this file
-e /etc/docker/daemon.json
+vi /etc/docker/daemon.json
 # add this content
 {
   "data-root": "/var/map5/docker"
@@ -409,7 +423,7 @@ rm -rf /var/lib/docker.old
 
 ## 6a Disk Resizing
 
-```
+``` {.bash linenums="1"}
 cd git/services
 ./stop.sh
 
@@ -442,7 +456,7 @@ These are typical issues found and resolved:
 
 Enable by renaming:
 
-```
+``` {.bash linenums="1"}
 git mv workflows.not workflows 
 git add .
 git commit -m "enable workflows"
