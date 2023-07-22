@@ -7,7 +7,8 @@ title: map5topo.nl
 ![map5topo](assets/images/map5topo-oosterbeek.jpg){ align=left }
 
 [map5topo](https://map5topo.nl) is a new (2023) topographic digital map covering The Netherlands plus
-part of bordering countries. Source data comes from Open Datasets like the Dutch "Key Registries" ("Basisregistraties": BAG, BRT, BGT, BRK, AHN, ...) 
+parts of bordering countries. 
+Source data comes from Open Datasets like the Dutch "Key Registries" ("Basisregistraties": BAG, BRT, BGT, BRK, AHN, ...) 
 and from OpenStreetMap.
                
 map5topo is provided by [map5.nl](https:///map5.nl)
@@ -17,6 +18,13 @@ This website now covers mainly work-in-progress documentation. Eventually map5to
 At the moment we are cleaning up code and more, as to have a more accessible project. Be patient!
 
 Please see the left hand navigation for the table of contents.
+
+# Video
+
+Curious? Watch a video presentation:
+
+![type:video](https://www.youtube.com/embed/S_Sp7dRDbW0)
+
 
 # Support
 

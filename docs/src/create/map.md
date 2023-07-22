@@ -6,6 +6,8 @@ title: Map Preparation
 
 Describes how to use the prepared data to create maps. 
 
+![map5topo](../assets/images/map5topo-oosterbeek-2.jpg){ align=left }
+
 ## 1. Mapnik Test
 
 Directly render tiles with Mapnik Python script. Output (JPEG) will be
