@@ -21,9 +21,9 @@ Inspiration:
 * [OpenMapTiles Schema OMT](https://openmaptiles.org/schema/)
 * [PDOK Vector Tiles BGT BRT](https://github.com/PDOK/vectortiles-bgt-brt/tree/master/sql)
 
-Both approaches use a hierarchical feature classification: OMT uses `class`, `subclass`, others use
-"Level-Of-Detail": `lod1`, `lod2` etc. We like the latter conventions as it allows an endless 
-hierarchy and is short to type.
+Both approaches apply hierarchical feature classification: OMT uses `class`, `subclass`, others use
+"Level-Of-Detail": `lod1`, `lod2` etc. We like the latter convention as it allows an endless 
+hierarchy (and is short to type!).
 
 ## Challenges
 

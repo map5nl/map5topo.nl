@@ -16,8 +16,11 @@ nav:
         - Setup: create/setup.md
         - Data: create/data.md
         - Map: create/map.md
+    - Gallery:
+        - 2022: gallery/index.md
+        - 2022: gallery/2022.md
+        - 2023: gallery/2023.md
     - Research: research.md
-    - Logbook: logbook.md
 
 use_directory_urls: true
 
@@ -35,6 +38,19 @@ theme:
 plugins:
     - search
     - mkdocs-video
+    - glightbox:
+        touchNavigation: true
+        loop: false
+        effect: zoom
+        slide_effect: slide
+        width: 100%
+        height: auto
+        zoomable: true
+        draggable: true
+        skip_classes:
+          - skip-lightbox
+        auto_caption: false
+        caption_position: bottom
 
 markdown_extensions:
     - meta # option to add some meta tags on top, title, author, date, etc

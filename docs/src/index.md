@@ -4,7 +4,7 @@ title: map5topo.nl
 
 # Welcome to the map5topo website!
 
-![map5topo](assets/images/map5topo-oosterbeek.jpg){ align=left }
+![map5topo](assets/images/map5topo-oosterbeek.jpg){ data-title="Oosterbeek" align=left }
 
 [map5topo](https://map5topo.nl) is a new (2023) topographic digital map covering The Netherlands plus
 parts of bordering countries. The map5topo project started in April 2022 and is ongoing since.
@@ -26,6 +26,9 @@ Curious? Watch a video presentation of work-in-progress:
 
 ![type:video](https://www.youtube.com/embed/S_Sp7dRDbW0)
 
+# Gallery
+
+Watch work in progress screenshots in the [Gallery](gallery/index.md).
 
 # Support
 
