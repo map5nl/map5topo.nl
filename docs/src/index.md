@@ -26,7 +26,7 @@ Watch work in progress screenshots in the [Gallery](gallery/index.md).
 
 # Presentations
 
-map5topo has been presented on several occasions, upcoming is on Sept 13, 2023 at the [FOSS4G-NL](https://foss4g.nl)
+map5topo has been presented on several occasions, upcoming is on Sept 14, 2023 at the [FOSS4G-NL](https://foss4g.nl)
 
 * *"Introducing map5topo - a new Topographic Map of The Netherlands"* - Information Sessions - Oktober 5+6, 2022 - Online - Dutch - [PDF Slides](https://files.justobjects.nl/presentation/map5topo-2022/221005-info-session.pdf)
 * *"map5topo - a New Topographic Map of The Netherlands"* - [Geomob Barcelona - November 22, 2022](https://thegeomob.com/post/nov-22nd-2022-geomobbcn-details) - [PDF Slides](https://files.justobjects.nl/presentation/geomob-bcn-2022/map5topo.pdf) .
