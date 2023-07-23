@@ -21,7 +21,7 @@ Please see the left hand navigation for the table of contents.
 
 # Video
 
-Curious? Watch a video presentation:
+Curious? Watch a video presentation of work-in-progress:
 
 ![type:video](https://www.youtube.com/embed/S_Sp7dRDbW0)
 
