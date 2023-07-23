@@ -17,7 +17,7 @@ nav:
         - Data: create/data.md
         - Map: create/map.md
     - Gallery:
-        - 2022: gallery/index.md
+        - Overview: gallery/index.md
         - 2022: gallery/2022.md
         - 2023: gallery/2023.md
     - Research: research.md
