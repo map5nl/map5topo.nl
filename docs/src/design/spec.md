@@ -1,26 +1,28 @@
-# Spec
+# Specification
 
-Goal: develop a Dutch national classic topographic map (or maps) for hosting by map5.nl
+Goal: develop a Dutch national classic topographic map (or maps). Below overall specifications and 
+constraints.
 
 ## Criteria
 
 * at first raster (tiles)-only
 * possibly Vector (Tiles) later
 * both RD and Web Mercator projections and tiling schemes (EPSG:28992 and EPSG:3857)
-* use Basisregistraties as much as possible  (see datasets below)
-* may use OSM or other datasets where they provide more detail, but try **not** to use Corine and Natural Earth
-* Hillshading (AHN 5m and 0.5m) 
-* make classical design, but still fresh
+* use Dutch Open Data like Key Registries ("Basisregistraties") as much as possible  (see datasets below)
+* may use OSM or other datasets where they provide more detail
+* try **not** to use Corine and Natural Earth
+* Hillshading from Dutch DEM Open Data: "AHN" in 5m and 50cm resolutions
+* attempt classical design, but keep fresh
 * services: tiling and WMS (may use MapProxy)
-* license and openness: start closed, then make open source
-* NL en aangrenzend Duitsland/Belgie/Nrd-Frankrijk
-* bewaak auteursrecht. **bijv geen OpenTopo of Cartiqo ontwerpen overnemen**!
+* license and openness: start proprietary, then make open source when all in place: clean code, documentation.
+* NL neighbouring countries/vicinity: Germany/Belgium/Northern France
+* guard copyrights of existing maps!
 
 ## Datasets
 
-Voor aangrenzend buitenland: alles uit OSM.
+This is a snapshot in time. Anything abroad: all from OpenStreetMap.
 
-## In gebruik (NL)
+## Now In use (Dutch Datasets/layers)
 
 * TOP10NL  terrein, water,  hoogtepunten
 * TOP50NL  terrein, water
@@ -33,7 +35,11 @@ Voor aangrenzend buitenland: alles uit OSM.
 * RWS Nationaal Wegenbestand: hectometer en kilometer-bordjes
 * Gridlijnen (kadaster)
 
-## Ter overweging
+## Now In use (abroad)
+
+Anything abroad: all data from OpenStreetMap.
+
+## To consider for later
 
 * TOPNamen: naamlabels voor woonplaatsen, wateren, natuur, dijken, diversen
 * TOP10NL  spoorwegen, inrichtings- elementen, niet-BAG panden, hoogbouw, hoogtelijnen, dieptelijnen, grenzen (ook bebouwde kommen).
@@ -59,10 +65,11 @@ Voor aangrenzend buitenland: alles uit OSM.
 - GeoFabriek OSM Buitenland/Water Polygons EPSG:3857 LL: 296778 6514442  UR: 853487 7143686
 
 - NL Tiling Extent is: '-285401.920, 22598.080, 595401.920, 903401.920' wel heel ruim.
+ 
+This is the extent to be provided in EPSG:28992: LL: -20000 275000  UR: 300000 650000.
 
-We houden LL: -20000 275000  UR: 300000 650000 extent aan in Mapnik en denk Osmosis extent om Buitenland te mergen en Water Polygons. 
+## References
 
-## Refs
 * https://www.freemap.sk/?map=15/48.552055/19.321260&layers=X  https://github.com/FreemapSlovakia/freemap-mapnik/ nice hillshading!
 * https://github.com/Amsterdam/tiles/ nice stack: DB T-rex, Tileserver-gl, mapproxy
 * https://github.com/der-stefan/OpenTopoMap

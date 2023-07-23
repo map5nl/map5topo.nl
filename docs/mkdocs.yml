@@ -10,7 +10,9 @@ nav:
     - Home: index.md
     - Design:
         - Specification: design/spec.md
+        - Architecture: design/architecture.md
         - Data: design/data.md
+        - Deployment: design/gitops.md
     - Creation:
         - Method: create/method.md
         - Setup: create/setup.md
