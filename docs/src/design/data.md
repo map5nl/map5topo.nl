@@ -98,12 +98,16 @@ CREATE TABLE map5.landcover (
 
 ```
 
-Here `lod` through `lod3` provide an *hierarchical* classification of the
+Here `lod1` through `lod3` provide an *hierarchical* classification of the
 feature. This is defined within the project. Each source dataset-specific 
 classification is mapped. Usually `lod1` and `lod2` is sufficient. 
 
 For example: `lod1`: `trees`, `lod2: broadleaved|pine|mixed`. `lod3` is usually
 the source-specific value like `naaldbos`, mainly for debugging.
+
+The image below summarizes this table design. (Click image to enlarge).
+
+![map5 schema design](../assets/images/design/map5-schema-tables.png){ data-title="Map5 Schema design and sample tables" align=left }
 
 ## Zoom-specific Selection
 
@@ -174,32 +178,43 @@ OSM data is downloaded from geofabrik.de, and comprises:
 sea, with exception of Oosterschelde. These are directly converted, using GDAL `ogr2ogr`, to PostgreSQL `PGDump`
 files for quick reuse.
 
-## Data assignment
+## Example Landcover
 
-Per map5 object type (table) and zoomlevel the following source datasets
-are used. With some exceptions a single zoom-range contains data
-from a single dataset.
+The image below shows an example for the table `map5.landcover` ("Landcover" and "Landuse" are separated).  
+
+![map5 schema example](../assets/images/design/map5-schema-example.png){ data-title="Map5 Schema example for Landcover" align=left }  
+
+The figure shows the table structure and the hierarchical classification: `lod1`  and `lod2` and their values. 
+This table is filled from various source tables like BGT and BRT (all "terrain"-related) but also OSM.
+
+Also an excerpt from the `map5.landcover.sql` ETL is shown, for mapping records from BRT Top50NL. 
+This mapping is an ongoing process, as the lod-hierarchy needs to be established and mapped
+from very different source datasets. Even Dutch Topographic datasets like BRT (smallscale) and BGT (largescale) have
+very different feature classification schemes. Also none of the source datasets seems to get the difference
+between "Landcover" and "Landuse" right. For example, "orchard" or "graveyard": are these Landcover or Landuse?
+This is also an ongoing discussion in the OSM Community, as 
+[this recent Landcover proposal](https://wiki.openstreetmap.org/wiki/Proposal:Landcover_proposal_V2) shows.
+
+## Metadata
+
+Each record within tables in the `map5` database schema contains its source schema/table and visibility zoom-range.
+This allows for generating metadata such that this information can be made available per zoomlevel, but also other
+statistical information like the number of records (at that zoom-level) from a particular source table.
+
+This is exactly what the `map5.metadata` table beholds. As part of the ETL (SQL) that fills `map5.` tables from thir source
+schemas/tables, a utility SQL function will also insert (replace) records in `map5.metadata`. The image below shows the 
+generic setup.  
+
+![map5 metadata design](../assets/images/design/metadata-table.png){ data-title="Map5 Schema metadata table" align=left }  
 
 
-|ZRD|ZWM   |area_label|landcover         |
-|:---|:--- | :--------| :------------    |
-|0   |5    |TOP10NL - OSM|OSM            |
-|1   |6    |TOP10NL - OSM|OSM            |
-|2   |7    |TOP10NL - OSM|OSM            |
-|3   |8    |TOP10NL - OSM|OSM            |
-|4   |9    |TOP10NL - OSM|OSM            |
-|5   |10   |TOP10NL - OSM|OSM            |
-|6   |11   |TOP10NL - OSM|TOP50NL - OSM (a)|
-|7   |12   |TOP10NL - OSM|TOP50NL - OSM (a)|
-|8   |13   |TOP10NL - OSM|TOP50NL - OSM (a)|
-|9   |14   |TOP10NL - OSM|TOP50NL - OSM (a)|
-|10  |15   |TOP10NL - OSM|TOP10NL - OSM (a)|
-|11  |16   |TOP10NL - OSM|TOP10NL - OSM (a)|
-|12  |17   |TOP10NL - OSM|TOP10NL - OSM (a)|
-|13  |18   |TOP10NL - OSM|BGT - OSM (a)  |
+<br/>Below an example query: "Show me all information for zoomlevel RD 12 that is not abroad".  
 
-* `(a)` means abroad-only
-* ZRD = Zoom in RD Grid
-* ZWM = Zoom in WebMercator
 
-TO BE SUPPLIED FURTHER!!
+![map5 metadata query](../assets/images/design/metadata-query.png){ data-title="Map5 Schema metadata query" align=left }  
+                                                                                                                          
+Below is the SQL function called at the end of each `map5.` table generation, that extracts the relevant metadata
+records from that table.   
+
+
+![map5 schema query](../assets/images/design/metadata-create.png){ data-title="Map5 Schema metadata create records" align=left }  
