@@ -1,10 +1,14 @@
 # Research
 
-Research required to come to optimal toolchain, data and map design.
+Initial and ongoing research. 
+Initially to come to an optimal toolchain, data and map design.
+
+One of the main questions is: in these modern times, the best starting point would be
+Vector Tiles, but...
  
 ## Vector Tiles
 
-* see https://github.com/mapbox/awesome-vector-tiles, interesting: https://github.com/mkeller3/FastVector, https://github.com/developmentseed/timvt
+* See https://github.com/mapbox/awesome-vector-tiles, interesting: https://github.com/mkeller3/FastVector, https://github.com/developmentseed/timvt
 
 ## Service Toolchain
 
@@ -185,12 +189,14 @@ Below some results from tiles in JPEG and PGN24.
 Zoom 11:
 ### PNG
 ![](assets/images/png-vs-jpeg/z11-1069.png)
+
 ### JPEG
 ![](assets/images/png-vs-jpeg/z11-1069.jpeg)
 
 Zoom 13:
 ### PNG
 ![](assets/images/png-vs-jpeg/z13-4258.png)
+
 ### JPEG
 ![](assets/images/png-vs-jpeg/z13-4258.jpeg)
  
@@ -345,9 +351,9 @@ schould be the range for WebMerc Zoom 10 and RD 5.
 
 ## Refs
 
-[1] https://observablehq.com/@geodan/how-to-make-a-vectortile-basemap
-[2] https://www.pdok.nl/-/vector-tiles-brt-en-bgt-via-pdok
-[3] https://github.com/der-stefan/OpenTopoMap
-[4] https://github.com/nst-guide/osm-liberty-topo
-[5] https://github.com/mkeller3/FastVector
-[6] https://github.com/developmentseed/timvt 
+* [1] https://observablehq.com/@geodan/how-to-make-a-vectortile-basemap
+* [2] https://www.pdok.nl/-/vector-tiles-brt-en-bgt-via-pdok
+* [3] https://github.com/der-stefan/OpenTopoMap
+* [4] https://github.com/nst-guide/osm-liberty-topo
+* [5] https://github.com/mkeller3/FastVector
+* [6] https://github.com/developmentseed/timvt 
