@@ -24,6 +24,12 @@ Please see the left hand navigation for the table of contents.
 
 Watch work in progress screenshots in the [Gallery](gallery/index.md).
 
+# Newsletter
+
+In Dutch, sorry.
+Stay uptodate through the [Newsletter](https://us10.campaign-archive.com/home/?u=dc76804d91aeb81849bd5071c&id=53b2ade233).
+For map5topo developments, start with [Newsletter nr 5](https://us10.campaign-archive.com/?u=dc76804d91aeb81849bd5071c&id=60a3514e90).
+
 # Presentations
 
 map5topo has been presented on several occasions, upcoming is on Sept 14, 2023 at the [FOSS4G-NL](https://foss4g.nl)
