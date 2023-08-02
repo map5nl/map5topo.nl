@@ -59,10 +59,9 @@ fit in any set.
 * **landcover**  - mostly ground level earth covering ("aardbedekking")
 * **landuse**  - functional use of land, like military areas, graveyards, parks
 * **parcel** - cadastral parcels
-* **pitch** - sport pitches
+* **pitch** - mainly sports pitches  - special case of landuse, special handling with overlay SVG
 * **place** - names of cities, towns up to hamlets
 * **poi** - Points of Interest
-* **sports_pitch** - special case of landuse, special handling with overlay SVG
 * **structure**  - anything human-built from buildings/houses up to civil tech structures
 * **structure_line**    - barriers, fences, powerlines
 * **transport**         - transport infrastructure: roads, railways, etc
@@ -75,7 +74,7 @@ fit in any set.
 Discussion:
 
 * `aeroway` like aerodromes (polygon) is always a separate feature set, why? Could be in `transport_area`.
-* to add to this: aeroway lines are part of `tranport_line`
+* to add to this: aeroway lines are part of `transport_line`
 * think labels can be bundled
 
 ## Table Setup
