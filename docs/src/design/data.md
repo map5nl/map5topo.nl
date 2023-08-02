@@ -34,6 +34,49 @@ An additional challenge is that part of the map include neighbouring countries, 
 and maybe later local datasets, is/are available. The aim is to work with completely integrated
 data tables/layers, not seperate layers/styles for neighbouring countries.
 
+## Feature Sets
+
+This is the list of feature sets. Criteria/guidelines:
+
+* Each feature set will be a table. 
+* Some tables may expand to multiple Layers. 
+* Each feature set/table will always have a single geometry type. 
+* Some, like housenumber, which are in effect labels, are separate feature sets because of the sheer set's size. 
+* For some names the geometry type is implicit, like 'poi'. 
+* No plural naming like `borders`, `parcels`
+* Multiple geometry simplifications/generalizations of the same feature may appear in single table
+* Hillshade is not table-based, but GeoTIFF raster
+
+The list below is not fixed, subject to change based on new insights, or data items that do not
+fit in any set.
+
+* aeroway   - aerodromes, aprons, helipads polygons (aeroway lines part of transport_line)
+* area_label - any polygon that has a name (except house numbers, transport, water)
+* border  - administrative borders
+* contour_line - height lines (derived from DEM)
+* grid  - gris lines in map
+* housenumber  - clear, also house names
+* landcover  - mostly ground level earth covering ("aardbedekking")
+* landuse  - functional use of land, like military areas, graveyards, parks
+* parcel - cadastral parcels
+* pitch - sport pitches
+* place - names of cities, towns up to hamlets
+* poi - Points of Interest
+* sport_pitch - special case of landuse, special handling with overlay SVG
+* structure  - anything human-built from buildings/houses up to civil tech structures
+* structure_line    - barriers, fences, powerlines
+* transport         - transport infrastructure: roads, railways, etc
+* transport_area    - transport infrastructure: polygons
+* transport_label   - road names and symbols
+* water - water polygons
+* water_label  - water names
+* waterway - water lines
+
+Discussion:
+
+* `aeroway` like aerodromes (polygon) is always a separate feature set, why? Could be in `transport_area`.
+* to add to this: aeroway lines are part of `tranport_line`
+
 ## Table Setup
 
 The table-SQL for the ETL 
@@ -124,9 +167,9 @@ data for a single feature type, usually a layer, is not spread over multiple tab
 For example a VIEW for low-zoom Terrain:
 
 ```
-CREATE VIEW map5.terrain_z0_z3 AS SELECT
+CREATE VIEW map5.landcover_z0_z3 AS SELECT
    lc.*
-FROM map5.terrain lc WHERE lc.rdz_min >= 0 AND lc.rdz_max <= 3;
+FROM map5.landcover lc WHERE lc.rdz_min >= 0 AND lc.rdz_max <= 3;
 
 ```
 
