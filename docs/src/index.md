@@ -20,6 +20,10 @@ At the moment we are cleaning up code and more, as to have a more accessible pro
 
 Please see the left hand navigation for the table of contents.
 
+# Demo
+
+View [map5topo in full](https://app.map5.nl/map5topo/full/) interactively.
+
 # Gallery
 
 Watch work in progress screenshots in the [Gallery](gallery/index.md).
