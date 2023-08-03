@@ -50,26 +50,26 @@ This is the list of feature sets. Criteria/guidelines:
 The list below is not fixed, subject to change based on new insights, or data items that do not
 fit in any set.
 
-* **aeroway**   - aerodromes, aprons, helipads polygons (aeroway lines part of transport_line)
-* **area_label** - any polygon that has a name (except house numbers, transport, water)
-* **border**  - administrative borders
-* **contour_line** - height lines (derived from DEM)
-* **grid**  - grid lines in map
-* **housenumber**  - clear, also house names
-* **landcover**  - mostly ground level earth covering ("aardbedekking")
-* **landuse**  - functional use of land, like military areas, graveyards, parks
-* **parcel** - cadastral parcels
-* **pitch** - mainly sports pitches  - special case of landuse, special handling with overlay SVG
-* **place** - names of cities, towns up to hamlets
-* **poi** - Points of Interest
-* **structure**  - anything human-built from buildings/houses up to civil tech structures
-* **structure_line**    - barriers, fences, powerlines
-* **transport**         - transport infrastructure: roads, railways, etc
-* **transport_area**    - transport infrastructure: polygons
-* **transport_label**   - road names and symbols
-* **water** - water polygons
-* **water_label**  - water names
-* **waterway** - water lines
+* **aeroway**   - polygon - aerodromes, aprons, helipads  (aeroway lines part of transport_line)
+* **area_label** - polygon - any  that has a name (except house numbers, transport, water)
+* **border**  - multipolygon - administrative borders
+* **contour_line** - line - height lines (derived from DEM)
+* **grid**  - line - grid lines in map
+* **housenumber**  - point - clear, also house names
+* **landcover**  - polygon - mostly ground level earth covering ("aardbedekking")
+* **landuse**  - polygon - functional use of land, like military areas, graveyards, parks
+* **parcel** - line - borders of cadastral parcels
+* **pitch** - polygon - mainly sports pitches  - special case of landuse, special handling with overlay SVG
+* **place** - point - names of cities, towns up to hamlets
+* **poi** - point - Points of Interest
+* **structure**  - polygon - anything human-built from buildings/houses up to civil tech structures
+* **structure_line**    - line -  barriers, fences, powerlines
+* **transport**         - line - transportation infrastructure: roads, railways, etc
+* **transport_area**    - polygon - transportation infrastructure areas
+* **transport_label**   - point - road names and symbols
+* **water** - multipolygon - water polygons
+* **water_label**  - line ? - water names
+* **waterway** - line - water lines
 
 Discussion:
 
