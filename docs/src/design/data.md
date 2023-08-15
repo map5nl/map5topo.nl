@@ -16,19 +16,24 @@ Tables in this schema are filled with data from other schemas/tables that
 contain the various (vector) sources like OpenStreetMap, BRT, BRK, BGT, BAG etc.
 SQL scripts are used for this transformation.
 
-Inspiration:
+Some similar work, common data schemas from various source datasets:
 
 * [OpenMapTiles Schema OMT](https://openmaptiles.org/schema/)
-* [PDOK Vector Tiles BGT BRT](https://github.com/PDOK/vectortiles-bgt-brt/tree/master/sql)
+* [PDOK Vector Tiles BGT BRT - Pilot](https://github.com/PDOK/vectortiles-bgt-brt/tree/master/sql)
+* [Basemap DE Data Model](https://basemap.de/dienste/opendata/basisviews_bdlm_datenmodell.html)
+* [OVerture Maps Data Schema](https://docs.overturemaps.org/)
 
-Both approaches apply hierarchical feature classification: OMT uses `class`, `subclass`, others use
+Most approaches apply hierarchical feature classification: OMT uses `class`, `subclass`, PDOK Vector Tiles Pilot uses
 "Level-Of-Detail": `lod1`, `lod2` etc. We like the latter convention as it allows an endless 
 hierarchy (and is short to type!).
 
 ## Challenges
 
-Although reclassification has been exercised in many mapping projects like the two mentioned above,
-the extra challenge here is that completely disjunct datasets are used: Dutch Key Registries (BAG, BGT, BRT etc) and OpenStreetMap.
+Although reclassification has been exercised in many mapping projects like the ones mentioned above,
+the extra challenge here is that completely disjunct datasets are used: Dutch Key Registries 
+(BAG, BGT, BRT etc) and OpenStreetMap. Even among Dutch Key registries very different feature classification
+schemes are in place. For example 'Terrain' (Dutch: 'Terrein') among Top10NL and BGT and even Top50NL.
+
 
 An additional challenge is that part of the map include neighbouring countries, for which only OSM
 and maybe later local datasets, is/are available. The aim is to work with completely integrated
@@ -51,7 +56,7 @@ The list below is not fixed, subject to change based on new insights, or data it
 fit in any set.
 
 * **aeroway**   - polygon - aerodromes, aprons, helipads  (aeroway lines part of transport_line)
-* **area_label** - polygon - any  that has a name (except house numbers, transport, water)
+* **area_label** - point - any  that has a name (except house numbers, transport, water)
 * **border**  - multipolygon - administrative borders
 * **contour_line** - line - height lines (derived from DEM)
 * **grid**  - line - grid lines in map
@@ -68,8 +73,8 @@ fit in any set.
 * **transport_area**    - polygon - transportation infrastructure areas
 * **transport_label**   - point - road names and symbols
 * **water** - multipolygon - water polygons
-* **water_label**  - line ? - water names
-* **waterway** - line - water lines
+* **water_label**  - line - water names formed/curved by shapes of waterbodies.
+* **waterway** - line - water lines and names
 
 Discussion:
 
