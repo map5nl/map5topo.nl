@@ -102,12 +102,15 @@ To force full NL preparation locally, set `export MAP_AREA="nl"`.
 ## 3. DEM
  
 NB: this step is only required if you ever need to prepare DEM. Normally you download
-the already prepared files for Hillshade and Contours via `./download.sh dem` (see above).
+the already prepared files for Hillshade and Contours via `tools/download.sh dem` (see above).
                                                           
 To prepare entire NL you will need storage for about 600GB. If you only download the already prepared
-(dem/output) files, about 60GB is needed.
- 
+(dem/output) files, about 100GB is needed. All DEM processing is initiated from the `tools/dem` dir.
+
+The processing is MAP_AREA-aware, so you can test for small areas.
+
 ### Download Ready files
+
 Use this to download entire NL (hillshade and contours in 5m and 05m). No local preparation needed:
 
 ``` {.bash linenums="1"}
@@ -130,10 +133,11 @@ cd tools
 ```
 
 Takes about 40h. About 1370 DTM tiff files per resolution.
-But we'll have clean TIFF input files. Only needed once. Hillshade and Contour are separate
+But cleaned and lossless compressed TIFF input files are produced. 
+Only needed once. Hillshade and Contour generation are separate
 steps using the result of this step.
 
-Melding, sommige bestanden. Hopelijk alleen met afronding te maken.
+Some warnings, possibly rounding issues (?).
 
 ```
 Warning 1: The definition of geographic CRS EPSG:4289 got from 
@@ -148,7 +152,7 @@ For local, small area (muiden or utrecht)
 
 ``` {.bash linenums="1"}
 
-cd tools
+cd tools/dem
 ./dem-prepare.sh muiden 5m 05m
 ```
 
@@ -157,12 +161,20 @@ cd tools
 
 ``` {.bash linenums="1"}
 
-cd tools
+cd tools/dem
 ./dem-hillshade.sh 5m 05m
 ```
 
 Generates one GeoTIFF with b&w hillshade per resolution.
 Start za 11 juni, 2022, 19:45. Ready  june 12, 04:08. About 8.5 hrs. 
+
+Tip: You may run any command using the GDAL Docker Image. You need to be in the `docker` subdir.
+
+``` {.bash linenums="1"}
+
+cd tools/dem/docker
+`./run-docker.sh "gdalinfo /data/output/5m/hillshade-5m.tif"`
+```
 
 ### Generate Contour Lines
 
@@ -206,4 +218,3 @@ gzip ${DUMP_FILE}
 
 Uploaded to: https://data.nlextract.nl/osm/nl/. 
 Will be imported into the `map5.water` table during `map5` ETL.
-

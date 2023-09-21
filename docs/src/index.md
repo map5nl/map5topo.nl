@@ -38,8 +38,9 @@ For map5topo developments, start with [Newsletter nr 5](https://us10.campaign-ar
 
 map5topo has been presented on several occasions, upcoming is on Sept 14, 2023 at the [FOSS4G-NL](https://foss4g.nl)
 
-* *"Introducing map5topo - a new Topographic Map of The Netherlands"* - Information Sessions - Oktober 5+6, 2022 - Online - Dutch - [PDF Slides](https://files.justobjects.nl/presentation/map5topo-2022/221005-info-session.pdf)
-* *"map5topo - a New Topographic Map of The Netherlands"* - [Geomob Barcelona - November 22, 2022](https://thegeomob.com/post/nov-22nd-2022-geomobbcn-details) - [PDF Slides](https://files.justobjects.nl/presentation/geomob-bcn-2022/map5topo.pdf) .
+* *"map5topo - een nieuwe, frisse topokaart van Nederland"* - [OSGeo.nl FOSS4GNL Middelburg - September 14, 2023](https://foss4g.nl) - [\[PDF Slides\]](https://files.justobjects.nl/presentation/foss4gnl-2023/map5topo-foss4gnl-2023.pdf)
+* *"Introducing map5topo - a new Topographic Map of The Netherlands"* - Information Sessions - Oktober 5+6, 2022 - Online - Dutch - [\[PDF Slides\]](https://files.justobjects.nl/presentation/map5topo-2022/221005-info-session.pdf)
+* *"map5topo - a New Topographic Map of The Netherlands"* - [Geomob Barcelona - November 22, 2022](https://thegeomob.com/post/nov-22nd-2022-geomobbcn-details) - [\[PDF Slides\]](https://files.justobjects.nl/presentation/geomob-bcn-2022/map5topo.pdf) .
 
 # Video
 
