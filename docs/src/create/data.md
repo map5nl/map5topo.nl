@@ -33,6 +33,7 @@ Data steps:
 * NWB (Hectoborden and Kilometerpoints) download/import
 * OSM Data ETL: download PBF and convert to PostGIS
 * DEM: generate contour-lines and put in PostGIS as lines
+* Grid: download, import SQL of 1km RD-gridlines, "kilometerhokken" 
 * tiles: seed
 * test: generate Mapnik tiles and web services
 
@@ -74,7 +75,7 @@ You can also run individual steps for download and load:
 ``` {.bash linenums="1"}
 
 # Download multiple datasets
-./download.sh bgt brk brt osm dem nwb
+./download.sh bgt brk brt osm dem nwb grid
 
 # or single dataset
 ./download.sh brk
@@ -86,6 +87,7 @@ You can also run individual steps for download and load:
 ./etl-load.sh nwb
 ./etl-load.sh osm
 ./etl-load.sh dem-contours
+./etl-load.sh grid
 ./etl-load.sh map5 
 
 # or only OSM

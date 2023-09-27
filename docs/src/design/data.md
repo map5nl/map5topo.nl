@@ -59,7 +59,7 @@ fit in any set.
 * **area_label** - point - any  that has a name (except house numbers, transport, water)
 * **border**  - multipolygon - administrative borders
 * **contour_line** - line - height lines (derived from DEM)
-* **grid**  - line - grid lines in map
+* **grid**  - line - grid lines in map (standard Kadaster RD km lines)
 * **housenumber**  - point - clear, also house names
 * **landcover**  - polygon - mostly ground level earth covering ("aardbedekking")
 * **landuse**  - polygon - functional use of land, like military areas, graveyards, parks
