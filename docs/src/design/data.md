@@ -55,7 +55,6 @@ This is the list of feature sets. Criteria/guidelines:
 The list below is not fixed, subject to change based on new insights, or data items that do not
 fit in any set.
 
-* **aeroway**   - polygon - aerodromes, aprons, helipads  (aeroway lines part of transport_line)
 * **area_label** - point - any  that has a name (except house numbers, transport, water)
 * **border**  - multipolygon - administrative borders
 * **contour_line** - line - height lines (derived from DEM)
@@ -69,8 +68,8 @@ fit in any set.
 * **poi** - point - Points of Interest
 * **structure**  - polygon - anything human-built from buildings/houses up to civil tech structures
 * **structure_line**    - line -  barriers, fences, powerlines
-* **transport**         - line - transportation infrastructure: roads, railways, etc
-* **transport_area**    - polygon - transportation infrastructure areas
+* **transport**         - line - transportation infrastructure: roads, trails, railways, aeroways, ferries etc
+* **transport_area**    - polygon - transportation infrastructure areas, road areas, aerodromes, aprons
 * **transport_label**   - point - road names and symbols
 * **water** - multipolygon - water polygons
 * **water_label**  - line - water names formed/curved by shapes of waterbodies.
@@ -78,9 +77,9 @@ fit in any set.
 
 Discussion:
 
-* `aeroway` like aerodromes (polygon) is always a separate feature set, why? Could be in `transport_area`.
+* `aeroway` like aerodromes (polygon) is always a separate feature set, why? Is here part of `transport_area`.
 * to add to this: aeroway lines are part of `transport_line`
-* think labels can be bundled
+* possibly all labels can be bundled
 
 ## Table Setup
 
