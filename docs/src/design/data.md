@@ -70,15 +70,16 @@ fit in any set.
 * **structure_line**    - line -  barriers, fences, powerlines
 * **transport**         - line - transportation infrastructure: roads, trails, railways, aeroways, ferries etc
 * **transport_area**    - polygon - transportation infrastructure areas, road areas, aerodromes, aprons
-* **transport_label**   - point - road names and symbols
+* **valley_label** - line - curved labels for valleys (only a few)
 * **water** - multipolygon - water polygons
 * **water_label**  - line - water names formed/curved by shapes of waterbodies.
-* **waterway** - line - water lines and names
+* **waterway** - line - water lines
+* **waterway_label**  - line - waterway names for line-based waterways like rivers and streams
 
 Discussion:
 
 * `aeroway` like aerodromes (polygon) is always a separate feature set, why? Is here part of `transport_area`.
-* to add to this: aeroway lines are part of `transport_line`
+* to add to this: aeroway lines are now part of `transport`
 * possibly all labels can be bundled
 
 ## Table Setup
