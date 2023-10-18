@@ -27,29 +27,43 @@ Most approaches apply hierarchical feature classification: OMT uses `class`, `su
 "Level-Of-Detail": `lod1`, `lod2` etc. We like the latter convention as it allows an endless 
 hierarchy (and is short to type!).
 
+The image below depicts the map5-schema approach. (Click image to enlarge).
+
+![map5 schema overview](../assets/images/design/map5-schema-overview.png){ data-title="Map5 Schema design overview" align=left }
+
 ## Challenges
 
 Although reclassification has been exercised in many mapping projects like the ones mentioned above,
 the extra challenge here is that completely disjunct datasets are used: Dutch Key Registries 
 (BAG, BGT, BRT etc) and OpenStreetMap. Even among Dutch Key registries very different feature classification
-schemes are in place. For example 'Terrain' (Dutch: 'Terrein') among Top10NL and BGT and even Top50NL.
+schemes are in place. For example 'Terrain' (Dutch: 'Terrein') differs in classification among Top10NL and BGT and even 
+is different from Top50NL. Also geometries often do not align, as they originate from 
+different sources and surveying methods, e.g. OpenStreetMap and key registries like BRT and BGT. 
+Geometry-misalignment is even the case among Dutch key-registries, most notably between BRT and BGT.
+Though work is underway in [BRT.Next](https://docs.geostandaarden.nl/brtnext/vv-bd-brtnext-20230526/). 
 
 
-An additional challenge is that part of the map include neighbouring countries, for which only OSM
-and maybe later local datasets, is/are available. The aim is to work with completely integrated
-data tables/layers, not seperate layers/styles for neighbouring countries.
+An additional challenge is that the extent of the map includes *neighbouring countries*. The map of The Netherlands
+does not stop at its country-borders!
+For neighbouring countries, only data from OpenStreetMap
+is available now. Later, local datasets and hillshading from these countries may be added. 
+The aim is to develop the map from a completely integrated
+dataset (tables, layers, styles), i.e. from the "map5 schema". There are no separate tables/layers/styles for neighbouring 
+countries. Hint: the 'trick' is to mark each record with an `abroad` boolean attribute (see below).
 
 ## Feature Sets
 
-This is the list of feature sets. Criteria/guidelines:
+This is the list of map5topo feature sets. Criteria/guidelines:
 
-* Each feature set will be a table. 
-* Some tables may expand to multiple Layers. 
-* Each feature set/table will always have a single geometry type. 
-* Some, like housenumber, which are in effect labels, are separate feature sets because of the sheer set's size. 
-* For some names the geometry type is implicit, like 'poi'. 
-* No plural naming like `borders`, `parcels`
-* Multiple geometry simplifications/generalizations of the same feature may appear in single table
+* Each feature set is a (PostGIS) table. 
+* Some tables may expand to multiple Layers. For example `transport`: Regular, Tunnels and Bridges.
+* Each feature set/table always has a single geometry type. 
+* Sometimes multiple tables for same feature type, for example: `transport` and `transport_area`. 
+* Some, like `housenumber`, which are in effect labels, are separate feature sets because of the sheer set's size. 
+* For some names the geometry type is implicit, like `poi` (point). 
+* No plural naming like `borders`, `parcels`.
+* Each record contains metadata on its source origin object: source -dataset, -table, -identifier
+* Multiple geometry simplifications/generalizations of the same feature (thus source-id) may appear in single table
 * Hillshade is not table-based, but GeoTIFF raster
 
 The list below is not fixed, subject to change based on new insights, or data items that do not
@@ -63,7 +77,7 @@ fit in any set.
 * **landcover**  - polygon - mostly ground level earth covering ("aardbedekking")
 * **landuse**  - polygon - functional use of land, like military areas, graveyards, parks
 * **parcel** - line - borders of cadastral parcels
-* **pitch** - polygon - mainly sports pitches  - special case of landuse, special handling with overlay SVG
+* **pitch** - polygon - mainly sports pitches  - special case of landuse, styled with overlay SVG
 * **place** - point - names of cities, towns up to hamlets
 * **poi** - point - Points of Interest
 * **structure**  - polygon - anything human-built from buildings/houses up to civil tech structures
@@ -80,7 +94,7 @@ Discussion:
 
 * `aeroway` like aerodromes (polygon) is always a separate feature set, why? Is here part of `transport_area`.
 * to add to this: aeroway lines are now part of `transport`
-* possibly all labels can be bundled
+* label sets are based on their type: labels for areas (point), water bodies and valleys (generated curved lines), waterways (line).
 
 ## Table Setup
 
@@ -124,7 +138,7 @@ CREATE TABLE map5.xyz (
 ```
 
 Many tables will contain a classification, like for Landcover or POIs.
-For example:
+This is a typical table structure:
 
 ```
 CREATE TABLE map5.landcover (
@@ -147,15 +161,15 @@ CREATE TABLE map5.landcover (
 ```
 
 Here `lod1` through `lod3` provide an *hierarchical* classification of the
-feature. This is defined within the project. Each source dataset-specific 
-classification is mapped. Usually `lod1` and `lod2` is sufficient. 
+feature. The value-ranges  for these columns/attributes are defined per feature type. Each source dataset-specific 
+classification is mapped to these value ranges. Usually `lod1` and `lod2` is sufficient, sometimes only `lod1`.
 
-For example: `lod1`: `trees`, `lod2: broadleaved|pine|mixed`. `lod3` is usually
-the source-specific value like `naaldbos`, mainly for debugging.
+For example: `lod1`: `trees`, `lod2: broadleaved|pine|mixed`. `lod3` contains usually
+the source-specific value like `naaldbos`, mainly for debugging or refined styling.
 
 The image below summarizes this table design. (Click image to enlarge).
 
-![map5 schema design](../assets/images/design/map5-schema-tables.png){ data-title="Map5 Schema design and sample tables" align=left }
+![map5 schema samples](../assets/images/design/map5-schema-tables.png){ data-title="Map5 Schema design and sample tables" align=left }
 
 ## Zoom-specific Selection
 
@@ -165,6 +179,7 @@ is specified with `rdz_min`-`rdz_max`. Mapnik always provides a `scaledenominato
 when accessing a `Layer`.  Via the SQL Function `rdz()` this scaledenominator is
 converted to an RD Zoomlevel (range 1-13, equal to WebMerc 6-18) that is used in the query on that Layer.
 This way only the relevant records for that zoomlevel are selected. 
+
 Many zoom-ranges also have VIEWs, for example for analysis. If needed, for performance,
 PostgreSQL *materialized VIEWs* may be applied. But at least
 data for a single feature type, usually a layer, is not spread over multiple tables now.
