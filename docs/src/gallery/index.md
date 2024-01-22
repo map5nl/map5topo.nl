@@ -2,7 +2,8 @@
 title: Gallery
 ---
  
-Work in progress of screenshots taken through the years.
+Work-in-progress (WIP), illustrated with screenshots
+captured through the years.
 
 # Gallery - 2022
 
@@ -12,3 +13,6 @@ Work in progress of screenshots taken through the years.
 
 [See 2023 Gallery](2023.md)
 
+# Gallery - 2024
+
+[See 2024 Gallery](2024.md)
