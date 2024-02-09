@@ -22,6 +22,7 @@ nav:
         - Overview: gallery/index.md
         - 2022: gallery/2022.md
         - 2023: gallery/2023.md
+        - 2024: gallery/2024.md
     - Research: research.md
 
 use_directory_urls: true
@@ -38,9 +39,19 @@ theme:
     logo: assets/images/map5-logo-bg-black.png
 
 plugins:
-    - search
-    - mkdocs-video
-    - glightbox:
+  - search
+  - mkdocs-video
+  - ultralytics:
+      verbose: True
+      enabled: True
+      default_image: "https://map5topo.nl/assets/images/map5-logo.png"
+      add_desc: True
+      add_image: True
+      add_keywords: True
+      add_share_buttons: False
+      add_dates: True
+      add_authors: True
+  - glightbox:
         touchNavigation: true
         loop: false
         effect: zoom
@@ -50,25 +61,25 @@ plugins:
         zoomable: true
         draggable: true
         skip_classes:
-          - skip-lightbox
+        - skip-lightbox
         auto_caption: false
         caption_position: bottom
 
 markdown_extensions:
-    - meta # option to add some meta tags on top, title, author, date, etc
-    - admonition # adds the note, question, tip boxes, eg: !!! tip "my tip"
-    - pymdownx.details # advanced collapsible panels
-    - pymdownx.superfences # advanced features; such as line number, flow chart, python shell
-    - footnotes # notes bottom of page
-    - attr_list # used to size images
-    - md_in_html # used to size images
+  - meta # option to add some meta tags on top, title, author, date, etc
+  - admonition # adds the note, question, tip boxes, eg: !!! tip "my tip"
+  - pymdownx.details # advanced collapsible panels
+  - pymdownx.superfences # advanced features; such as line number, flow chart, python shell
+  - footnotes # notes bottom of page
+  - attr_list # used to size images
+  - md_in_html # used to size images
 
 extra_css:
-    # light and dark variations from material.io
-    # https://material.io/resources/color/#!/?view.left=0&view.right=1
-    - assets/stylesheets/termynal.css
-    - assets/stylesheets/custom.css
+  # light and dark variations from material.io
+  # https://material.io/resources/color/#!/?view.left=0&view.right=1
+  - assets/stylesheets/termynal.css
+  - assets/stylesheets/custom.css
 
 extra_javascript:
-    - assets/javascripts/termynal.js
-    - assets/javascripts/custom.js
+  - assets/javascripts/termynal.js
+  - assets/javascripts/custom.js

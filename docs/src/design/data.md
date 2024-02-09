@@ -1,5 +1,6 @@
 ---
 title: Data Design
+description: Presents Source Datasets and how these are unified in single data model
 ---
 
 # Data Design

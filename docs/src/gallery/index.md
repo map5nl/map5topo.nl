@@ -1,5 +1,6 @@
 ---
 title: Gallery
+description: Screenshots of Work-in-Progress
 ---
  
 Work-in-progress (WIP), illustrated with screenshots
