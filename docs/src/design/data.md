@@ -81,6 +81,7 @@ fit in any set.
 * **pitch** - polygon - mainly sports pitches  - special case of landuse, styled with overlay SVG
 * **place** - point - names of cities, towns up to hamlets
 * **poi** - point - Points of Interest
+* **seamark**  - point - navigation aids for water traffic like buoys, beacons and lighthouses, (Dutch: "vaarwegmarkeringen") 
 * **structure**  - polygon - anything human-built from buildings/houses up to civil tech structures
 * **structure_line**    - line -  barriers, fences, powerlines
 * **transport**         - line - transportation infrastructure: roads, trails, railways, aeroways, ferries etc
