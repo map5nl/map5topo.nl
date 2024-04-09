@@ -29,6 +29,7 @@ In short from bottom to top:
 * Mapnik operates with Mapnik Style files (.xml) later CartoCSS to generate raster map files
 * MapProxy is a raster data server that supports a multitude of raster map sources, usually WMS, here Mapnik
 * MapProxy can generate so called *Tile Caches* to store rendered map (raster) tiles
+* MapProxy+Mapnik also generates *HQ Tiles* also known as *Retina Tiles* with double DPI by scaling to 512*512
 * GeoPackage is a versatile, fast and easy to deploy tile cache (single) file format
 * MapProxy serves raster maps in a large range of Web Mapping protocols: WMTS, WMS, TMS, "XYZ",..
 * Finally Traefik is a front-end HTTP(S) server to the users and apps that consume the map tiles

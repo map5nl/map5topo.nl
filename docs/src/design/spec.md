@@ -14,6 +14,7 @@ constraints.
 * Hillshading from Dutch DEM Open Data: "AHN" in 5m and 50cm resolutions
 * attempt classical design, but keep fresh
 * services: tiling and WMS (may use MapProxy)
+* High-quality *Retina Tiles* (512x512 pixels) 
 * license and openness: start proprietary, then make open source when all in place: clean code, documentation.
 * NL neighbouring countries/vicinity: Germany/Belgium/Northern France
 * guard copyrights of existing maps!
@@ -24,11 +25,11 @@ This is a snapshot in time. Anything abroad: all from OpenStreetMap.
 
 ## Now In use (Dutch Datasets/layers)
 
-* TOP10NL  terrein, water,  hoogtepunten
+* TOP10NL  terrein, water, hoogtepunten, dijkpalen, strandpalen
 * TOP50NL  terrein, water
 * TOP100NL  terrein, water
 * BAG  panden
-* OpenStreetMap  huisnummers, verharde infra, onverharde wegen, terreinen (lowzoom), zee, water (lowzoom), bushaltes, administratieve grenzen (gem/prov)
+* OpenStreetMap  huisnummers, verharde infra, onverharde wegen, terreinen (lowzoom), zee, water (lowzoom), bushaltes, boeien, administratieve grenzen (gem/prov)
 * BRK-DKK open digitale kadastrale kaart met perceelgrenzen, van het Kadaster.
 * BGT grootschalige topografie: alleen zoom 13, wegdeel-vlak, alle terrein-gerelateerde vlakken, water 
 * AHN 5m en 50cm: reliëfschaduw en contourlijnen
