@@ -63,9 +63,11 @@ This is the list of map5topo feature sets. Criteria/guidelines:
 * Some, like `housenumber`, which are in effect labels, are separate feature sets because of the sheer set's size. 
 * For some names the geometry type is implicit, like `poi` (point). 
 * No plural naming like `borders`, `parcels`.
-* Each record contains metadata on its source origin object: source -dataset, -table, -identifier
-* Multiple geometry simplifications/generalizations of the same feature (thus source-id) may appear in single table
-* Hillshade is not table-based, but GeoTIFF raster
+* Each record contains metadata on its source origin object: source -dataset, -table, -identifier.
+* Each record has a "zoom range", i.e. a min and max zoomlevel in which it should be rendered.
+* Multiple geometry simplifications/generalizations of the same feature (thus source-id) may thus appear in single table.
+* DEM (Heights): hillshade is not table-based, but separate GeoTIFF raster data.
+* DEM (Heights): contour lines are vector data thus table-based.
 
 The list below is not fixed, subject to change based on new insights, or data items that do not
 fit in any set.
