@@ -1,12 +1,314 @@
+---
+title: Research
+---
+
 # Research
 
 Initial and ongoing research. 
 Initially to come to an optimal toolchain, data and map design.
+Later also reseaarch into performance measurements and optimizations.
+
+## Tile Seeding Optimization
+
+Tile seeding especially for Retina (512x512) is a long process with sometimes processes "dying".
+Sometimes not all tiles are rendered, especially at some lower zoomlevels.
+Investigated in May 2024 : measuring tile generation performance in order to find bottlenecks.
+
+By isolating the generation of a single tile, the performance in each of its process-steps can be 
+measured. Tile generation is performed by Mapnik from the XML Style files.
+Mapnik reads the file (once) and then basically performs a series of PostGIS queries, one for each Layer, and then 
+draws the map and generates a tile image. 
+
+So first we need to have a way to measure and analyse query times. We do this by
+both logging queries that take more than N millisecs, typically 1000 and using the Postgres
+statistics system to actually be able to "query on query times", get the top-N time-consuming queries.
+
+### Logging Queries - Standard
+
+First we like to log queries taking over N millisecs.
+
+How to log Postgres query statements but not flood the logfile?
+Some hints can be found in [this Medium article](https://medium.com/@maheshshelke/setting-up-postgresql-server-in-docker-container-on-ubuntu-a-step-by-step-guide-f21f8973d6d7)
+The essential lines in `postgresql.conf` are:
+```
+logging_collector = on
+log_directory = '/var/log/postgres'
+log_filename = '%Y-%m-%d_%H%M%S.log'
+log_statement = 'none'
+log_min_messages = 'info'
+log_min_error_statement = 'info'
+log_duration = on
+log_min_duration_statement = 2000 # longer two secs see below
+log_line_prefix = '%m [%p]: [%l-1] user=%u,db=%d '  # Time, process ID, line number, username, and database name.
+```
+
+The essential line is `log_min_duration_statement = <millis>`. Instead of `log_statement = 'all'` to switch on/off we can use a psql statement:
+
+```
+ALTER DATABASE gis SET log_min_duration_statement = 1000;
+```
+
+Switching logging off is sometimes hard, 
+but we found [in this article](https://dba.stackexchange.com/questions/24973/unable-to-disable-sql-statement-logging-in-postgresql-9-1):
+```postgresql
+ALTER USER gis RESET log_statement;
+ALTER DATABASE gis RESET log_statement;
+
+```
+
+### Using the PG statistics system
+Each tile/image generation by Mapnik will fire like 20+ queries on the PostgreSQL DB.
+Some tables are used for multiple Mapnik Layers, for example `landcover` both under and over hillshade raster.
+Also `transport` is rendered multiple time like first tunnels, the regular (z_index=0) and bridges.
+
+PostgreSQL has a powerful internal [statistics collector](https://www.postgresql.org/docs/current/pgstatstatements.html).
+This can be activated via a shared library called `pg_stat_statements`.
+
+We found a [very useful tutorial by Hans-Jürgen Schönig](https://www.cybertec-postgresql.com/en/postgresql-detecting-slow-queries-quickly/).
+
+The first thing you have to do is to change shared_preload_libraries in postgresql.conf:
+
+`shared_preload_libraries = 'pg_stat_statements'`
+
+Then restart PostgreSQL.
+
+Finally, the module can be enabled in your desired database:
+```postgresql
+CREATE EXTENSION pg_stat_statements;
+
+```
+
+Listing all possible stats columns: `d pg_stat_statements` or via SQL :
+
+```postgresql
+SELECT 
+  column_name, 
+  data_type, 
+  character_maximum_length, 
+  is_nullable, 
+  column_default 
+FROM 
+  information_schema.columns 
+WHERE 
+  table_name = 'pg_stat_statements';
+
+```
+
+The last step will deploy a view – we will need to inspect the data collected by the `pg_stat_statements` machinery.
+
+```postgresql
+SELECT calls,
+     round(total_exec_time::numeric, 2) AS total_time,
+     round(mean_exec_time::numeric, 2) AS mean_time,
+     round((100 * total_exec_time / sum(total_exec_time) 
+				 OVER ())::numeric, 2) AS percentage,
+	query
+FROM  pg_stat_statements
+ORDER BY total_exec_time DESC
+LIMIT 100;
+
+```
+
+Now we can measure stats after generating a tile via MapProxy or image directly with Mapnik.
+After each test we can reset the stats with this statement: 
+
+`SELECT pg_stat_statements_reset();`
+
+## The Tests
+
+Test: zoom RD3 about 75% is taken by two queries on `map5.landcover` table.
+
+We take test tile nr: zoom=2 x=2 y=1
+
+To render using Mapnik direct:
+
+```shell
+cd git/tools
+./mapnik-render-tile.sh 2 2 1
+```
+
+So the total test is:
+
+```shell
+
+-- reset stats
+SELECT pg_stat_statements_reset();
+
+-- generate image
+./mapnik-render-tile.sh 2 2 1
+
+-- Get statistics, the top100 time consuming queries
+SELECT calls,
+     round(total_exec_time::numeric, 2) AS total_time,
+     round(mean_exec_time::numeric, 2) AS mean_time,
+     round((100 * total_exec_time / sum(total_exec_time) 
+				 OVER ())::numeric, 2) AS percentage,
+	query
+FROM  pg_stat_statements
+ORDER BY total_exec_time DESC
+LIMIT 100;
+
+-- then analyse
+```
+
+Main output Mapnik tile rendering direct.
+
+
+```
+./mapnik-render-tile.sh 2 2 1
+mapnik_style=map5topo.xml
+loaded Mapnik object time=3.4499104022979736s
+render sizes: render_size_tx=1 render_size_ty=1 tiles-at-zoom=4
+render coords: p0x=155000.00000000006 p0y=242799.04000000004 p1x=375200.96000000014 p1y=463000.00000000006
+env Box2d(155000.00000000006,242799.03999999998,375200.96000000014,463000.00000000006) 
+zoom=2 
+scale_denominator=3072000.0000000014 
+scale=860.1600000000003 
+time=12.883508920669556s
+ALL DONE - output file present as mapnik/output/tile-2-2-1.jpeg
+```
+
+Image rendering takes about 14 seconds!
+Analysing, thinking it may be the number of records for this zoomlevel:
+
+```
+Current Setting: ST_SimplifyPreserveTopology(s.geom, 600) and area > 50000
+
+select count(*), sum(area) from map5.landcover where rdz_max <= 3;
+
+"count"	"sum" 49778	13092259408
+
+stats: `"map5.landcover  2	6793.72	3396.86	74.79`
+
+2 queries taking about 7 seconds and occupying almost 75%!
+
+New Setting: `ST_SimplifyPreserveTopology(s.geom, 6000) and area > 100000`
+
+`select count(*), sum(area) from map5.landcover where rdz_max <= 3;`
+
+"count"	"sum" 24815	11365954503
+
+reset stats: `SELECT pg_stat_statements_reset();`
+get image
+"query"	"calls"	"total_time"	"mean_time"	"percentage"
+map5.landcover 2	6841.51	3420.75	75.11
+```
+
+Hardly any difference! Is the bottleneck maybe the total numer of records, almost 20 million, in landcover?
+
+
+Looking at over 1 second duration:
+
+```postgresql
+-- 2024-05-22 15:19:50.505 UTC [257]: [1-1] user=gis,db=gis LOG:  duration: 3589.070 ms  
+SELECT ST_AsBinary("geom") AS geom,"lod1","lod2" FROM (SELECT geom,lod1,lod2,lod3,rdz_min,rdz_max FROM map5.landcover
+					 WHERE (rdz(3.072e+06)) BETWEEN rdz_min AND rdz_max) AS landcover WHERE "geom" 
+					 && ST_SetSRID('BOX3D(155000.0000000001 275000,300000 463000.0000000001)'::box3d, 28992);
+
+--2024-05-22 15:19:53.342 UTC [257]: [2-1] user=gis,db=gis LOG:  duration: 2832.367 ms 
+SELECT ST_AsBinary("geom") AS geom,"lod1","lod2" FROM (SELECT geom,lod1,lod2,lod3,rdz_min,rdz_max FROM map5.landcover
+					 WHERE (rdz(3.072e+06)) BETWEEN rdz_min AND rdz_max) AS landcover WHERE "geom" 
+					 && ST_SetSRID('BOX3D(155000.0000000001 275000,300000 463000.0000000001)'::box3d, 28992);
+
+-- 2024-05-22 15:19:55.163 UTC [257]: [3-1] user=gis,db=gis LOG:  duration: 1305.991 ms
+SELECT ST_AsBinary("geom") AS geom,"lod2" FROM (SELECT geom,length,lod1,lod2,lod3,oneway,z_index,name,surface,grade,abroad,rdz_min,rdz_max FROM map5.transport
+					 WHERE lod1 IN ('road', 'trail')
+					AND (rdz(3.072e+06) BETWEEN rdz_min AND rdz_max)
+					AND (z_index = 0 OR (bridge IS FALSE AND tunnel IS FALSE))
+					ORDER BY (CASE WHEN lod2 IN ('motorway','trunk') 
+					    THEN 5 WHEN lod2 = 'primary' THEN 1 WHEN lod2 = 'secondary' THEN 2 WHEN lod2='tertiary' THEN 3 ELSE 4 END) DESC
+					) AS transport_roads WHERE "geom" 
+					&& ST_SetSRID('BOX3D(155000.0000000001 275000,300000 463000.0000000001)'::box3d, 28992);
+```
+This takes about 17 secs, returning 33000 objects.
+
+Where is the time spent? CPU or I/O ?
+
+Measuring I/O time is simple. The track_io_timing parameter can be adjusted to measure this vital KPI. 
+You can turn it on in postgresql.conf for the entire server, or simply adjust things on the database 
+level if you want more fine-grained data:
+
+```postgresql
+ALTER DATABASE gis SET track_io_timing = on;
+
+SELECT total_exec_time, 
+			blk_read_time, 
+			blk_write_time,
+			query
+FROM pg_stat_statements 
+ORDER BY blk_read_time + blk_write_time DESC 
+LIMIT 10;
+
+```
+
+But in the end, as is often the case, this is usually a matter of setting indexes.
+Although there is a spatial index on `geom`, `EXPLAIN` shows that most of the query time is
+spent on the `BETWEEN rdz_min AND rdz_max` as for lowzoom-queries about 4 million rows need to
+be matched on the 'heap' returned from the spatial-bbox selection.
+
+Setting indexes like:
+
+```postgresql
+CREATE INDEX map5_landcover_rdz_min_idx ON map5.landcover USING btree (rdz_min);
+CREATE INDEX map5_landcover_rdz_max_idx ON map5.landcover USING btree (rdz_max);
+```
+
+reduces the query time until order of 100 millisecs! Albeit with a few 100 MB of index space.
+We set these for now on `landcover`, `structure` and `water`.
+
+Again we do the test, logging only queries over 1 second. 
+```
+./mapnik-render-tile.sh 2 2 1
+mapnik_style=map5topo.xml
+loaded Mapnik object time=2.7876768112182617s
+render sizes: render_size_tx=1 render_size_ty=1 tiles-at-zoom=4
+render coords: p0x=155000.00000000006 p0y=242799.04000000004 p1x=375200.96000000014 p1y=463000.00000000006
+env Box2d(155000.00000000006,242799.03999999998,375200.96000000014,463000.00000000006) 
+zoom=2 scale_denominator=3072000.0000000014 
+scale=860.1600000000003 
+time=4.631199836730957s
+ALL DONE - output file present as mapnik/output/tile-2-2-1.jpeg
+
+```
+About 5 seconds now! Only one query above 1 second:
+
+```postgresql
+2024-05-23 12:30:03.312 UTC [4275]: [1-1] user=gis,db=gis LOG:  duration: 1390.031 ms
+SELECT ST_AsBinary("geom") AS geom,"lod2" FROM 
+(SELECT geom,length,lod1,lod2,lod3,oneway,z_index,name,surface,grade,abroad,rdz_min,rdz_max FROM map5.transport
+					 WHERE lod1 IN ('road', 'trail')
+					AND (rdz(3.072e+06) BETWEEN rdz_min AND rdz_max)
+					AND (z_index = 0 OR (bridge IS FALSE AND tunnel IS FALSE))
+					ORDER BY (CASE WHEN lod2 IN ('motorway','trunk') THEN 5 WHEN lod2 = 'primary' THEN 1 WHEN lod2 = 'secondary' THEN 2 WHEN lod2='tertiary' THEN 3 ELSE 4 END) DESC
+					) AS transport_roads WHERE "geom" && ST_SetSRID('BOX3D(155000.0000000001 275000,300000 463000.0000000001)'::box3d, 28992)
+
+```
+
+So we index `transport` as well, though here we may need indexing on `lod1` and `lod2` as well...and the rendering time is now 0.8sec!
+So index,index,index is the answer!
+
+Final run after not even indexes set on all map5-tables:
+
+```shell
+./mapnik-render-tile.sh 2 2 1
+mapnik_style=map5topo.xml
+loaded Mapnik object time=1.9455204010009766s
+render sizes: render_size_tx=1 render_size_ty=1 tiles-at-zoom=4
+render coords: p0x=155000.00000000006 p0y=242799.04000000004 p1x=375200.96000000014 p1y=463000.00000000006
+env Box2d(155000.00000000006,242799.03999999998,375200.96000000014,463000.00000000006) 
+zoom=2 
+scale_denominator=3072000.0000000014 
+scale=860.1600000000003 
+time=0.821070671081543s
+ALL DONE - output file present as mapnik/output/tile-2-2-1.jpeg
+```
+
+**CONCLUSION: reduced rendering time from 14 seconds to 0.8 by simply indexing mainly min_rdz and max_rdz, the per-record zoomrange!**
+
+## Vector Tiles
 
 One of the main questions is: in these modern times, the best starting point would be
 Vector Tiles, but...
- 
-## Vector Tiles
 
 * See https://github.com/mapbox/awesome-vector-tiles, interesting: https://github.com/mkeller3/FastVector, https://github.com/developmentseed/timvt
 
