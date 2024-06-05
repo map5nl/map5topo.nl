@@ -305,6 +305,98 @@ ALL DONE - output file present as mapnik/output/tile-2-2-1.jpeg
 
 **CONCLUSION: reduced rendering time from 14 seconds to 0.8 by simply indexing mainly min_rdz and max_rdz, the per-record zoomrange!**
 
+### GeoPackage Tile Storing
+
+Apart from the DB query and Mapnik rendering storing tiles in GeoPackage also contributes to total tile seeding performance.
+Too slow often like 1500-5000 tiles/minute (even after Mapnik and PostGIS optimized as above). There must be other bottlenecks
+
+#### Analysis
+Apart from disabling cache lock (remove `--use-cache-lock`) in MP seeder script, some simple sqlite `PRAGMA` settings increased speed enormously:
+We found a huge optimization in store time by using these two PRAGMA's:
+
+```python
+self._db_conn_cache.db.execute('PRAGMA synchronous=OFF')
+self._db_conn_cache.db.execute('PRAGMA journal_mode=MEMORY')
+```
+
+and with PRAGMA's up to 45000-60000 tiles/min!
+So about a 10-fold performance improvement. Question: how safe are these `PRAGMA`s?
+
+## Tile Serving Performance
+
+Question is: tiles are served from huge caches, but there appear to be no indexes...
+
+Tests using Apache Benchmark (ab).
+`ab -n 1000 -c 50 https://s.test.map5.nl/map/map5.demo11/tms/1.0.0/map5topo/EPSG28992/6/27/30.jpeg`
+
+### Without Indexes
+```
+Concurrency Level:      50
+Time taken for tests:   5.151 seconds
+Complete requests:      1000
+Failed requests:        0
+Total transferred:      35098000 bytes
+HTML transferred:       34745000 bytes
+Requests per second:    194.14 [#/sec] (mean)
+Time per request:       257.542 [ms] (mean)
+Time per request:       5.151 [ms] (mean, across all concurrent requests)
+Transfer rate:          6654.33 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       83   99   9.5     96     140
+Processing:    80  147  35.1    144     284
+Waiting:       54  122  35.0    118     258
+Total:        169  246  38.0    242     406
+
+Percentage of the requests served within a certain time (ms)
+  50%    242
+  66%    257
+  75%    266
+  80%    272
+  90%    292
+  95%    312
+  98%    368
+  99%    382
+ 100%    406 (longest request)
+```
+
+After indexing:
+
+```
+Concurrency Level:      50
+Time taken for tests:   5.163 seconds
+Complete requests:      1000
+Failed requests:        0
+Total transferred:      35098000 bytes
+HTML transferred:       34745000 bytes
+Requests per second:    193.69 [#/sec] (mean)
+Time per request:       258.148 [ms] (mean)
+Time per request:       5.163 [ms] (mean, across all concurrent requests)
+Transfer rate:          6638.71 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       87   99   9.3     96     141
+Processing:    82  147  36.0    141     319
+Waiting:       56  122  36.0    116     293
+Total:        170  246  38.4    240     422
+
+Percentage of the requests served within a certain time (ms)
+  50%    240
+  66%    256
+  75%    267
+  80%    277
+  90%    297
+  95%    315
+  98%    346
+  99%    364
+ 100%    422 (longest request)
+
+```
+
+Hmm, hardly difference, also tested with `-k` (keep-alive) and different concurrency levels. 
+
 ## Vector Tiles
 
 One of the main questions is: in these modern times, the best starting point would be
