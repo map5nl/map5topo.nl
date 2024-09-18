@@ -40,6 +40,9 @@ theme:
 
 plugins:
   - search
+  - table-reader:
+      data_path: "src/assets/tables"
+#  - git-authors
   - mkdocs-video
   - ultralytics:
       verbose: True
@@ -49,21 +52,22 @@ plugins:
       add_image: True
       add_keywords: True
       add_share_buttons: False
-      add_dates: True
       add_authors: True
+      add_json_ld: False
+      add_css: True
   - glightbox:
-        touchNavigation: true
-        loop: false
-        effect: zoom
-        slide_effect: slide
-        width: 100%
-        height: auto
-        zoomable: true
-        draggable: true
-        skip_classes:
-        - skip-lightbox
-        auto_caption: false
-        caption_position: bottom
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: true
+      skip_classes:
+      - skip-lightbox
+      auto_caption: false
+      caption_position: bottom
 
 markdown_extensions:
   - meta # option to add some meta tags on top, title, author, date, etc

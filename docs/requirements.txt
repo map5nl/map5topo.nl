@@ -4,3 +4,5 @@ mkdocs-video
 mkdocs-glightbox
 # mkdocs-meta-manager
 mkdocs-ultralytics-plugin
+mkdocs-table-reader-plugin
+# mkdocs-git-authors-plugin

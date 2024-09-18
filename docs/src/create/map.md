@@ -18,11 +18,16 @@ under `tools/mapnik/output/`.
 
 cd tools
 
-render multiple tiles at different zooms per category
+# Render multiple tiles at different zooms per category
 ./mapnik-render-cat.sh  roads | resident | rural
 
-Render any single tile by zoom, x, y
+# Render any single tile by zoom, x, y
 ./mapnik-render-tile.sh  z x y
+
+# Render any map by width,height,bbox (lowerleft, upperright) and style
+# Example: 
+# ./mapnik-render-map.sh 2000 1000 131000 480000 131500 480500 map-1.png map5topo.xml
+./mapnik-render-map.sh  w h llx lly urx ury outfile style
 
 ```
 

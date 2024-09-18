@@ -20,9 +20,9 @@ In short from bottom to top:
 
 * bottom green boxes: raw datasets
 * ETL is Extract Transform Load, basically data conversion & transformation from raw to "manageable" data
-* ETL: GDAL - gdaldem tooling to convert raw DEM height data to hillshade (GeoTIFF)
+* ETL: GDAL - `gdaldem` tooling to convert raw DEM height data to hillshade (GeoTIFF)
 * ETL: also extract (Vector) Contour lines from DEM and store in PostGIS
-* ETL: osm2pgsql converts raw OpenStreetMap data files (.pbf) to PostGIS
+* ETL: `osm2pgsql` converts raw OpenStreetMap data files (.pbf) to PostGIS
 * ETL: [NLExtract](https://nlextract.nl) converts Dutch Key Registry data, usually GML, to PostGIS
 * Unified Data Schema: further expanded in [Data Design Section](data.md), funnels all Vector data into single Schema
 * Mapnik is basically a Raster Map Renderer that can operate on various data sources (GTiff, PostGIS, ..)

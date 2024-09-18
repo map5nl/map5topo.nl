@@ -29,7 +29,7 @@ This is a snapshot in time. Anything abroad: all from OpenStreetMap.
 * TOP50NL  terrein, water
 * TOP100NL  terrein, water
 * BAG  panden
-* OpenStreetMap  huisnummers, verharde infra, onverharde wegen, terreinen (lowzoom), zee, water (lowzoom), bushaltes, boeien, administratieve grenzen (gem/prov)
+* OpenStreetMap niet-BAG panden, huisnummers, verharde infra, onverharde wegen, terreinen (lowzoom), zee, water (lowzoom), bushaltes, boeien, administratieve grenzen (gem/prov)
 * BRK-DKK open digitale kadastrale kaart met perceelgrenzen, van het Kadaster.
 * BGT grootschalige topografie: alleen zoom 13, wegdeel-vlak, alle terrein-gerelateerde vlakken, water 
 * AHN 5m en 50cm: reliëfschaduw en contourlijnen

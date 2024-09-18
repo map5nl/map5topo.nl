@@ -43,7 +43,6 @@ different sources and surveying methods, e.g. OpenStreetMap and key registries l
 Geometry-misalignment is even the case among Dutch key-registries, most notably between BRT and BGT.
 Though work is underway in [BRT.Next](https://docs.geostandaarden.nl/brtnext/vv-bd-brtnext-20230526/). 
 
-
 An additional challenge is that the extent of the map includes *neighbouring countries*. The map of The Netherlands
 does not stop at its country-borders!
 For neighbouring countries, only data from OpenStreetMap
@@ -52,60 +51,33 @@ The aim is to develop the map from a completely integrated
 dataset (tables, layers, styles), i.e. from the "map5 schema". There are no separate tables/layers/styles for neighbouring 
 countries. Hint: the 'trick' is to mark each record with an `abroad` boolean attribute (see below).
 
-## Feature Sets
+In summary these are the challenges:
 
-This is the list of map5topo feature sets. Criteria/guidelines:
+![map5 challenges](../assets/images/design/map5-challenges.png){ data-title="Map5 challenges challenges" align=left }
 
-* Each feature set is a (PostGIS) table. 
-* Some tables may expand to multiple Layers. For example `transport`: Regular, Tunnels and Bridges.
-* Each feature set/table always has a single geometry type. 
-* Sometimes multiple tables for same feature type, for example: `transport` and `transport_area`. 
-* Some, like `housenumber`, which are in effect labels, are separate feature sets because of the sheer set's size. 
-* For some names the geometry type is implicit, like `poi` (point). 
-* No plural naming like `borders`, `parcels`.
-* Each record contains metadata on its source origin object: source -dataset, -table, -identifier.
-* Each record has a "zoom range", i.e. a min and max zoomlevel in which it should be rendered.
-* Multiple geometry simplifications/generalizations of the same feature (thus source-id) may thus appear in single table.
-* DEM (Heights): hillshade is not table-based, but separate GeoTIFF raster data.
-* DEM (Heights): contour lines are vector data thus table-based.
+## Classification
 
-The list below is not fixed, subject to change based on new insights, or data items that do not
-fit in any set.
+A hierarchical classification is applied, similar to animal and plants classification. 
+Later, i.s.o. `class`, `subclass` "Level-Of-Detail": `lod1`, `lod2` will be used.
 
-* **area_label** - point - any  that has a name (except house numbers, transport, water)
-* **border**  - multipolygon - administrative borders
-* **contour_line** - line - height lines (derived from DEM)
-* **grid**  - line - grid lines in map (standard Kadaster RD km lines)
-* **housenumber**  - point - clear, also house names
-* **landcover**  - polygon - mostly ground level earth covering ("aardbedekking")
-* **landuse**  - polygon - functional use of land, like military areas, graveyards, parks
-* **parcel** - line - borders of cadastral parcels
-* **pitch** - polygon - mainly sports pitches  - special case of landuse, styled with overlay SVG
-* **place** - point - names of cities, towns up to hamlets
-* **poi** - point - Points of Interest
-* **seamark**  - point - navigation aids for water traffic like buoys, beacons and lighthouses, (Dutch: "vaarwegmarkeringen") 
-* **structure**  - polygon - anything human-built from buildings/houses up to civil tech structures
-* **structure_line**    - line -  barriers, fences, powerlines
-* **transport**         - line - transportation infrastructure: roads, trails, railways, aeroways, ferries etc
-* **transport_area**    - polygon - transportation infrastructure areas, road areas, aerodromes, aprons
-* **valley_label** - line - curved labels for valleys (only a few)
-* **water** - multipolygon - water polygons
-* **water_label**  - line - water names formed/curved by shapes of waterbodies.
-* **waterway** - line - water lines
-* **waterway_label**  - line - waterway names for line-based waterways like rivers and streams
+![map5 classification](../assets/images/design/map5-classification.png){ data-title="Map5 Classfication principles" align=left }
 
-Discussion:
+## Common Data Structure
 
-* `aeroway` like aerodromes (polygon) is always a separate feature set, why? Is here part of `transport_area`.
-* to add to this: aeroway lines are now part of `transport`
-* label sets are based on their type: labels for areas (point), water bodies and valleys (generated curved lines), waterways (line).
+Each table will follow a common data structure design.
 
-## Table Setup
+![map5 common data structure](../assets/images/design/map5-common-data-struct.png){ data-title="Map5 Common data structures" align=left }
 
-The table-SQL for the ETL 
-can be found here: https://github.com/map5nl/map5topo/tree/main/tools/etl/sql/map5/tables.
+As many features will have specific properties like surface, oneway, bridge (roads), names, 
+population (places), intermittent (water), these are implemented
+with feature-specific columns.
 
-Each table in the map5 schema has a similar setup, i.e. columns:
+Tables will be implemented as in image below.
+
+![map5 common table structure](../assets/images/design/map5-common-table-struct.png){ data-title="Map5 Common table structures" align=left }
+
+
+So in summary each table in the map5 schema has a similar setup, i.e. columns:
 
 ```
 CREATE TABLE map5.xyz (
@@ -115,7 +87,7 @@ CREATE TABLE map5.xyz (
     ..
     ..
     
-    -- COMMON COLUMNS
+    -- COMMON AND FEATURE-SPECIFIC COLUMNS (PROPERTIES)
     --
     
     -- Relative height
@@ -174,6 +146,63 @@ the source-specific value like `naaldbos`, mainly for debugging or refined styli
 The image below summarizes this table design. (Click image to enlarge).
 
 ![map5 schema samples](../assets/images/design/map5-schema-tables.png){ data-title="Map5 Schema design and sample tables" align=left }
+
+## Feature Sets
+
+This is the list of map5topo feature sets. Criteria/guidelines:
+
+* Each feature set is a (PostGIS) table. 
+* Some tables may expand to multiple Layers. For example `transport`: Regular, Tunnels and Bridges.
+* Each feature set/table always has a single geometry type. 
+* Sometimes multiple tables for same feature type, for example: `transport` and `transport_area`. 
+* Some, like `housenumber`, which are in effect labels, are separate feature sets because of the sheer set's size. 
+* For some names the geometry type is implicit, like `poi` (point). 
+* No plural naming like `borders`, `parcels`.
+* Each record contains metadata on its source origin object: source -dataset, -table, -identifier.
+* Each record has a "zoom range", i.e. a min and max zoomlevel in which it should be rendered.
+* Multiple geometry simplifications/generalizations of the same feature (thus source-id) may thus appear in single table.
+* DEM (Heights): hillshade is not table-based, but separate GeoTIFF raster data.
+* DEM (Heights): contour lines are vector data thus table-based.
+
+The list below is not fixed, subject to change based on new insights, or data items that do not
+fit in any set.
+
+* **area_label** - point - any  that has a name (except house numbers, transport, water)
+* **border**  - multipolygon - administrative borders
+* **contour_line** - line - height lines (derived from DEM)
+* **grid**  - line - grid lines in map (standard Kadaster RD km lines)
+* **housenumber**  - point - clear, also house names
+* **landcover**  - polygon - mostly ground level earth covering ("aardbedekking")
+* **landuse**  - polygon - functional use of land, like military areas, graveyards, parks
+* **parcel** - line - borders of cadastral parcels
+* **pitch** - polygon - mainly sports pitches  - special case of landuse, styled with overlay SVG
+* **place** - point - names of cities, towns up to hamlets
+* **poi** - point - Points of Interest
+* **seamark**  - point - navigation aids for water traffic like buoys, beacons and lighthouses, (Dutch: "vaarwegmarkeringen") 
+* **structure**  - polygon - anything human-built from buildings/houses up to civil tech structures
+* **structure_line**    - line -  barriers, fences, powerlines
+* **transport**         - line - transportation infrastructure: roads, trails, railways, aeroways, ferries etc
+* **transport_area**    - polygon - transportation infrastructure areas, road areas, aerodromes, aprons
+* **valley_label** - line - curved labels for valleys (only a few)
+* **water** - multipolygon - water polygons
+* **water_label**  - line - water names formed/curved by shapes of waterbodies.
+* **waterway** - line - water lines
+* **waterway_label**  - line - waterway names for line-based waterways like rivers and streams
+
+Discussion:
+
+* `aeroway` like aerodromes (polygon) is always a separate feature set, why? Is here part of `transport_area`.
+* to add to this: aeroway lines are now part of `transport`
+* label sets are based on their type: labels for areas (point), water bodies and valleys (generated curved lines), waterways (line).
+
+## ETL
+
+The map5 schema will be populated using SQL as the ETL tool. This is for now simple and quickly to adapt.
+
+![map5 ETL](../assets/images/design/map5-schema-etl.png){ data-title="Map5 Schema ETL" align=left }
+
+The table-SQL for the ETL 
+can be found [here](https://github.com/map5nl/map5topo/tree/main/tools/etl/sql/map5/tables).
 
 ## Zoom-specific Selection
 
@@ -285,3 +314,8 @@ records from that table.
 
 
 ![map5 schema query](../assets/images/design/metadata-create.png){ data-title="Map5 Schema metadata create records" align=left }  
+
+Below are actual classification values, `lod1` and `lod2` (`lod3` is currently only used for original value/tags) 
+for each table.
+
+{{ read_csv("classification.csv") }}.
