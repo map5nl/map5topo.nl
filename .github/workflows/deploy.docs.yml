@@ -23,7 +23,7 @@ jobs:
           # python-version: '3.10'
       - name: Install requirements 📦
         run: |
-          sudo apt-get install -y python3-lxml
+          sudo apt install -y python3-lxml git
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Deploy 📦
