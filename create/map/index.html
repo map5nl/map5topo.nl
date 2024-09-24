@@ -11,9 +11,9 @@
 <link href="../data/" rel="prev"/>
 <link href="../../gallery/" rel="next"/>
 <link href="../../assets/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.6.1, mkdocs-material-9.5.35" name="generator"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.5.36" name="generator"/>
 <title>Map Preparation - map5topo.nl</title>
-<link href="../../assets/stylesheets/main.35f28582.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/main.06209087.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -464,7 +464,17 @@ under <code>tools/mapnik/output/</code>.</p>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>tools
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>tools
 
 <span class="c1"># Render multiple tiles at different zooms per category</span>
 ./mapnik-render-cat.sh<span class="w">  </span>roads<span class="w"> </span><span class="p">|</span><span class="w"> </span>resident<span class="w"> </span><span class="p">|</span><span class="w"> </span>rural
@@ -476,26 +486,77 @@ under <code>tools/mapnik/output/</code>.</p>
 <span class="c1"># Example: </span>
 <span class="c1"># ./mapnik-render-map.sh 2000 1000 131000 480000 131500 480500 map-1.png map5topo.xml</span>
 ./mapnik-render-map.sh<span class="w">  </span>w<span class="w"> </span>h<span class="w"> </span>llx<span class="w"> </span>lly<span class="w"> </span>urx<span class="w"> </span>ury<span class="w"> </span>outfile<span class="w"> </span>style
+
+<span class="c1"># Advanced: use simple WMS</span>
+./mapnik-run-wms.sh<span class="w"> </span>
+<span class="c1"># then find WMS at http://localhost:8001/fm/wms?REQUEST=GetCapabilities&amp;SERVICE=WMS</span>
+<span class="c1"># use capitals for WMS query parms!</span>
+
+<span class="c1"># OR similar with docker compose</span>
+<span class="c1"># Mainly for debug: https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html</span>
+<span class="nb">cd</span><span class="w"> </span>tools/mapnik
+docker<span class="w"> </span>compose<span class="w"> </span>up
 </code></pre></div></td></tr></table></div>
 <h2 id="2-tile-seeding">2. Tile Seeding</h2>
 <p>Create tile caches (GeoPackages).</p>
+<p>During development:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>services/mapproxy/seed
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># For local quick caching: use ./seed-direct.sh</span>
+<span class="nb">cd</span><span class="w"> </span>services/mapproxy/seed
 <span class="c1"># Entire netherlands, NB takes extremely long!</span>
 ./seed-rd.sh
 
 <span class="c1"># Muiden Area, takes about 30mins-1h depending on system</span>
 ./seed-muiden-rd.sh
 </code></pre></div></td></tr></table></div>
+<p>For production the workflow is more extended: "guarded seed", verify seeded cache, install cache.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># For production guarded (some procs may die) caching: use ./seed-guarded.sh</span>
+<span class="c1"># These create caches under /var/map5/mapproxy/cache/gpkg/&lt;layer&gt;_seed/</span>
+<span class="c1"># Workflow: first seed, verify cache, then install.</span>
+
+<span class="c1"># Single tilecache</span>
+./seed-guarded.sh<span class="w"> </span>map5topo_rd
+
+<span class="c1"># ALL tilecaches:</span>
+./seed-all.sh
+
+<span class="c1"># Verify tilecache results</span>
+./verify-cache.sh<span class="w"> </span>&lt;cache&gt;<span class="w"> </span>&lt;grid&gt;
+<span class="c1"># Example</span>
+./verify-cache.sh<span class="w"> </span>map5topo_seed<span class="w"> </span>dutch_grid_lev13
+
+<span class="c1"># Install seeded cache</span>
+./install-seeded.sh<span class="w">  </span>&lt;cache&gt;<span class="w"> </span>&lt;grid&gt;
+./install-seeded.sh<span class="w"> </span>map5topo<span class="w"> </span>dutch_grid_lev13
+</code></pre></div></td></tr></table></div>
 <h2 id="3-test-the-services">3. Test the Services</h2>
 <p>Several apps are available.</p>
 <ul>
 <li>Run service stack: <code>cd services; ./start.sh</code></li>
 <li>Local: http://localhost:8000/mp (MapProxy) http://localhost:8000/app (apps) http://localhost:8000/pgadmin (pgadmin)</li>
+<li>Fastmap: WMS with Mapnik backend: http://localhost:8000/fm/wms?REQUEST=GetCapabilities</li>
 <li>Production: https://topo.map5.nl/mp https://topo.map5.nl/app</li>
 </ul></div>
 <div class="git-info">
@@ -503,12 +564,12 @@ under <code>tools/mapnik/output/</code>.</p>
 <span class="date-item" title="This page was first created on July 22, 2023">
 <span class="hover-item">📅</span> Created 1 year ago
     </span>
-<span class="date-item" title="This page was last updated on September 18, 2024">
-<span class="hover-item">✏️</span> Updated 1 day ago
+<span class="date-item" title="This page was last updated on September 24, 2024">
+<span class="hover-item">✏️</span> Updated 0 days ago
     </span>
 </div>
 <div class="authors-container">
-<a class="author-link" href="https://github.com/justb4" title="justb4 (3 changes)">
+<a class="author-link" href="https://github.com/justb4" title="justb4 (4 changes)">
 <img alt="justb4" class="hover-item" src="https://avatars.githubusercontent.com/u/582630?v=4&amp;s=96"/>
 </a>
 </div></div></article>
