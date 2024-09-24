@@ -36,7 +36,7 @@ For map5topo developments, start with [Newsletter nr 5](https://us10.campaign-ar
 
 # Presentations
 
-map5topo has been presented on several occasions, upcoming is on Sept 25, 2023 at the [FOSS4G-NL-BE](https://foss4g.nl), latest first:
+map5topo has been presented on several events, upcoming is on Sept 25, 2024 at the [FOSS4G-NL-BE](https://foss4g.nl), latest first:
 
 * *"Melting Dutch open data and OpenStreetMap into a single schema"* - [Maptime AMS - September 19, 2024](https://www.meetup.com/maptime-ams/events/301851869) - [\[PDF Slides\]](https://files.justobjects.nl/presentation/maptime-2024/map5-data-maptime-just-2024.pdf)
 * *"map5topo - een nieuwe, frisse topokaart van Nederland"* - [OSGeo.nl FOSS4GNL Middelburg - September 14, 2023](https://foss4g.nl) - [\[PDF Slides\]](https://files.justobjects.nl/presentation/foss4gnl-2023/map5topo-foss4gnl-2023.pdf)
