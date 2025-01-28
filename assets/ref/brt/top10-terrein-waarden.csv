@@ -1,0 +1,103 @@
+"visualisatiecode","typelandgebruik","voorkomen","fysiekvoorkomen"
+14180,"spoorbaanlichaam",NULL,"(1:overkluisd)"
+-14100,"dodenakker",NULL,NULL
+14190,"zand","(1:dras, moerassig)",NULL
+14100,"dodenakker",NULL,"(1:overkluisd)"
+14133,"grasland",NULL,"(1:op beweegbaar deel van brug)"
+14110,"dodenakker met bos",NULL,NULL
+14130,"grasland",NULL,NULL
+14010,"akkerland","(1:dras, moerassig)",NULL
+14210,"duin",NULL,NULL
+14012,"akkerland",NULL,"(1:op vast deel van brug)"
+14170,"populieren","(1:met riet)",NULL
+-14200,"braakliggend",NULL,NULL
+14050,"boomkwekerij",NULL,NULL
+14020,"basaltblokken, steenglooiing",NULL,"(1:overkluisd)"
+14212,"duin",NULL,"(1:op vast deel van brug)"
+14160,"overig","(1:dras, moerassig)",NULL
+14010,"akkerland","(2:dras, moerassig,met riet)",NULL
+14140,"heide","(2:dras, moerassig,met riet)",NULL
+14160,"overig",NULL,"(1:overkluisd)"
+14062,"bos: gemengd bos",NULL,"(1:op vast deel van brug)"
+14140,"heide","(1:met riet)",NULL
+14162,"overig",NULL,"(1:op vast deel van brug)"
+14130,"grasland","(1:met riet)",NULL
+-14181,"spoorbaanlichaam",NULL,"(1:in tunnel)"
+-14210,"duin",NULL,NULL
+14170,"populieren","(1:dras, moerassig)",NULL
+14190,"zand","(1:met riet)",NULL
+-14030,"bebouwd gebied",NULL,NULL
+14140,"heide",NULL,NULL
+14010,"akkerland","(1:met riet)",NULL
+-14130,"grasland","(1:met riet)",NULL
+14090,"bos: naaldbos","(1:dras, moerassig)",NULL
+14130,"grasland","(2:dras, moerassig,met riet)",NULL
+-14130,"grasland","(2:dras, moerassig,met riet)",NULL
+14060,"bos: gemengd bos","(1:dras, moerassig)",NULL
+14140,"heide","(1:dras, moerassig)",NULL
+14030,"bebouwd gebied",NULL,NULL
+14210,"duin","(2:dras, moerassig,met riet)",NULL
+14080,"bos: loofbos","(1:dras, moerassig)",NULL
+-14130,"grasland",NULL,NULL
+14070,"bos: griend","(1:dras, moerassig)",NULL
+14022,"basaltblokken, steenglooiing",NULL,"(1:op vast deel van brug)"
+14002,"aanlegsteiger",NULL,"(1:op vast deel van brug)"
+14130,"grasland","(1:dras, moerassig)","(1:overkluisd)"
+14170,"populieren",NULL,NULL
+-14130,"grasland","(1:dras, moerassig)",NULL
+14082,"bos: loofbos",NULL,"(1:op vast deel van brug)"
+-14060,"bos: gemengd bos",NULL,NULL
+14200,"braakliggend","(2:dras, moerassig,met riet)",NULL
+14200,"braakliggend",NULL,NULL
+-14130,"grasland",NULL,"(1:overkluisd)"
+14192,"zand",NULL,"(1:op vast deel van brug)"
+14030,"bebouwd gebied",NULL,"(1:overkluisd)"
+14162,"overig","(1:met riet)","(1:op vast deel van brug)"
+14100,"dodenakker",NULL,NULL
+-14180,"spoorbaanlichaam",NULL,"(1:overkluisd)"
+14160,"overig","(1:met riet)",NULL
+-14140,"heide",NULL,NULL
+14052,"boomkwekerij",NULL,"(1:op vast deel van brug)"
+14130,"grasland","(1:dras, moerassig)",NULL
+-14190,"zand",NULL,NULL
+-14010,"akkerland",NULL,NULL
+14090,"bos: naaldbos",NULL,NULL
+14180,"spoorbaanlichaam",NULL,NULL
+14122,"fruitkwekerij",NULL,"(1:op vast deel van brug)"
+14163,"overig",NULL,"(1:op beweegbaar deel van brug)"
+-14161,"overig",NULL,"(1:in tunnel)"
+14142,"heide",NULL,"(1:op vast deel van brug)"
+14070,"bos: griend",NULL,NULL
+14000,"aanlegsteiger",NULL,NULL
+-14182,"spoorbaanlichaam",NULL,"(1:op vast deel van brug)"
+14162,"overig","(1:dras, moerassig)","(1:op vast deel van brug)"
+14120,"fruitkwekerij",NULL,NULL
+14162,"overig",NULL,"(2:overkluisd,op vast deel van brug)"
+14000,"aanlegsteiger",NULL,"(1:overkluisd)"
+14060,"bos: gemengd bos",NULL,NULL
+-14140,"heide","(1:dras, moerassig)",NULL
+14010,"akkerland",NULL,NULL
+14183,"spoorbaanlichaam",NULL,"(1:op beweegbaar deel van brug)"
+14080,"bos: loofbos",NULL,NULL
+14160,"overig",NULL,NULL
+14130,"grasland",NULL,"(1:overkluisd)"
+-14162,"overig",NULL,"(1:op vast deel van brug)"
+14160,"overig","(2:dras, moerassig,met riet)",NULL
+14132,"grasland",NULL,"(1:op vast deel van brug)"
+-14090,"bos: naaldbos",NULL,NULL
+14210,"duin","(1:dras, moerassig)",NULL
+14210,"duin","(1:met riet)",NULL
+-14190,"zand","(1:dras, moerassig)",NULL
+-14160,"overig","(1:dras, moerassig)",NULL
+-14000,"aanlegsteiger",NULL,NULL
+-14160,"overig",NULL,"(1:overkluisd)"
+-14020,"basaltblokken, steenglooiing",NULL,NULL
+-14080,"bos: loofbos",NULL,NULL
+14182,"spoorbaanlichaam",NULL,"(2:overkluisd,op vast deel van brug)"
+-14160,"overig",NULL,NULL
+14130,"grasland","(1:met riet)","(1:overkluisd)"
+14040,"boomgaard",NULL,NULL
+14190,"zand",NULL,NULL
+14182,"spoorbaanlichaam",NULL,"(1:op vast deel van brug)"
+-14180,"spoorbaanlichaam",NULL,NULL
+14020,"basaltblokken, steenglooiing",NULL,NULL
