@@ -4,7 +4,7 @@ site_author: Just van den Broecke
 copyright: "&copy; 2023 Just Objects B.V."
 site_url: https://map5topo.nl
 repo_url: https://github.com/map5nl/map5topo.nl
-edit_uri: '/docs/src'
+edit_uri: '/src/src'
 docs_dir: src
 nav:
     - Home: index.md
@@ -23,6 +23,7 @@ nav:
         - 2022: gallery/2022.md
         - 2023: gallery/2023.md
         - 2024: gallery/2024.md
+        - 2025: gallery/2025.md
     - Research: research.md
 
 use_directory_urls: true

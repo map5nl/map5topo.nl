@@ -6,11 +6,11 @@ on:
       - main
     paths:
       - '.github/workflows/**'
-      - 'docs/**'
+      - 'src/**'
 
 defaults:
   run:
-    working-directory: docs
+    working-directory: src
 
 jobs:
   build:
