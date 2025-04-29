@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - '.github/workflows/**'
-      - 'src/**'
+      - 'docs/**'
 
 defaults:
   run:
@@ -15,7 +15,7 @@ defaults:
 jobs:
   build:
     name: Build and Deploy Website
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 #        with:
