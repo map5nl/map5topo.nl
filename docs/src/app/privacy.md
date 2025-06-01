@@ -33,7 +33,7 @@ Onze website en/of dienst heeft niet de intentie gegevens te verzamelen over web
 
 **Just Objects BV verwerkt jouw persoonsgegevens voor de volgende doelen:**
 
-- Om goederen en diensten bij je af te leveren.
+- Om op basis van je actuele of gekozen locatie, kaarten van betreffend gebied bij je af te leveren.
 - Het bewaken en verbeteren van de technische werking en beschikbaarheid van de kaartapplicatie.
 - Misbruikdetectie
 
