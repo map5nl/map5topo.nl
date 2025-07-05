@@ -20,24 +20,34 @@ At the moment we are cleaning up code and more, as to have a more accessible pro
 
 Please see the left-hand navigation for the table of contents.
 
-# Demo
+## Demo
 
 View [map5topo in full](https://app.map5.nl/map5topo/full/) interactively.
 
-# Gallery
+## App
+
+You can find the map5topo app for Android and iOS in the App Store or on Google Play.
+
+<a href="https://apps.apple.com/us/app/map5topo/id6744108094?platform=iphone"><img src="assets/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" width="200px" /></a>
+
+<a href="https://play.google.com/store/apps/details?id=nl.map5topo.viewerapp&hl=en"><img src="assets/images/GetItOnGooglePlay_Badge_Web_color_English.png" width="200px" /></a>
+
+## Gallery
 
 Watch work in progress screenshots in the [Gallery](gallery/index.md).
 
-# Newsletter
+## Newsletter
 
 Stay uptodate through the [Newsletter](https://us10.campaign-archive.com/home/?u=dc76804d91aeb81849bd5071c&id=53b2ade233).
 For map5topo developments, start with [Newsletter nr 5](https://us10.campaign-archive.com/?u=dc76804d91aeb81849bd5071c&id=60a3514e90).
 (In Dutch, sorry).
 
-# Presentations
+## Presentations
 
-map5topo has been presented on several events, upcoming is on Sept 25, 2024 at the [FOSS4G-NL-BE](https://foss4g.nl), latest first:
+map5topo has been presented on several events, latest first:
 
+* *Wie MapLibre und Vektorkarten die Welt übernehmen* - [FOSSGIS 2025 - March 26, 2025](https://www.youtube.com/watch?v=Hdri5PR8l3E)
+* *map5topo, a new topographic map of The Netherlands made from Dutch Open Data + OpenStreetMap* - [FOSS4G-NL-BE - Sept 25, 2024](https://foss4g.nl)
 * *"Melting Dutch open data and OpenStreetMap into a single schema"* - [Maptime AMS - September 19, 2024](https://www.meetup.com/maptime-ams/events/301851869) - [\[PDF Slides\]](https://files.justobjects.nl/presentation/maptime-2024/map5-data-maptime-just-2024.pdf)
 * *"map5topo - een nieuwe, frisse topokaart van Nederland"* - [OSGeo.nl FOSS4GNL Middelburg - September 14, 2023](https://foss4g.nl) - [\[PDF Slides\]](https://files.justobjects.nl/presentation/foss4gnl-2023/map5topo-foss4gnl-2023.pdf)
 * *"Introducing map5topo - a new Topographic Map of The Netherlands"* - Information Sessions - Oktober 5+6, 2022 - Online - Dutch - [\[PDF Slides\]](https://files.justobjects.nl/presentation/map5topo-2022/221005-info-session.pdf)
