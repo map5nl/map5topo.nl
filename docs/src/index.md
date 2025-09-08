@@ -36,8 +36,10 @@ For map5topo developments, start with [Newsletter nr 5](https://us10.campaign-ar
 
 # Presentations
 
-map5topo has been presented on several events, upcoming is on Sept 25, 2024 at the [FOSS4G-NL-BE](https://foss4g.nl), latest first:
+map5topo and its development has been presented on multiple events, latest first:
 
+* *_"Wie MapLibre und Vektorkarten die Welt übernehmen" - In German - [FOSSGIS 2025, Múnster, Germany](https://fossgis-konferenz.de/2025/) - March 26, 2025_* - [abstract](https://pretalx.com/fossgis2025/talk/7BYCBD/) - [VIDEO](https://ffmuc.media.ccc.de//events/fossgis/2025/h264-hd/fossgis2025-58293-deu-Wie_MapLibre_und_Vektorkarten_die_Welt_uebernehmen_hd.mp4) - [\[PDF Slides\]](https://files.justobjects.nl/presentation/fossgis2025/maplibre-fossgis-2025.pdf).
+* *_"Basisregistraties en OpenStreetMap mixen voor map5topo kaarten" - [FOSS4G-BE-NL - Baarle - Sept 26, 2024](https://foss4g.nl/)_* - [\[PDF Slides\]](https://files.justobjects.nl/presentation/foss4gbenl-2024/map5-data-foss4gbenl-just-2024.pdf).
 * *"Melting Dutch open data and OpenStreetMap into a single schema"* - [Maptime AMS - September 19, 2024](https://www.meetup.com/maptime-ams/events/301851869) - [\[PDF Slides\]](https://files.justobjects.nl/presentation/maptime-2024/map5-data-maptime-just-2024.pdf)
 * *"map5topo - een nieuwe, frisse topokaart van Nederland"* - [OSGeo.nl FOSS4GNL Middelburg - September 14, 2023](https://foss4g.nl) - [\[PDF Slides\]](https://files.justobjects.nl/presentation/foss4gnl-2023/map5topo-foss4gnl-2023.pdf)
 * *"Introducing map5topo - a new Topographic Map of The Netherlands"* - Information Sessions - Oktober 5+6, 2022 - Online - Dutch - [\[PDF Slides\]](https://files.justobjects.nl/presentation/map5topo-2022/221005-info-session.pdf)
