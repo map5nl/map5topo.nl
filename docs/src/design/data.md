@@ -22,7 +22,7 @@ Some similar work, common data schemas from various source datasets:
 * [OpenMapTiles Schema OMT](https://openmaptiles.org/schema/)
 * [PDOK Vector Tiles BGT BRT - Pilot](https://github.com/PDOK/vectortiles-bgt-brt/tree/master/sql)
 * [Basemap DE Data Model](https://basemap.de/dienste/opendata/basisviews_bdlm_datenmodell.html)
-* [OVerture Maps Data Schema](https://docs.overturemaps.org/)
+* [Overture Maps Data Schema](https://docs.overturemaps.org/)
 
 Most approaches apply hierarchical feature classification: OMT uses `class`, `subclass`, PDOK Vector Tiles Pilot uses
 "Level-Of-Detail": `lod1`, `lod2` etc. We like the latter convention as it allows an endless 

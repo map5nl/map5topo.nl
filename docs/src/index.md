@@ -13,7 +13,7 @@ Source data originates from Open Datasets like the Dutch "Key Registries" ("Basi
 and from OpenStreetMap.
                
 map5topo is provided by [map5.nl](https:///map5.nl)
-via OGC tiled web services like WMTS, but also "XYZ" (Google/OSM tiles, a.k.a. Web Mercator) tiles. Currently only raster (image) tiles, including "HQ Retina".
+via OGC tiled web services like WMTS, but also "XYZ" (Google/OSM tiles, a.k.a. Web Mercator) tiles. Currently only raster (image) tiles, including "HQ Retina". Vector tiles are under development.
 
 This website now covers mainly work-in-progress documentation. Eventually map5topo will be an Open Source project.
 At the moment we are cleaning up code and more, as to have a more accessible project. Be patient!
@@ -23,6 +23,14 @@ Please see the left-hand navigation for the table of contents.
 # Demo
 
 View [map5topo in full](https://app.map5.nl/map5topo/full/) interactively.
+
+# Mobile App
+
+There is a free map5topo app for mobile phone (Android, iPhone).
+
+![map5topo app](assets/images/map5topo-app-0.jpg){ data-title="Map5topo App" align=left }
+
+Download and install from the App Store for iPhone or for Android from the [PlayStore](https://play.google.com/store/apps/details?id=nl.map5topo.viewerapp&hl=en).
 
 # Gallery
 
