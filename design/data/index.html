@@ -1,0 +1,2199 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="Presents Source Datasets and how these are unified in single data model" name="description">
+<meta content="Just van den Broecke" name="author">
+<link href="https://map5topo.nl/design/data/" rel="canonical">
+<link href="../architecture/" rel="prev">
+<link href="../gitops/" rel="next">
+<link href="../../assets/favicon.ico" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.20" name="generator">
+<title>Data Design - map5topo.nl</title>
+<link href="../../assets/stylesheets/main.e53b48f4.min.css" rel="stylesheet">
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/stylesheets/termynal.css" rel="stylesheet">
+<link href="../../assets/stylesheets/custom.css" rel="stylesheet">
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="Data" name="title"><meta content="website" property="og:type"><meta content="https://map5topo.nl/design/data" property="og:url"><meta content="Data" property="og:title"><meta content="Presents Source Datasets and how these are unified in single data model" property="og:description"><meta content="../../assets/images/design/map5-schema-overview.png" property="og:image"><meta content="summary_large_image" property="twitter:card"><meta content="https://map5topo.nl/design/data" property="twitter:url"><meta content="Data" property="twitter:title"><meta content="Presents Source Datasets and how these are unified in single data model" property="twitter:description"><meta content="../../assets/images/design/map5-schema-overview.png" property="twitter:image"><style>
+.md-content__button[onclick*="copyMarkdownForLLM"] svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: currentColor;
+}
+
+.git-info, .dates-container, .authors-container, .share-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.git-info {
+    font-size: 0.8em;
+    color: grey;
+    margin-bottom: 10px;
+}
+
+.dates-container, .authors-container {
+    margin-bottom: 10px;
+}
+
+.date-item, .author-link, .share-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.date-item {
+    margin-right: 10px;
+}
+
+.hover-item {
+    transition: all 0.2s ease;
+    filter: grayscale(100%);
+}
+
+.date-item .hover-item {
+    font-size: 1.6em;
+    margin-right: 5px;
+}
+
+.author-link .hover-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 3px;
+    background-color: #f0f0f0;  /* Placeholder color */
+    opacity: 0;  /* Start fully transparent */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.author-link .hover-item[src] {
+    opacity: 1;  /* Fade in when src is set (image loaded) */
+}
+
+.share-buttons {
+    margin-top: 10px;
+}
+
+.share-button {
+    background-color: #1da1f2;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: none;
+    font-size: 0.95em;
+    margin: 5px;
+    transition: all 0.2s ease;
+}
+
+.share-button.linkedin {
+    background-color: #0077b5;
+}
+
+.share-button i {
+    margin-right: 5px;
+    font-size: 1.1em;
+}
+
+/* Hover effects */
+.share-button:hover,
+.hover-item:hover {
+    color: var(--md-accent-fg-color);
+    transform: scale(1.1);
+    filter: brightness(1.2) grayscale(0%);
+}
+
+@media (max-width: 1024px) {
+    .git-info {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .dates-container, .authors-container {
+        width: 100%;
+    }
+}
+</style><link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="map5topo" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#data-design">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="map5topo.nl" class="md-header__button md-logo" data-md-component="logo" href="../.." title="map5topo.nl">
+<img alt="logo" src="../../assets/images/map5-logo-bg-black.png">
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            map5topo.nl
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Data Design
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/map5nl/map5topo.nl" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="map5topo.nl" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="map5topo.nl">
+<img alt="logo" src="../../assets/images/map5-logo-bg-black.png">
+</a>
+    map5topo.nl
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/map5nl/map5topo.nl" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox">
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+<span class="md-ellipsis">
+    Design
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Design
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../spec/">
+<span class="md-ellipsis">
+    Specification
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox">
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Data
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Data
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#intro">
+<span class="md-ellipsis">
+      Intro
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#challenges">
+<span class="md-ellipsis">
+      Challenges
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#classification">
+<span class="md-ellipsis">
+      Classification
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-data-structure">
+<span class="md-ellipsis">
+      Common Data Structure
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#feature-sets">
+<span class="md-ellipsis">
+      Feature Sets
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#etl">
+<span class="md-ellipsis">
+      ETL
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#zoom-specific-selection">
+<span class="md-ellipsis">
+      Zoom-specific Selection
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#abroad">
+<span class="md-ellipsis">
+      Abroad
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#osm-source-data">
+<span class="md-ellipsis">
+      OSM Source Data
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-landcover">
+<span class="md-ellipsis">
+      Example Landcover
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metadata">
+<span class="md-ellipsis">
+      Metadata
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gitops/">
+<span class="md-ellipsis">
+    Deployment
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox">
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-ellipsis">
+    Creation
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Creation
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../create/method/">
+<span class="md-ellipsis">
+    Method
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../create/setup/">
+<span class="md-ellipsis">
+    Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../create/data/">
+<span class="md-ellipsis">
+    Data
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../create/map/">
+<span class="md-ellipsis">
+    Map
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+<span class="md-ellipsis">
+    Gallery
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Gallery
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2022/">
+<span class="md-ellipsis">
+    2022
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2023/">
+<span class="md-ellipsis">
+    2023
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2024/">
+<span class="md-ellipsis">
+    2024
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2025/">
+<span class="md-ellipsis">
+    2025
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../research/">
+<span class="md-ellipsis">
+    Research
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#intro">
+<span class="md-ellipsis">
+      Intro
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#challenges">
+<span class="md-ellipsis">
+      Challenges
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#classification">
+<span class="md-ellipsis">
+      Classification
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-data-structure">
+<span class="md-ellipsis">
+      Common Data Structure
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#feature-sets">
+<span class="md-ellipsis">
+      Feature Sets
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#etl">
+<span class="md-ellipsis">
+      ETL
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#zoom-specific-selection">
+<span class="md-ellipsis">
+      Zoom-specific Selection
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#abroad">
+<span class="md-ellipsis">
+      Abroad
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#osm-source-data">
+<span class="md-ellipsis">
+      OSM Source Data
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-landcover">
+<span class="md-ellipsis">
+      Example Landcover
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metadata">
+<span class="md-ellipsis">
+      Metadata
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<div><h1 id="data-design">Data Design</h1>
+<p>Source Datasets and Data model.</p>
+<h2 id="intro">Intro</h2>
+<p>map5topo is composed of multiple (open) datasets. The aim is to fit
+these all into a single model, (feature) classification and DB-schema.</p>
+<p>This is an ongoing process. The name of the (PostGIS) schema is <code>map5</code>.
+Tables in this schema are filled with data from other schemas/tables that
+contain the various (vector) sources like OpenStreetMap, BRT, BRK, BGT, BAG etc.
+SQL scripts are used for this transformation.</p>
+<p>Some similar work, common data schemas from various source datasets:</p>
+<ul>
+<li><a href="https://openmaptiles.org/schema/">OpenMapTiles Schema OMT</a></li>
+<li><a href="https://github.com/PDOK/vectortiles-bgt-brt/tree/master/sql">PDOK Vector Tiles BGT BRT - Pilot</a></li>
+<li><a href="https://basemap.de/dienste/opendata/basisviews_bdlm_datenmodell.html">Basemap DE Data Model</a></li>
+<li><a href="https://docs.overturemaps.org/">Overture Maps Data Schema</a></li>
+</ul>
+<p>Most approaches apply hierarchical feature classification: OMT uses <code>class</code>, <code>subclass</code>, PDOK Vector Tiles Pilot uses
+"Level-Of-Detail": <code>lod1</code>, <code>lod2</code> etc. We like the latter convention as it allows an endless 
+hierarchy (and is short to type!).</p>
+<p>The image below depicts the map5-schema approach. (Click image to enlarge).</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-title="Map5 Schema design overview" data-type="image" data-width="100%" href="../../assets/images/design/map5-schema-overview.png"><img align="left" alt="map5 schema overview" data-title="Map5 Schema design overview" src="../../assets/images/design/map5-schema-overview.png"></a></p>
+<h2 id="challenges">Challenges</h2>
+<p>Although reclassification has been exercised in many mapping projects like the ones mentioned above,
+the extra challenge here is that completely disjunct datasets are used: Dutch Key Registries 
+(BAG, BGT, BRT etc) and OpenStreetMap. Even among Dutch Key registries very different feature classification
+schemes are in place. For example 'Terrain' (Dutch: 'Terrein') differs in classification among Top10NL and BGT and even 
+is different from Top50NL. Also geometries often do not align, as they originate from 
+different sources and surveying methods, e.g. OpenStreetMap and key registries like BRT and BGT. 
+Geometry-misalignment is even the case among Dutch key-registries, most notably between BRT and BGT.
+Though work is underway in <a href="https://docs.geostandaarden.nl/brtnext/vv-bd-brtnext-20230526/">BRT.Next</a>. </p>
+<p>An additional challenge is that the extent of the map includes <em>neighbouring countries</em>. The map of The Netherlands
+does not stop at its country-borders!
+For neighbouring countries, only data from OpenStreetMap
+is available now. Later, local datasets and hillshading from these countries may be added. 
+The aim is to develop the map from a completely integrated
+dataset (tables, layers, styles), i.e. from the "map5 schema". There are no separate tables/layers/styles for neighbouring 
+countries. Hint: the 'trick' is to mark each record with an <code>abroad</code> boolean attribute (see below).</p>
+<p>In summary these are the challenges:</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-title="Map5 challenges challenges" data-type="image" data-width="100%" href="../../assets/images/design/map5-challenges.png"><img align="left" alt="map5 challenges" data-title="Map5 challenges challenges" src="../../assets/images/design/map5-challenges.png"></a></p>
+<h2 id="classification">Classification</h2>
+<p>A hierarchical classification is applied, similar to animal and plants classification. 
+Later, i.s.o. <code>class</code>, <code>subclass</code> "Level-Of-Detail": <code>lod1</code>, <code>lod2</code> will be used.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-title="Map5 Classfication principles" data-type="image" data-width="100%" href="../../assets/images/design/map5-classification.png"><img align="left" alt="map5 classification" data-title="Map5 Classfication principles" src="../../assets/images/design/map5-classification.png"></a></p>
+<h2 id="common-data-structure">Common Data Structure</h2>
+<p>Each table will follow a common data structure design.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-title="Map5 Common data structures" data-type="image" data-width="100%" href="../../assets/images/design/map5-common-data-struct.png"><img align="left" alt="map5 common data structure" data-title="Map5 Common data structures" src="../../assets/images/design/map5-common-data-struct.png"></a></p>
+<p>As many features will have specific properties like surface, oneway, bridge (roads), names, 
+population (places), intermittent (water), these are implemented
+with feature-specific columns.</p>
+<p>Tables will be implemented as in image below.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-title="Map5 Common table structures" data-type="image" data-width="100%" href="../../assets/images/design/map5-common-table-struct.png"><img align="left" alt="map5 common table structure" data-title="Map5 Common table structures" src="../../assets/images/design/map5-common-table-struct.png"></a></p>
+<p>So in summary each table in the map5 schema has a similar setup, i.e. columns:</p>
+<div class="highlight"><pre><span></span><code>CREATE TABLE map5.xyz (
+    -- table-specific columns, usually classifications, area, population etc 
+    (lod1-lod3)
+    ..
+    ..
+    ..
+
+    -- COMMON AND FEATURE-SPECIFIC COLUMNS (PROPERTIES)
+    --
+
+    -- Relative height
+    z_index INTEGER DEFAULT 0,
+
+    -- min and maxzoom in Dutch RD
+    -- when to show an object on the map
+    rdz_min INTEGER, 
+    rdz_max INTEGER, 
+
+    -- Where the data record originates from
+    src_schema TEXT,
+    src_table TEXT,
+    src_idref TEXT,
+
+    -- Is the object in NL or outside (abroad)?
+    abroad BOOLEAN DEFAULT FALSE,
+
+    -- Geometry in Dutch EPSG
+    geom GEOMETRY(POINT|POLYGON|LINESTRING, 28992)
+);
+</code></pre></div>
+<p>Many tables will contain a classification, like for Landcover or POIs.
+This is a typical table structure:</p>
+<div class="highlight"><pre><span></span><code>CREATE TABLE map5.landcover (
+    lod1 TEXT,
+    lod2 TEXT,
+    lod3 TEXT,
+    area BIGINT DEFAULT 0,
+
+    -- Common columns
+    z_index INTEGER DEFAULT 0,
+    rdz_min INTEGER DEFAULT -1,
+    rdz_max INTEGER DEFAULT 13,
+    src_schema TEXT,
+    src_table TEXT,
+    src_idref TEXT,
+    abroad BOOLEAN DEFAULT FALSE,
+    geom GEOMETRY(POLYGON, 28992)
+);
+</code></pre></div>
+<p>Here <code>lod1</code> through <code>lod3</code> provide an <em>hierarchical</em> classification of the
+feature. The value-ranges  for these columns/attributes are defined per feature type. Each source dataset-specific 
+classification is mapped to these value ranges. Usually <code>lod1</code> and <code>lod2</code> is sufficient, sometimes only <code>lod1</code>.</p>
+<p>For example: <code>lod1</code>: <code>trees</code>, <code>lod2: broadleaved|pine|mixed</code>. <code>lod3</code> contains usually
+the source-specific value like <code>naaldbos</code>, mainly for debugging or refined styling.</p>
+<p>The image below summarizes this table design. (Click image to enlarge).</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-title="Map5 Schema design and sample tables" data-type="image" data-width="100%" href="../../assets/images/design/map5-schema-tables.png"><img align="left" alt="map5 schema samples" data-title="Map5 Schema design and sample tables" src="../../assets/images/design/map5-schema-tables.png"></a></p>
+<h2 id="feature-sets">Feature Sets</h2>
+<p>This is the list of map5topo feature sets. Criteria/guidelines:</p>
+<ul>
+<li>Each feature set is a (PostGIS) table. </li>
+<li>Some tables may expand to multiple Layers. For example <code>transport</code>: Regular, Tunnels and Bridges.</li>
+<li>Each feature set/table always has a single geometry type. </li>
+<li>Sometimes multiple tables for same feature type, for example: <code>transport</code> and <code>transport_area</code>. </li>
+<li>Some, like <code>housenumber</code>, which are in effect labels, are separate feature sets because of the sheer set's size. </li>
+<li>For some names the geometry type is implicit, like <code>poi</code> (point). </li>
+<li>No plural naming like <code>borders</code>, <code>parcels</code>.</li>
+<li>Each record contains metadata on its source origin object: source -dataset, -table, -identifier.</li>
+<li>Each record has a "zoom range", i.e. a min and max zoomlevel in which it should be rendered.</li>
+<li>Multiple geometry simplifications/generalizations of the same feature (thus source-id) may thus appear in single table.</li>
+<li>DEM (Heights): hillshade is not table-based, but separate GeoTIFF raster data.</li>
+<li>DEM (Heights): contour lines are vector data thus table-based.</li>
+</ul>
+<p>The list below is not fixed, subject to change based on new insights, or data items that do not
+fit in any set.</p>
+<ul>
+<li><strong>area_label</strong> - point - any  that has a name (except house numbers, transport, water)</li>
+<li><strong>border</strong>  - multipolygon - administrative borders</li>
+<li><strong>contour_line</strong> - line - height lines (derived from DEM)</li>
+<li><strong>grid</strong>  - line - grid lines in map (standard Kadaster RD km lines)</li>
+<li><strong>housenumber</strong>  - point - clear, also house names</li>
+<li><strong>landcover</strong>  - polygon - mostly ground level earth covering ("aardbedekking")</li>
+<li><strong>landuse</strong>  - polygon - functional use of land, like military areas, graveyards, parks</li>
+<li><strong>parcel</strong> - line - borders of cadastral parcels</li>
+<li><strong>pitch</strong> - polygon - mainly sports pitches  - special case of landuse, styled with overlay SVG</li>
+<li><strong>place</strong> - point - names of cities, towns up to hamlets</li>
+<li><strong>poi</strong> - point - Points of Interest</li>
+<li><strong>seamark</strong>  - point - navigation aids for water traffic like buoys, beacons and lighthouses, (Dutch: "vaarwegmarkeringen") </li>
+<li><strong>structure</strong>  - polygon - anything human-built from buildings/houses up to civil tech structures</li>
+<li><strong>structure_line</strong>    - line -  barriers, fences, powerlines</li>
+<li><strong>transport</strong>         - line - transportation infrastructure: roads, trails, railways, aeroways, ferries etc</li>
+<li><strong>transport_area</strong>    - polygon - transportation infrastructure areas, road areas, aerodromes, aprons</li>
+<li><strong>valley_label</strong> - line - curved labels for valleys (only a few)</li>
+<li><strong>water</strong> - multipolygon - water polygons</li>
+<li><strong>water_label</strong>  - line - water names formed/curved by shapes of waterbodies.</li>
+<li><strong>waterway</strong> - line - water lines</li>
+<li><strong>waterway_label</strong>  - line - waterway names for line-based waterways like rivers and streams</li>
+</ul>
+<p>Discussion:</p>
+<ul>
+<li><code>aeroway</code> like aerodromes (polygon) is always a separate feature set, why? Is here part of <code>transport_area</code>.</li>
+<li>to add to this: aeroway lines are now part of <code>transport</code></li>
+<li>label sets are based on their type: labels for areas (point), water bodies and valleys (generated curved lines), waterways (line).</li>
+</ul>
+<h2 id="etl">ETL</h2>
+<p>The map5 schema will be populated using SQL as the ETL tool. This is for now simple and quickly to adapt.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-title="Map5 Schema ETL" data-type="image" data-width="100%" href="../../assets/images/design/map5-schema-etl.png"><img align="left" alt="map5 ETL" data-title="Map5 Schema ETL" src="../../assets/images/design/map5-schema-etl.png"></a></p>
+<p>The table-SQL for the ETL 
+can be found <a href="https://github.com/map5nl/map5topo/tree/main/tools/etl/sql/map5/tables">here</a>.</p>
+<h2 id="zoom-specific-selection">Zoom-specific Selection</h2>
+<p>Each table may contain multiple geometry generalizations (simplifications) 
+for the same object. Per record the zoomlevel range
+is specified with <code>rdz_min</code>-<code>rdz_max</code>. Mapnik always provides a <code>scaledenominator</code>
+when accessing a <code>Layer</code>.  Via the SQL Function <code>rdz()</code> this scaledenominator is
+converted to an RD Zoomlevel (range 1-13, equal to WebMerc 6-18) that is used in the query on that Layer.
+This way only the relevant records for that zoomlevel are selected. </p>
+<p>Many zoom-ranges also have VIEWs, for example for analysis. If needed, for performance,
+PostgreSQL <em>materialized VIEWs</em> may be applied. But at least
+data for a single feature type, usually a layer, is not spread over multiple tables now.</p>
+<p>For example a VIEW for low-zoom Terrain:</p>
+<div class="highlight"><pre><span></span><code>CREATE VIEW map5.landcover_z0_z3 AS SELECT
+   lc.*
+FROM map5.landcover lc WHERE lc.rdz_min &gt;= 0 AND lc.rdz_max &lt;= 3;
+</code></pre></div>
+<p>This also works for Web Mercator tiles as scale-ranges are shared, see e.g.
+</p><div class="highlight"><pre><span></span><code>.
+
+.
+&lt;!ENTITY maxscale_zoom15_rd10 "&lt;MaxScaleDenominator&gt;20000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom15_rd10 "&lt;MinScaleDenominator&gt;10000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom16_rd11 "&lt;MaxScaleDenominator&gt;10000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom16_rd11 "&lt;MinScaleDenominator&gt;5000&lt;/MinScaleDenominator&gt;"&gt;
+.
+.
+</code></pre></div>
+<p>Using these common ranges allows parallel zoomlevels: for example RD level 11 is 16 in Web Mercator.
+RD level 13 is WM level 18, the highest level etc.
+Usually zoom WM = Zoom RD +5.</p>
+<h2 id="abroad">Abroad</h2>
+<p>The map area includes data from countries both bordering (Germany, Belgium) and in vicinity 
+(Northern France) of The Netherlands. By intersecting a (multi)polygon that contains The Netherlands' borders,
+in each OSM-record can be marked as located abroad or not This is realized through a simple boolean column, 
+aptly called <code>abroad</code>. For data from Dutch Key Registries, the fixed <code>abroad</code> value is <code>False</code>.</p>
+<h2 id="osm-source-data">OSM Source Data</h2>
+<p>OSM data is downloaded from geofabrik.de, and comprises:</p>
+<div class="highlight"><pre><span></span><code>  # The Netherlands
+  https://download.geofabrik.de/europe/netherlands-latest.osm.pbf
+
+  # Abroad
+  http://download.geofabrik.de/europe/belgium-latest.osm.pbf 
+  http://download.geofabrik.de/europe/germany/niedersachsen-latest.osm.pbf 
+  http://download.geofabrik.de/europe/germany/nordrhein-westfalen-latest.osm.pbf 
+  http://download.geofabrik.de/europe/germany/rheinland-pfalz-latest.osm.pbf 
+  http://download.geofabrik.de/europe/france/nord-pas-de-calais-latest.osm.pbf 
+
+  # Sea
+  https://osmdata.openstreetmap.de/download/simplified-water-polygons-split-3857.zip
+  https://osmdata.openstreetmap.de/download/water-polygons-split-3857.zip
+</code></pre></div>
+<p>"The Netherlands" and "Abroad" and stitched together using Osmosis. "Water" data is basically
+sea, with exception of Oosterschelde. These are directly converted, using GDAL <code>ogr2ogr</code>, to PostgreSQL <code>PGDump</code>
+files for quick reuse.</p>
+<h2 id="example-landcover">Example Landcover</h2>
+<p>The image below shows an example for the table <code>map5.landcover</code> ("Landcover" and "Landuse" are separated).  </p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-title="Map5 Schema example for Landcover" data-type="image" data-width="100%" href="../../assets/images/design/map5-schema-example.png"><img align="left" alt="map5 schema example" data-title="Map5 Schema example for Landcover" src="../../assets/images/design/map5-schema-example.png"></a> </p>
+<p>The figure shows the table structure and the hierarchical classification: <code>lod1</code>  and <code>lod2</code> and their values. 
+This table is filled from various source tables like BGT and BRT (all "terrain"-related) but also OSM.</p>
+<p>Also an excerpt from the <code>map5.landcover.sql</code> ETL is shown, for mapping records from BRT Top50NL. 
+This mapping is an ongoing process, as the lod-hierarchy needs to be established and mapped
+from very different source datasets. Even Dutch Topographic datasets like BRT (smallscale) and BGT (largescale) have
+very different feature classification schemes. Also none of the source datasets seems to get the difference
+between "Landcover" and "Landuse" right. For example, "orchard" or "graveyard": are these Landcover or Landuse?
+This is also an ongoing discussion in the OSM Community, as 
+<a href="https://wiki.openstreetmap.org/wiki/Proposal:Landcover_proposal_V2">this recent Landcover proposal</a> shows.</p>
+<h2 id="metadata">Metadata</h2>
+<p>Each record within tables in the <code>map5</code> database schema contains its source schema/table and visibility zoom-range.
+This allows for generating metadata such that this information can be made available per zoomlevel, but also other
+statistical information like the number of records (at that zoom-level) from a particular source table.</p>
+<p>This is exactly what the <code>map5.metadata</code> table beholds. As part of the ETL (SQL) that fills <code>map5.</code> tables from thir source
+schemas/tables, a utility SQL function will also insert (replace) records in <code>map5.metadata</code>. The image below shows the 
+generic setup.  </p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-title="Map5 Schema metadata table" data-type="image" data-width="100%" href="../../assets/images/design/metadata-table.png"><img align="left" alt="map5 metadata design" data-title="Map5 Schema metadata table" src="../../assets/images/design/metadata-table.png"></a> </p>
+<p><br>Below an example query: "Show me all information for zoomlevel RD 12 that is not abroad".  </p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-title="Map5 Schema metadata query" data-type="image" data-width="100%" href="../../assets/images/design/metadata-query.png"><img align="left" alt="map5 metadata query" data-title="Map5 Schema metadata query" src="../../assets/images/design/metadata-query.png"></a> </p>
+<p>Below is the SQL function called at the end of each <code>map5.</code> table generation, that extracts the relevant metadata
+records from that table.   </p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-title="Map5 Schema metadata create records" data-type="image" data-width="100%" href="../../assets/images/design/metadata-create.png"><img align="left" alt="map5 schema query" data-title="Map5 Schema metadata create records" src="../../assets/images/design/metadata-create.png"></a> </p>
+<p>Below are actual classification values, <code>lod1</code> and <code>lod2</code> (<code>lod3</code> is currently only used for original value/tags) 
+for each table.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">table_name</th>
+<th style="text-align: left;">lod1</th>
+<th style="text-align: left;">lod2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">area_label</td>
+<td style="text-align: left;">administrative</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">area_label</td>
+<td style="text-align: left;">junction</td>
+<td style="text-align: left;">exit</td>
+</tr>
+<tr>
+<td style="text-align: left;">area_label</td>
+<td style="text-align: left;">junction</td>
+<td style="text-align: left;">interchange</td>
+</tr>
+<tr>
+<td style="text-align: left;">area_label</td>
+<td style="text-align: left;">natural</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">area_label</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">agriculture</td>
+<td style="text-align: left;">arable</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">agriculture</td>
+<td style="text-align: left;">orchard</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">agriculture</td>
+<td style="text-align: left;">pastoral</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">bare</td>
+<td style="text-align: left;">bare</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">bare</td>
+<td style="text-align: left;">reed</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">bare</td>
+<td style="text-align: left;">urban</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">bare</td>
+<td style="text-align: left;">yard</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">greenery</td>
+<td style="text-align: left;">grass</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">greenery</td>
+<td style="text-align: left;">scrub</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">heath</td>
+<td style="text-align: left;">heath</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">sand</td>
+<td style="text-align: left;">reed</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">sand</td>
+<td style="text-align: left;">sand</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">trees</td>
+<td style="text-align: left;">deciduous</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">trees</td>
+<td style="text-align: left;">mixed</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">trees</td>
+<td style="text-align: left;">pine</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">wetland</td>
+<td style="text-align: left;">bare</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">wetland</td>
+<td style="text-align: left;">reed</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">wetland</td>
+<td style="text-align: left;">scrub</td>
+</tr>
+<tr>
+<td style="text-align: left;">landcover</td>
+<td style="text-align: left;">wetland</td>
+<td style="text-align: left;">tidalflat</td>
+</tr>
+<tr>
+<td style="text-align: left;">landuse</td>
+<td style="text-align: left;">cemetery</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">landuse</td>
+<td style="text-align: left;">military</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">landuse</td>
+<td style="text-align: left;">nature_reserve</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">landuse</td>
+<td style="text-align: left;">parking</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">landuse</td>
+<td style="text-align: left;">sport</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">amenity</td>
+<td style="text-align: left;">hospital</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">distance</td>
+<td style="text-align: left;">hm</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">distance</td>
+<td style="text-align: left;">km</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">height</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">historic</td>
+<td style="text-align: left;">castle</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">historic</td>
+<td style="text-align: left;">city_gate</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">historic</td>
+<td style="text-align: left;">monument</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">natural</td>
+<td style="text-align: left;">tree</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">place_of_worship</td>
+<td style="text-align: left;">major</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">place_of_worship</td>
+<td style="text-align: left;">shed</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">place_of_worship</td>
+<td style="text-align: left;">wayside_chapel</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">place_of_worship</td>
+<td style="text-align: left;">wayside_shrine</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">station</td>
+<td style="text-align: left;">bus</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">station</td>
+<td style="text-align: left;">metro</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">station</td>
+<td style="text-align: left;">other</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">station</td>
+<td style="text-align: left;">railway</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">station</td>
+<td style="text-align: left;">tram</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">structure</td>
+<td style="text-align: left;">beach_pole</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">structure</td>
+<td style="text-align: left;">gate</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">structure</td>
+<td style="text-align: left;">marker_pole</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">structure</td>
+<td style="text-align: left;">power_generator</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">structure</td>
+<td style="text-align: left;">powertower</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">structure</td>
+<td style="text-align: left;">windmill</td>
+</tr>
+<tr>
+<td style="text-align: left;">poi</td>
+<td style="text-align: left;">tourism</td>
+<td style="text-align: left;">camp_site</td>
+</tr>
+<tr>
+<td style="text-align: left;">seamark</td>
+<td style="text-align: left;">beacon</td>
+<td style="text-align: left;">beacon_cardinal</td>
+</tr>
+<tr>
+<td style="text-align: left;">seamark</td>
+<td style="text-align: left;">beacon</td>
+<td style="text-align: left;">beacon_isolated_danger</td>
+</tr>
+<tr>
+<td style="text-align: left;">seamark</td>
+<td style="text-align: left;">beacon</td>
+<td style="text-align: left;">beacon_lateral</td>
+</tr>
+<tr>
+<td style="text-align: left;">seamark</td>
+<td style="text-align: left;">beacon</td>
+<td style="text-align: left;">beacon_special_purpose</td>
+</tr>
+<tr>
+<td style="text-align: left;">seamark</td>
+<td style="text-align: left;">buoy</td>
+<td style="text-align: left;">buoy_cardinal</td>
+</tr>
+<tr>
+<td style="text-align: left;">seamark</td>
+<td style="text-align: left;">buoy</td>
+<td style="text-align: left;">buoy_lateral</td>
+</tr>
+<tr>
+<td style="text-align: left;">seamark</td>
+<td style="text-align: left;">buoy</td>
+<td style="text-align: left;">buoy_safe_water</td>
+</tr>
+<tr>
+<td style="text-align: left;">seamark</td>
+<td style="text-align: left;">buoy</td>
+<td style="text-align: left;">buoy_special_purpose</td>
+</tr>
+<tr>
+<td style="text-align: left;">seamark</td>
+<td style="text-align: left;">light</td>
+<td style="text-align: left;">light_float</td>
+</tr>
+<tr>
+<td style="text-align: left;">seamark</td>
+<td style="text-align: left;">light</td>
+<td style="text-align: left;">light_major</td>
+</tr>
+<tr>
+<td style="text-align: left;">seamark</td>
+<td style="text-align: left;">light</td>
+<td style="text-align: left;">light_minor</td>
+</tr>
+<tr>
+<td style="text-align: left;">structure</td>
+<td style="text-align: left;">building</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">structure</td>
+<td style="text-align: left;">building_addon</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">structure</td>
+<td style="text-align: left;">civil_tech</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">structure</td>
+<td style="text-align: left;">other_building</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">structure</td>
+<td style="text-align: left;">power_generator</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">structure</td>
+<td style="text-align: left;">waterholder</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">structure_line</td>
+<td style="text-align: left;">barrier</td>
+<td style="text-align: left;">ditch</td>
+</tr>
+<tr>
+<td style="text-align: left;">structure_line</td>
+<td style="text-align: left;">barrier</td>
+<td style="text-align: left;">fence</td>
+</tr>
+<tr>
+<td style="text-align: left;">structure_line</td>
+<td style="text-align: left;">barrier</td>
+<td style="text-align: left;">gate</td>
+</tr>
+<tr>
+<td style="text-align: left;">structure_line</td>
+<td style="text-align: left;">barrier</td>
+<td style="text-align: left;">hedge</td>
+</tr>
+<tr>
+<td style="text-align: left;">structure_line</td>
+<td style="text-align: left;">barrier</td>
+<td style="text-align: left;">other</td>
+</tr>
+<tr>
+<td style="text-align: left;">structure_line</td>
+<td style="text-align: left;">barrier</td>
+<td style="text-align: left;">wall</td>
+</tr>
+<tr>
+<td style="text-align: left;">structure_line</td>
+<td style="text-align: left;">powerline</td>
+<td style="text-align: left;">cable</td>
+</tr>
+<tr>
+<td style="text-align: left;">structure_line</td>
+<td style="text-align: left;">powerline</td>
+<td style="text-align: left;">major</td>
+</tr>
+<tr>
+<td style="text-align: left;">structure_line</td>
+<td style="text-align: left;">powerline</td>
+<td style="text-align: left;">minor</td>
+</tr>
+<tr>
+<td style="text-align: left;">structure_line</td>
+<td style="text-align: left;">powerline</td>
+<td style="text-align: left;">other</td>
+</tr>
+<tr>
+<td style="text-align: left;">structure_line</td>
+<td style="text-align: left;">powerline</td>
+<td style="text-align: left;">portal</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">cable_car</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">chair_lift</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">drag_lift</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">gondola</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">goods</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">j-bar</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">magic_carpet</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">platter</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">rope_tow</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">station</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">t-bar</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aerialway</td>
+<td style="text-align: left;">zip_line</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">abandoned</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">aerodrome_marking</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">airstrip</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">holding_position</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">jet_bridge</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">model_runway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">navigationaid</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">parking_position</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">razed</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">runway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">stopway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">taxilane</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">taxiway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">blockpost</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">construction</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">crane</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">crane_rail</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">crossing</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">demolished</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">dismantled</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">disused</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">fuel</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">funicular</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">historic</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">hyperloop</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">light_rail</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">loading_rack</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">loading_ramp</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">miniature</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">model</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">modeltrain</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">monorail</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">narrow_gauge</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">no</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">platform</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">platform_edge</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">platform_marker</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">preserved</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">proposed</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">rail</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">razed</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">route</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">signal_box</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">signal_bridge</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">subway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">tram</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">tram_stop</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">traverser</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">turntable</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">ventilation_shaft</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">yard</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">rail</td>
+<td style="text-align: left;">yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">cycleway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">footway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">future</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">motorway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">motorway_link</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">other</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">path</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">pedestrian</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">primary</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">primary_link</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">residential</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">secondary</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">secondary_link</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">service</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">tertiary</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">tertiary_link</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">trunk</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">trunk_link</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">road</td>
+<td style="text-align: left;">unclassified</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">route</td>
+<td style="text-align: left;">ferry</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">trail</td>
+<td style="text-align: left;">bridleway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">trail</td>
+<td style="text-align: left;">busway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">trail</td>
+<td style="text-align: left;">cycleway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">trail</td>
+<td style="text-align: left;">mtb</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">trail</td>
+<td style="text-align: left;">path</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">trail</td>
+<td style="text-align: left;">steps</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport</td>
+<td style="text-align: left;">trail</td>
+<td style="text-align: left;">track</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">aerodrome</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">airstrip</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">apron</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">deicing_pad</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">fuel</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">helipad</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">heliport</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">marking</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">model_runway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">paragliding_landing_site</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">parking_position</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">runway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">signal area</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">signal_area</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">signal_square</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">taxilane</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">aeroway</td>
+<td style="text-align: left;">taxiway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">bridge_part</td>
+<td style="text-align: left;">support</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">bridge_part</td>
+<td style="text-align: left;">surface</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">motorized</td>
+<td style="text-align: left;">baan voor vliegverkeer</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">motorized</td>
+<td style="text-align: left;">inrit</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">motorized</td>
+<td style="text-align: left;">living_street</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">motorized</td>
+<td style="text-align: left;">parkeervlak</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">motorized</td>
+<td style="text-align: left;">raceway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">motorized</td>
+<td style="text-align: left;">residential</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">motorized</td>
+<td style="text-align: left;">rijbaan autosnelweg</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">motorized</td>
+<td style="text-align: left;">rijbaan autoweg</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">motorized</td>
+<td style="text-align: left;">rijbaan lokale weg</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">motorized</td>
+<td style="text-align: left;">rijbaan regionale weg</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">motorized</td>
+<td style="text-align: left;">service</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">motorized</td>
+<td style="text-align: left;">track</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">OV-baan</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">berm</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">bridleway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">construction</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">corridor</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">crossing</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">cycleway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">elevator</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">emergency_access_point</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">fietspad</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">island</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">overweg</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">passing_place</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">proposed</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">ruiterpad</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">spoorbaan</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">tertiary</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">traffic_island</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">turntable</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">unclassified</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">verkeerseiland</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">pedestrian</td>
+<td style="text-align: left;">bus_stop</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">pedestrian</td>
+<td style="text-align: left;">footway</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">pedestrian</td>
+<td style="text-align: left;">path</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">pedestrian</td>
+<td style="text-align: left;">pedestrian</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">pedestrian</td>
+<td style="text-align: left;">platform</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">pedestrian</td>
+<td style="text-align: left;">rest_area</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">pedestrian</td>
+<td style="text-align: left;">services</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">pedestrian</td>
+<td style="text-align: left;">steps</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">pedestrian</td>
+<td style="text-align: left;">voetgangersgebied</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">pedestrian</td>
+<td style="text-align: left;">voetpad</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">pedestrian</td>
+<td style="text-align: left;">voetpad op trap</td>
+</tr>
+<tr>
+<td style="text-align: left;">transport_area</td>
+<td style="text-align: left;">pedestrian</td>
+<td style="text-align: left;">woonerf</td>
+</tr>
+<tr>
+<td style="text-align: left;">water</td>
+<td style="text-align: left;">basin</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">water</td>
+<td style="text-align: left;">lake</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">water</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">water</td>
+<td style="text-align: left;">river</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">water</td>
+<td style="text-align: left;">sea</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">water_label</td>
+<td style="text-align: left;">bayaxis</td>
+<td style="text-align: left;">bay</td>
+</tr>
+<tr>
+<td style="text-align: left;">water_label</td>
+<td style="text-align: left;">lakeaxis</td>
+<td style="text-align: left;">basin</td>
+</tr>
+<tr>
+<td style="text-align: left;">water_label</td>
+<td style="text-align: left;">lakeaxis</td>
+<td style="text-align: left;">reservoir</td>
+</tr>
+<tr>
+<td style="text-align: left;">water_label</td>
+<td style="text-align: left;">lakeaxis</td>
+<td style="text-align: left;">water</td>
+</tr>
+<tr>
+<td style="text-align: left;">water_label</td>
+<td style="text-align: left;">straitaxis</td>
+<td style="text-align: left;">strait</td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway</td>
+<td style="text-align: left;">canal</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway</td>
+<td style="text-align: left;">ditch</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway</td>
+<td style="text-align: left;">drain</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway</td>
+<td style="text-align: left;">river</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway</td>
+<td style="text-align: left;">stream</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway</td>
+<td style="text-align: left;">weir</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway_label</td>
+<td style="text-align: left;">canal</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway_label</td>
+<td style="text-align: left;">ditch</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway_label</td>
+<td style="text-align: left;">drain</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway_label</td>
+<td style="text-align: left;">fairway</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway_label</td>
+<td style="text-align: left;">river</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waterway_label</td>
+<td style="text-align: left;">stream</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table></div>
+<br><br>
+<div class="git-info">
+<div class="dates-container">
+<span class="date-item" title="This page was first created on September 18, 2025">
+<span class="hover-item">📅</span> Created 0 days ago
+    </span>
+<span class="date-item" title="This page was last updated on September 18, 2025">
+<span class="hover-item">✏️</span> Updated 0 days ago
+    </span>
+</div>
+<div class="authors-container">
+<a class="author-link" href="https://github.com/justb4" title="justb4 (1 change)">
+<img alt="justb4" class="hover-item" loading="lazy" src="https://avatars.githubusercontent.com/u/582630?v=4&amp;s=96">
+</a>
+</div></div></article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      © 2023 Just Objects B.V.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script src="../../assets/javascripts/termynal.js"></script>
+<script src="../../assets/javascripts/custom.js"></script>
+
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

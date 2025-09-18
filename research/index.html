@@ -1,0 +1,1508 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="Initial and ongoing research. 
+Initially to come to an optimal toolchain, data and map design.
+Later also reseaarch into performance measurements and optimizations." name="description">
+<meta content="Just van den Broecke" name="author">
+<link href="https://map5topo.nl/research/" rel="canonical">
+<link href="../gallery/2025/" rel="prev">
+<link href="../assets/favicon.ico" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.20" name="generator">
+<title>Research - map5topo.nl</title>
+<link href="../assets/stylesheets/main.e53b48f4.min.css" rel="stylesheet">
+<link href="../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../assets/stylesheets/termynal.css" rel="stylesheet">
+<link href="../assets/stylesheets/custom.css" rel="stylesheet">
+<script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="Research" name="title"><meta content="website" property="og:type"><meta content="https://map5topo.nl/research" property="og:url"><meta content="Research" property="og:title"><meta content="Initial and ongoing research. 
+Initially to come to an optimal toolchain, data and map design.
+Later also reseaarch into performance measurements and optimizations." property="og:description"><meta content="../assets/images/png-vs-jpeg/z11-1069.png" property="og:image"><meta content="summary_large_image" property="twitter:card"><meta content="https://map5topo.nl/research" property="twitter:url"><meta content="Research" property="twitter:title"><meta content="Initial and ongoing research. 
+Initially to come to an optimal toolchain, data and map design.
+Later also reseaarch into performance measurements and optimizations." property="twitter:description"><meta content="../assets/images/png-vs-jpeg/z11-1069.png" property="twitter:image"><style>
+.md-content__button[onclick*="copyMarkdownForLLM"] svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: currentColor;
+}
+
+.git-info, .dates-container, .authors-container, .share-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.git-info {
+    font-size: 0.8em;
+    color: grey;
+    margin-bottom: 10px;
+}
+
+.dates-container, .authors-container {
+    margin-bottom: 10px;
+}
+
+.date-item, .author-link, .share-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.date-item {
+    margin-right: 10px;
+}
+
+.hover-item {
+    transition: all 0.2s ease;
+    filter: grayscale(100%);
+}
+
+.date-item .hover-item {
+    font-size: 1.6em;
+    margin-right: 5px;
+}
+
+.author-link .hover-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 3px;
+    background-color: #f0f0f0;  /* Placeholder color */
+    opacity: 0;  /* Start fully transparent */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.author-link .hover-item[src] {
+    opacity: 1;  /* Fade in when src is set (image loaded) */
+}
+
+.share-buttons {
+    margin-top: 10px;
+}
+
+.share-button {
+    background-color: #1da1f2;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: none;
+    font-size: 0.95em;
+    margin: 5px;
+    transition: all 0.2s ease;
+}
+
+.share-button.linkedin {
+    background-color: #0077b5;
+}
+
+.share-button i {
+    margin-right: 5px;
+    font-size: 1.1em;
+}
+
+/* Hover effects */
+.share-button:hover,
+.hover-item:hover {
+    color: var(--md-accent-fg-color);
+    transform: scale(1.1);
+    filter: brightness(1.2) grayscale(0%);
+}
+
+@media (max-width: 1024px) {
+    .git-info {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .dates-container, .authors-container {
+        width: 100%;
+    }
+}
+</style><link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="map5topo" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#research">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="map5topo.nl" class="md-header__button md-logo" data-md-component="logo" href=".." title="map5topo.nl">
+<img alt="logo" src="../assets/images/map5-logo-bg-black.png">
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            map5topo.nl
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Research
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/map5nl/map5topo.nl" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="map5topo.nl" class="md-nav__button md-logo" data-md-component="logo" href=".." title="map5topo.nl">
+<img alt="logo" src="../assets/images/map5-logo-bg-black.png">
+</a>
+    map5topo.nl
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/map5nl/map5topo.nl" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox">
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+<span class="md-ellipsis">
+    Design
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Design
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../design/spec/">
+<span class="md-ellipsis">
+    Specification
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../design/architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../design/data/">
+<span class="md-ellipsis">
+    Data
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../design/gitops/">
+<span class="md-ellipsis">
+    Deployment
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox">
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-ellipsis">
+    Creation
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Creation
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../create/method/">
+<span class="md-ellipsis">
+    Method
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../create/setup/">
+<span class="md-ellipsis">
+    Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../create/data/">
+<span class="md-ellipsis">
+    Data
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../create/map/">
+<span class="md-ellipsis">
+    Map
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+<span class="md-ellipsis">
+    Gallery
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Gallery
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gallery/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gallery/2022/">
+<span class="md-ellipsis">
+    2022
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gallery/2023/">
+<span class="md-ellipsis">
+    2023
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gallery/2024/">
+<span class="md-ellipsis">
+    2024
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gallery/2025/">
+<span class="md-ellipsis">
+    2025
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox">
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Research
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Research
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tile-seeding-optimization">
+<span class="md-ellipsis">
+      Tile Seeding Optimization
+    </span>
+</a>
+<nav aria-label="Tile Seeding Optimization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#logging-queries-standard">
+<span class="md-ellipsis">
+      Logging Queries - Standard
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-the-pg-statistics-system">
+<span class="md-ellipsis">
+      Using the PG statistics system
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#the-tests">
+<span class="md-ellipsis">
+      The Tests
+    </span>
+</a>
+<nav aria-label="The Tests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#geopackage-tile-storing">
+<span class="md-ellipsis">
+      GeoPackage Tile Storing
+    </span>
+</a>
+<nav aria-label="GeoPackage Tile Storing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#analysis">
+<span class="md-ellipsis">
+      Analysis
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tile-serving-performance">
+<span class="md-ellipsis">
+      Tile Serving Performance
+    </span>
+</a>
+<nav aria-label="Tile Serving Performance" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#without-indexes">
+<span class="md-ellipsis">
+      Without Indexes
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vector-tiles">
+<span class="md-ellipsis">
+      Vector Tiles
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#service-toolchain">
+<span class="md-ellipsis">
+      Service Toolchain
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-preparation">
+<span class="md-ellipsis">
+      Data Preparation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#map-design">
+<span class="md-ellipsis">
+      Map Design
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cartocss-kosmtik-poc-14072022">
+<span class="md-ellipsis">
+      CartoCSS + Kosmtik PoC - 14.07.2022
+    </span>
+</a>
+<nav aria-label="CartoCSS + Kosmtik PoC - 14.07.2022" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#the-example">
+<span class="md-ellipsis">
+      The Example
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#carto">
+<span class="md-ellipsis">
+      Carto
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kosmtik">
+<span class="md-ellipsis">
+      Kosmtik
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cartocss-topo-style-15072022">
+<span class="md-ellipsis">
+      CartoCSS + Topo Style - 15.07.2022
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#png-vs-jpeg-tiles-17072022">
+<span class="md-ellipsis">
+      PNG vs JPEG tiles - 17.07.2022
+    </span>
+</a>
+<nav aria-label="PNG vs JPEG tiles - 17.07.2022" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#png">
+<span class="md-ellipsis">
+      PNG
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#jpeg">
+<span class="md-ellipsis">
+      JPEG
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#png_1">
+<span class="md-ellipsis">
+      PNG
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#jpeg_1">
+<span class="md-ellipsis">
+      JPEG
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#see-changes-in-mapnik-style-files-directly">
+<span class="md-ellipsis">
+      See changes in Mapnik style files directly
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#refactor-scale-delineation">
+<span class="md-ellipsis">
+      Refactor Scale Delineation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#refs">
+<span class="md-ellipsis">
+      Refs
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tile-seeding-optimization">
+<span class="md-ellipsis">
+      Tile Seeding Optimization
+    </span>
+</a>
+<nav aria-label="Tile Seeding Optimization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#logging-queries-standard">
+<span class="md-ellipsis">
+      Logging Queries - Standard
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-the-pg-statistics-system">
+<span class="md-ellipsis">
+      Using the PG statistics system
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#the-tests">
+<span class="md-ellipsis">
+      The Tests
+    </span>
+</a>
+<nav aria-label="The Tests" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#geopackage-tile-storing">
+<span class="md-ellipsis">
+      GeoPackage Tile Storing
+    </span>
+</a>
+<nav aria-label="GeoPackage Tile Storing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#analysis">
+<span class="md-ellipsis">
+      Analysis
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tile-serving-performance">
+<span class="md-ellipsis">
+      Tile Serving Performance
+    </span>
+</a>
+<nav aria-label="Tile Serving Performance" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#without-indexes">
+<span class="md-ellipsis">
+      Without Indexes
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vector-tiles">
+<span class="md-ellipsis">
+      Vector Tiles
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#service-toolchain">
+<span class="md-ellipsis">
+      Service Toolchain
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-preparation">
+<span class="md-ellipsis">
+      Data Preparation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#map-design">
+<span class="md-ellipsis">
+      Map Design
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cartocss-kosmtik-poc-14072022">
+<span class="md-ellipsis">
+      CartoCSS + Kosmtik PoC - 14.07.2022
+    </span>
+</a>
+<nav aria-label="CartoCSS + Kosmtik PoC - 14.07.2022" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#the-example">
+<span class="md-ellipsis">
+      The Example
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#carto">
+<span class="md-ellipsis">
+      Carto
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kosmtik">
+<span class="md-ellipsis">
+      Kosmtik
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cartocss-topo-style-15072022">
+<span class="md-ellipsis">
+      CartoCSS + Topo Style - 15.07.2022
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#png-vs-jpeg-tiles-17072022">
+<span class="md-ellipsis">
+      PNG vs JPEG tiles - 17.07.2022
+    </span>
+</a>
+<nav aria-label="PNG vs JPEG tiles - 17.07.2022" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#png">
+<span class="md-ellipsis">
+      PNG
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#jpeg">
+<span class="md-ellipsis">
+      JPEG
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#png_1">
+<span class="md-ellipsis">
+      PNG
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#jpeg_1">
+<span class="md-ellipsis">
+      JPEG
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#see-changes-in-mapnik-style-files-directly">
+<span class="md-ellipsis">
+      See changes in Mapnik style files directly
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#refactor-scale-delineation">
+<span class="md-ellipsis">
+      Refactor Scale Delineation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#refs">
+<span class="md-ellipsis">
+      Refs
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<div><h1 id="research">Research</h1>
+<p>Initial and ongoing research. 
+Initially to come to an optimal toolchain, data and map design.
+Later also reseaarch into performance measurements and optimizations.</p>
+<h2 id="tile-seeding-optimization">Tile Seeding Optimization</h2>
+<p>Tile seeding especially for Retina (512x512) is a long process with sometimes processes "dying".
+Sometimes not all tiles are rendered, especially at some lower zoomlevels.
+Investigated in May 2024 : measuring tile generation performance in order to find bottlenecks.</p>
+<p>By isolating the generation of a single tile, the performance in each of its process-steps can be 
+measured. Tile generation is performed by Mapnik from the XML Style files.
+Mapnik reads the file (once) and then basically performs a series of PostGIS queries, one for each Layer, and then 
+draws the map and generates a tile image. </p>
+<p>So first we need to have a way to measure and analyse query times. We do this by
+both logging queries that take more than N millisecs, typically 1000 and using the Postgres
+statistics system to actually be able to "query on query times", get the top-N time-consuming queries.</p>
+<h3 id="logging-queries-standard">Logging Queries - Standard</h3>
+<p>First we like to log queries taking over N millisecs.</p>
+<p>How to log Postgres query statements but not flood the logfile?
+Some hints can be found in <a href="https://medium.com/@maheshshelke/setting-up-postgresql-server-in-docker-container-on-ubuntu-a-step-by-step-guide-f21f8973d6d7">this Medium article</a>
+The essential lines in <code>postgresql.conf</code> are:
+</p><div class="highlight"><pre><span></span><code>logging_collector = on
+log_directory = '/var/log/postgres'
+log_filename = '%Y-%m-%d_%H%M%S.log'
+log_statement = 'none'
+log_min_messages = 'info'
+log_min_error_statement = 'info'
+log_duration = on
+log_min_duration_statement = 2000 # longer two secs see below
+log_line_prefix = '%m [%p]: [%l-1] user=%u,db=%d '  # Time, process ID, line number, username, and database name.
+</code></pre></div>
+<p>The essential line is <code>log_min_duration_statement = &lt;millis&gt;</code>. Instead of <code>log_statement = 'all'</code> to switch on/off we can use a psql statement:</p>
+<div class="highlight"><pre><span></span><code>ALTER DATABASE gis SET log_min_duration_statement = 1000;
+</code></pre></div>
+<p>Switching logging off is sometimes hard, 
+but we found <a href="https://dba.stackexchange.com/questions/24973/unable-to-disable-sql-statement-logging-in-postgresql-9-1">in this article</a>:
+</p><div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">gis</span><span class="w"> </span><span class="k">RESET</span><span class="w"> </span><span class="n">log_statement</span><span class="p">;</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">gis</span><span class="w"> </span><span class="k">RESET</span><span class="w"> </span><span class="n">log_statement</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="using-the-pg-statistics-system">Using the PG statistics system</h3>
+<p>Each tile/image generation by Mapnik will fire like 20+ queries on the PostgreSQL DB.
+Some tables are used for multiple Mapnik Layers, for example <code>landcover</code> both under and over hillshade raster.
+Also <code>transport</code> is rendered multiple time like first tunnels, the regular (z_index=0) and bridges.</p>
+<p>PostgreSQL has a powerful internal <a href="https://www.postgresql.org/docs/current/pgstatstatements.html">statistics collector</a>.
+This can be activated via a shared library called <code>pg_stat_statements</code>.</p>
+<p>We found a <a href="https://www.cybertec-postgresql.com/en/postgresql-detecting-slow-queries-quickly/">very useful tutorial by Hans-Jürgen Schönig</a>.</p>
+<p>The first thing you have to do is to change shared_preload_libraries in postgresql.conf:</p>
+<p><code>shared_preload_libraries = 'pg_stat_statements'</code></p>
+<p>Then restart PostgreSQL.</p>
+<p>Finally, the module can be enabled in your desired database:
+</p><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">EXTENSION</span><span class="w"> </span><span class="n">pg_stat_statements</span><span class="p">;</span>
+</code></pre></div>
+<p>Listing all possible stats columns: <code>d pg_stat_statements</code> or via SQL :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span>
+<span class="w">  </span><span class="n">column_name</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="n">data_type</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="n">character_maximum_length</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="n">is_nullable</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="n">column_default</span><span class="w"> </span>
+<span class="k">FROM</span><span class="w"> </span>
+<span class="w">  </span><span class="n">information_schema</span><span class="mf">.</span><span class="k">columns</span><span class="w"> </span>
+<span class="k">WHERE</span><span class="w"> </span>
+<span class="w">  </span><span class="n">table_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'pg_stat_statements'</span><span class="p">;</span>
+</code></pre></div>
+<p>The last step will deploy a view – we will need to inspect the data collected by the <code>pg_stat_statements</code> machinery.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">calls</span><span class="p">,</span>
+<span class="w">     </span><span class="n">round</span><span class="p">(</span><span class="n">total_exec_time</span><span class="o">::</span><span class="nb">numeric</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_time</span><span class="p">,</span>
+<span class="w">     </span><span class="n">round</span><span class="p">(</span><span class="n">mean_exec_time</span><span class="o">::</span><span class="nb">numeric</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">mean_time</span><span class="p">,</span>
+<span class="w">     </span><span class="n">round</span><span class="p">((</span><span class="mf">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">total_exec_time</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">sum</span><span class="p">(</span><span class="n">total_exec_time</span><span class="p">)</span><span class="w"> </span>
+<span class="w">                 </span><span class="k">OVER</span><span class="w"> </span><span class="p">())</span><span class="o">::</span><span class="nb">numeric</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">percentage</span><span class="p">,</span>
+<span class="w">    </span><span class="n">query</span>
+<span class="k">FROM</span><span class="w">  </span><span class="n">pg_stat_statements</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">total_exec_time</span><span class="w"> </span><span class="k">DESC</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+</code></pre></div>
+<p>Now we can measure stats after generating a tile via MapProxy or image directly with Mapnik.
+After each test we can reset the stats with this statement: </p>
+<p><code>SELECT pg_stat_statements_reset();</code></p>
+<h2 id="the-tests">The Tests</h2>
+<p>Test: zoom RD3 about 75% is taken by two queries on <code>map5.landcover</code> table.</p>
+<p>We take test tile nr: zoom=2 x=2 y=1</p>
+<p>To render using Mapnik direct:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>git/tools
+./mapnik-render-tile.sh<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+<p>So the total test is:</p>
+<div class="highlight"><pre><span></span><code>--<span class="w"> </span>reset<span class="w"> </span>stats
+SELECT<span class="w"> </span>pg_stat_statements_reset<span class="o">()</span><span class="p">;</span>
+
+--<span class="w"> </span>generate<span class="w"> </span>image
+./mapnik-render-tile.sh<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span>
+
+--<span class="w"> </span>Get<span class="w"> </span>statistics,<span class="w"> </span>the<span class="w"> </span>top100<span class="w"> </span><span class="nb">time</span><span class="w"> </span>consuming<span class="w"> </span>queries
+SELECT<span class="w"> </span>calls,
+<span class="w">     </span>round<span class="o">(</span>total_exec_time::numeric,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>total_time,
+<span class="w">     </span>round<span class="o">(</span>mean_exec_time::numeric,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>mean_time,
+<span class="w">     </span>round<span class="o">((</span><span class="m">100</span><span class="w"> </span>*<span class="w"> </span>total_exec_time<span class="w"> </span>/<span class="w"> </span>sum<span class="o">(</span>total_exec_time<span class="o">)</span><span class="w"> </span>
+<span class="w">                 </span>OVER<span class="w"> </span><span class="o">())</span>::numeric,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>percentage,
+<span class="w">    </span>query
+FROM<span class="w">  </span>pg_stat_statements
+ORDER<span class="w"> </span>BY<span class="w"> </span>total_exec_time<span class="w"> </span>DESC
+LIMIT<span class="w"> </span><span class="m">100</span><span class="p">;</span>
+
+--<span class="w"> </span><span class="k">then</span><span class="w"> </span>analyse
+</code></pre></div>
+<p>Main output Mapnik tile rendering direct.</p>
+<div class="highlight"><pre><span></span><code>./mapnik-render-tile.sh 2 2 1
+mapnik_style=map5topo.xml
+loaded Mapnik object time=3.4499104022979736s
+render sizes: render_size_tx=1 render_size_ty=1 tiles-at-zoom=4
+render coords: p0x=155000.00000000006 p0y=242799.04000000004 p1x=375200.96000000014 p1y=463000.00000000006
+env Box2d(155000.00000000006,242799.03999999998,375200.96000000014,463000.00000000006) 
+zoom=2 
+scale_denominator=3072000.0000000014 
+scale=860.1600000000003 
+time=12.883508920669556s
+ALL DONE - output file present as mapnik/output/tile-2-2-1.jpeg
+</code></pre></div>
+<p>Image rendering takes about 14 seconds!
+Analysing, thinking it may be the number of records for this zoomlevel:</p>
+<div class="highlight"><pre><span></span><code>Current Setting: ST_SimplifyPreserveTopology(s.geom, 600) and area &gt; 50000
+
+select count(*), sum(area) from map5.landcover where rdz_max &lt;= 3;
+
+"count" "sum" 49778 13092259408
+
+stats: `"map5.landcover  2  6793.72 3396.86 74.79`
+
+2 queries taking about 7 seconds and occupying almost 75%!
+
+New Setting: `ST_SimplifyPreserveTopology(s.geom, 6000) and area &gt; 100000`
+
+`select count(*), sum(area) from map5.landcover where rdz_max &lt;= 3;`
+
+"count" "sum" 24815 11365954503
+
+reset stats: `SELECT pg_stat_statements_reset();`
+get image
+"query" "calls" "total_time"    "mean_time" "percentage"
+map5.landcover 2    6841.51 3420.75 75.11
+</code></pre></div>
+<p>Hardly any difference! Is the bottleneck maybe the total numer of records, almost 20 million, in landcover?</p>
+<p>Looking at over 1 second duration:</p>
+<p></p><div class="highlight"><pre><span></span><code><span class="c1">-- 2024-05-22 15:19:50.505 UTC [257]: [1-1] user=gis,db=gis LOG:  duration: 3589.070 ms  </span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">ST_AsBinary</span><span class="p">(</span><span class="s s-Name">"geom"</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">geom</span><span class="p">,</span><span class="s s-Name">"lod1"</span><span class="p">,</span><span class="s s-Name">"lod2"</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">geom</span><span class="p">,</span><span class="n">lod1</span><span class="p">,</span><span class="n">lod2</span><span class="p">,</span><span class="n">lod3</span><span class="p">,</span><span class="n">rdz_min</span><span class="p">,</span><span class="n">rdz_max</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">map5</span><span class="mf">.</span><span class="n">landcover</span>
+<span class="w">                     </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">rdz</span><span class="p">(</span><span class="mf">3.072e+06</span><span class="p">))</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="n">rdz_min</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">rdz_max</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">landcover</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="s s-Name">"geom"</span><span class="w"> </span>
+<span class="w">                     </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ST_SetSRID</span><span class="p">(</span><span class="s1">'BOX3D(155000.0000000001 275000,300000 463000.0000000001)'</span><span class="o">::</span><span class="n">box3d</span><span class="p">,</span><span class="w"> </span><span class="mf">28992</span><span class="p">);</span>
+
+<span class="c1">--2024-05-22 15:19:53.342 UTC [257]: [2-1] user=gis,db=gis LOG:  duration: 2832.367 ms </span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">ST_AsBinary</span><span class="p">(</span><span class="s s-Name">"geom"</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">geom</span><span class="p">,</span><span class="s s-Name">"lod1"</span><span class="p">,</span><span class="s s-Name">"lod2"</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">geom</span><span class="p">,</span><span class="n">lod1</span><span class="p">,</span><span class="n">lod2</span><span class="p">,</span><span class="n">lod3</span><span class="p">,</span><span class="n">rdz_min</span><span class="p">,</span><span class="n">rdz_max</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">map5</span><span class="mf">.</span><span class="n">landcover</span>
+<span class="w">                     </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">rdz</span><span class="p">(</span><span class="mf">3.072e+06</span><span class="p">))</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="n">rdz_min</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">rdz_max</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">landcover</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="s s-Name">"geom"</span><span class="w"> </span>
+<span class="w">                     </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ST_SetSRID</span><span class="p">(</span><span class="s1">'BOX3D(155000.0000000001 275000,300000 463000.0000000001)'</span><span class="o">::</span><span class="n">box3d</span><span class="p">,</span><span class="w"> </span><span class="mf">28992</span><span class="p">);</span>
+
+<span class="c1">-- 2024-05-22 15:19:55.163 UTC [257]: [3-1] user=gis,db=gis LOG:  duration: 1305.991 ms</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">ST_AsBinary</span><span class="p">(</span><span class="s s-Name">"geom"</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">geom</span><span class="p">,</span><span class="s s-Name">"lod2"</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">geom</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">lod1</span><span class="p">,</span><span class="n">lod2</span><span class="p">,</span><span class="n">lod3</span><span class="p">,</span><span class="n">oneway</span><span class="p">,</span><span class="n">z_index</span><span class="p">,</span><span class="k">name</span><span class="p">,</span><span class="n">surface</span><span class="p">,</span><span class="n">grade</span><span class="p">,</span><span class="n">abroad</span><span class="p">,</span><span class="n">rdz_min</span><span class="p">,</span><span class="n">rdz_max</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">map5</span><span class="mf">.</span><span class="n">transport</span>
+<span class="w">                     </span><span class="k">WHERE</span><span class="w"> </span><span class="n">lod1</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'road'</span><span class="p">,</span><span class="w"> </span><span class="s1">'trail'</span><span class="p">)</span>
+<span class="w">                    </span><span class="k">AND</span><span class="w"> </span><span class="p">(</span><span class="n">rdz</span><span class="p">(</span><span class="mf">3.072e+06</span><span class="p">)</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="n">rdz_min</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">rdz_max</span><span class="p">)</span>
+<span class="w">                    </span><span class="k">AND</span><span class="w"> </span><span class="p">(</span><span class="n">z_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="p">(</span><span class="n">bridge</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">FALSE</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">tunnel</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">FALSE</span><span class="p">))</span>
+<span class="w">                    </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">lod2</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'motorway'</span><span class="p">,</span><span class="s1">'trunk'</span><span class="p">)</span><span class="w"> </span>
+<span class="w">                        </span><span class="k">THEN</span><span class="w"> </span><span class="mf">5</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">lod2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'primary'</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">lod2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'secondary'</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">lod2</span><span class="o">=</span><span class="s1">'tertiary'</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mf">3</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mf">4</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">DESC</span>
+<span class="w">                    </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">transport_roads</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="s s-Name">"geom"</span><span class="w"> </span>
+<span class="w">                    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ST_SetSRID</span><span class="p">(</span><span class="s1">'BOX3D(155000.0000000001 275000,300000 463000.0000000001)'</span><span class="o">::</span><span class="n">box3d</span><span class="p">,</span><span class="w"> </span><span class="mf">28992</span><span class="p">);</span>
+</code></pre></div>
+This takes about 17 secs, returning 33000 objects.
+<p>Where is the time spent? CPU or I/O ?</p>
+<p>Measuring I/O time is simple. The track_io_timing parameter can be adjusted to measure this vital KPI. 
+You can turn it on in postgresql.conf for the entire server, or simply adjust things on the database 
+level if you want more fine-grained data:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">gis</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">track_io_timing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">on</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">total_exec_time</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="n">blk_read_time</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="n">blk_write_time</span><span class="p">,</span>
+<span class="w">            </span><span class="n">query</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">pg_stat_statements</span><span class="w"> </span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">blk_read_time</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">blk_write_time</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span>
+</code></pre></div>
+<p>But in the end, as is often the case, this is usually a matter of setting indexes.
+Although there is a spatial index on <code>geom</code>, <code>EXPLAIN</code> shows that most of the query time is
+spent on the <code>BETWEEN rdz_min AND rdz_max</code> as for lowzoom-queries about 4 million rows need to
+be matched on the 'heap' returned from the spatial-bbox selection.</p>
+<p>Setting indexes like:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">map5_landcover_rdz_min_idx</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">map5</span><span class="mf">.</span><span class="n">landcover</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">btree</span><span class="w"> </span><span class="p">(</span><span class="n">rdz_min</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">map5_landcover_rdz_max_idx</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">map5</span><span class="mf">.</span><span class="n">landcover</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">btree</span><span class="w"> </span><span class="p">(</span><span class="n">rdz_max</span><span class="p">);</span>
+</code></pre></div>
+<p>reduces the query time until order of 100 millisecs! Albeit with a few 100 MB of index space.
+We set these for now on <code>landcover</code>, <code>structure</code> and <code>water</code>.</p>
+<p>Again we do the test, logging only queries over 1 second. 
+</p><div class="highlight"><pre><span></span><code>./mapnik-render-tile.sh 2 2 1
+mapnik_style=map5topo.xml
+loaded Mapnik object time=2.7876768112182617s
+render sizes: render_size_tx=1 render_size_ty=1 tiles-at-zoom=4
+render coords: p0x=155000.00000000006 p0y=242799.04000000004 p1x=375200.96000000014 p1y=463000.00000000006
+env Box2d(155000.00000000006,242799.03999999998,375200.96000000014,463000.00000000006) 
+zoom=2 scale_denominator=3072000.0000000014 
+scale=860.1600000000003 
+time=4.631199836730957s
+ALL DONE - output file present as mapnik/output/tile-2-2-1.jpeg
+</code></pre></div>
+About 5 seconds now! Only one query above 1 second:
+<div class="highlight"><pre><span></span><code><span class="mf">2024</span><span class="o">-</span><span class="mf">05</span><span class="o">-</span><span class="mf">23</span><span class="w"> </span><span class="mf">12</span><span class="p">:</span><span class="mf">30</span><span class="p">:</span><span class="mf">03.312</span><span class="w"> </span><span class="n">UTC</span><span class="w"> </span><span class="p">[</span><span class="mf">4275</span><span class="p">]:</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="o">-</span><span class="mf">1</span><span class="p">]</span><span class="w"> </span><span class="k">user</span><span class="o">=</span><span class="n">gis</span><span class="p">,</span><span class="n">db</span><span class="o">=</span><span class="n">gis</span><span class="w"> </span><span class="n">LOG</span><span class="p">:</span><span class="w">  </span><span class="n">duration</span><span class="p">:</span><span class="w"> </span><span class="mf">1390.031</span><span class="w"> </span><span class="n">ms</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">ST_AsBinary</span><span class="p">(</span><span class="s s-Name">"geom"</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">geom</span><span class="p">,</span><span class="s s-Name">"lod2"</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span>
+<span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">geom</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">lod1</span><span class="p">,</span><span class="n">lod2</span><span class="p">,</span><span class="n">lod3</span><span class="p">,</span><span class="n">oneway</span><span class="p">,</span><span class="n">z_index</span><span class="p">,</span><span class="k">name</span><span class="p">,</span><span class="n">surface</span><span class="p">,</span><span class="n">grade</span><span class="p">,</span><span class="n">abroad</span><span class="p">,</span><span class="n">rdz_min</span><span class="p">,</span><span class="n">rdz_max</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">map5</span><span class="mf">.</span><span class="n">transport</span>
+<span class="w">                     </span><span class="k">WHERE</span><span class="w"> </span><span class="n">lod1</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'road'</span><span class="p">,</span><span class="w"> </span><span class="s1">'trail'</span><span class="p">)</span>
+<span class="w">                    </span><span class="k">AND</span><span class="w"> </span><span class="p">(</span><span class="n">rdz</span><span class="p">(</span><span class="mf">3.072e+06</span><span class="p">)</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="n">rdz_min</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">rdz_max</span><span class="p">)</span>
+<span class="w">                    </span><span class="k">AND</span><span class="w"> </span><span class="p">(</span><span class="n">z_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="p">(</span><span class="n">bridge</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">FALSE</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">tunnel</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">FALSE</span><span class="p">))</span>
+<span class="w">                    </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">lod2</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'motorway'</span><span class="p">,</span><span class="s1">'trunk'</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mf">5</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">lod2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'primary'</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">lod2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'secondary'</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">lod2</span><span class="o">=</span><span class="s1">'tertiary'</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mf">3</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mf">4</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">DESC</span>
+<span class="w">                    </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">transport_roads</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="s s-Name">"geom"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ST_SetSRID</span><span class="p">(</span><span class="s1">'BOX3D(155000.0000000001 275000,300000 463000.0000000001)'</span><span class="o">::</span><span class="n">box3d</span><span class="p">,</span><span class="w"> </span><span class="mf">28992</span><span class="p">)</span>
+</code></pre></div>
+<p>So we index <code>transport</code> as well, though here we may need indexing on <code>lod1</code> and <code>lod2</code> as well...and the rendering time is now 0.8sec!
+So index,index,index is the answer!</p>
+<p>Final run after not even indexes set on all map5-tables:</p>
+<div class="highlight"><pre><span></span><code>./mapnik-render-tile.sh<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span>
+<span class="nv">mapnik_style</span><span class="o">=</span>map5topo.xml
+loaded<span class="w"> </span>Mapnik<span class="w"> </span>object<span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">1</span>.9455204010009766s
+render<span class="w"> </span>sizes:<span class="w"> </span><span class="nv">render_size_tx</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">render_size_ty</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>tiles-at-zoom<span class="o">=</span><span class="m">4</span>
+render<span class="w"> </span>coords:<span class="w"> </span><span class="nv">p0x</span><span class="o">=</span><span class="m">155000</span>.00000000006<span class="w"> </span><span class="nv">p0y</span><span class="o">=</span><span class="m">242799</span>.04000000004<span class="w"> </span><span class="nv">p1x</span><span class="o">=</span><span class="m">375200</span>.96000000014<span class="w"> </span><span class="nv">p1y</span><span class="o">=</span><span class="m">463000</span>.00000000006
+env<span class="w"> </span>Box2d<span class="o">(</span><span class="m">155000</span>.00000000006,242799.03999999998,375200.96000000014,463000.00000000006<span class="o">)</span><span class="w"> </span>
+<span class="nv">zoom</span><span class="o">=</span><span class="m">2</span><span class="w"> </span>
+<span class="nv">scale_denominator</span><span class="o">=</span><span class="m">3072000</span>.0000000014<span class="w"> </span>
+<span class="nv">scale</span><span class="o">=</span><span class="m">860</span>.1600000000003<span class="w"> </span>
+<span class="nv">time</span><span class="o">=</span><span class="m">0</span>.821070671081543s
+ALL<span class="w"> </span>DONE<span class="w"> </span>-<span class="w"> </span>output<span class="w"> </span>file<span class="w"> </span>present<span class="w"> </span>as<span class="w"> </span>mapnik/output/tile-2-2-1.jpeg
+</code></pre></div>
+<p><strong>CONCLUSION: reduced rendering time from 14 seconds to 0.8 by simply indexing mainly min_rdz and max_rdz, the per-record zoomrange!</strong></p>
+<h3 id="geopackage-tile-storing">GeoPackage Tile Storing</h3>
+<p>Apart from the DB query and Mapnik rendering storing tiles in GeoPackage also contributes to total tile seeding performance.
+Too slow often like 1500-5000 tiles/minute (even after Mapnik and PostGIS optimized as above). There must be other bottlenecks</p>
+<h4 id="analysis">Analysis</h4>
+<p>Apart from disabling cache lock (remove <code>--use-cache-lock</code>) in MP seeder script, some simple sqlite <code>PRAGMA</code> settings increased speed enormously:
+We found a huge optimization in store time by using these two PRAGMA's:</p>
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">_db_conn_cache</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">'PRAGMA synchronous=OFF'</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_db_conn_cache</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">'PRAGMA journal_mode=MEMORY'</span><span class="p">)</span>
+</code></pre></div>
+<p>and with PRAGMA's up to 45000-60000 tiles/min!
+So about a 10-fold performance improvement. Question: how safe are these <code>PRAGMA</code>s?</p>
+<h2 id="tile-serving-performance">Tile Serving Performance</h2>
+<p>Question is: tiles are served from huge caches, but there appear to be no indexes...</p>
+<p>Tests using Apache Benchmark (ab).
+<code>ab -n 1000 -c 50 https://s.test.map5.nl/map/map5.demo11/tms/1.0.0/map5topo/EPSG28992/6/27/30.jpeg</code></p>
+<h3 id="without-indexes">Without Indexes</h3>
+<div class="highlight"><pre><span></span><code>Concurrency Level:      50
+Time taken for tests:   5.151 seconds
+Complete requests:      1000
+Failed requests:        0
+Total transferred:      35098000 bytes
+HTML transferred:       34745000 bytes
+Requests per second:    194.14 [#/sec] (mean)
+Time per request:       257.542 [ms] (mean)
+Time per request:       5.151 [ms] (mean, across all concurrent requests)
+Transfer rate:          6654.33 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       83   99   9.5     96     140
+Processing:    80  147  35.1    144     284
+Waiting:       54  122  35.0    118     258
+Total:        169  246  38.0    242     406
+
+Percentage of the requests served within a certain time (ms)
+  50%    242
+  66%    257
+  75%    266
+  80%    272
+  90%    292
+  95%    312
+  98%    368
+  99%    382
+ 100%    406 (longest request)
+</code></pre></div>
+<p>After indexing:</p>
+<div class="highlight"><pre><span></span><code>Concurrency Level:      50
+Time taken for tests:   5.163 seconds
+Complete requests:      1000
+Failed requests:        0
+Total transferred:      35098000 bytes
+HTML transferred:       34745000 bytes
+Requests per second:    193.69 [#/sec] (mean)
+Time per request:       258.148 [ms] (mean)
+Time per request:       5.163 [ms] (mean, across all concurrent requests)
+Transfer rate:          6638.71 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       87   99   9.3     96     141
+Processing:    82  147  36.0    141     319
+Waiting:       56  122  36.0    116     293
+Total:        170  246  38.4    240     422
+
+Percentage of the requests served within a certain time (ms)
+  50%    240
+  66%    256
+  75%    267
+  80%    277
+  90%    297
+  95%    315
+  98%    346
+  99%    364
+ 100%    422 (longest request)
+</code></pre></div>
+<p>Hmm, hardly difference, also tested with <code>-k</code> (keep-alive) and different concurrency levels. </p>
+<h2 id="vector-tiles">Vector Tiles</h2>
+<p>One of the main questions is: in these modern times, the best starting point would be
+Vector Tiles, but...</p>
+<ul>
+<li>See https://github.com/mapbox/awesome-vector-tiles, interesting: https://github.com/mkeller3/FastVector, https://github.com/developmentseed/timvt</li>
+</ul>
+<h2 id="service-toolchain">Service Toolchain</h2>
+<ul>
+<li><code>PostGIS</code> --&gt; <code>pg_tileserv</code> --&gt; <code>tileserver-gl</code> --&gt; <code>MapProxy</code>:</li>
+</ul>
+<p>Specifics:</p>
+<ul>
+<li>PostGIS - table data and functions</li>
+<li><code>pg_tileserv</code> - use tables and functions to serve MVT tiles</li>
+<li>NO MVT MBTiles file-caches (for now)</li>
+<li><code>maptiler/tileserver-gl</code> fetches from <code>pg_tileserv</code></li>
+<li><code>maptiler/tileserver-gl</code> renders and serves raster tiles via WMTS</li>
+<li><code>MapProxy</code> uses raster WMTS as Source(s)</li>
+<li><code>MapProxy</code> may use transparent AHN hillshade overlay as Source(s) to overlay</li>
+<li><code>MapProxy</code> creates mbtile-caches for raster tiles (as already in map5.nl)</li>
+<li>alternatives to <code>pg_tileserv</code> are FASTVector [5] and TiMVT [6].</li>
+</ul>
+<p>Questions:</p>
+<ul>
+<li>is there an (Open) alternative for <code>tileserver-gl</code> ? e.g. a tool that directly renders raster tiles from MVT.</li>
+<li>can we do something with maplibre (-native)?</li>
+</ul>
+<h2 id="data-preparation">Data Preparation</h2>
+<p>See Tom van Tilburg article [1]. At least needed:</p>
+<ul>
+<li>feature reclassification for lower zooms</li>
+<li>geometry simplification</li>
+<li>split up (large) polygons</li>
+</ul>
+<p>Big question: follow existing OSM/Imposm data schemas or similar to Tom [1] and/or PDOK [2]?
+Or can this be solved by using BRT scales like Top1000, Top500 etc?</p>
+<p>Many datasets available via geotoko.nl.</p>
+<h2 id="map-design">Map Design</h2>
+<ul>
+<li>classical topomap look, </li>
+<li>a simple and detailed version like OpenTopo/OpenSimpleTopo</li>
+<li>coloured and greyscale</li>
+<li>separate hillshading map, bare and with labels+roads</li>
+<li>may use OpenTopoMap [3] as starter?  Classic toolchain: osm2pgsql, SQL and Mapnik</li>
+<li>or https://github.com/nst-guide/osm-liberty-topo  [4]?</li>
+</ul>
+<p>Tooling:</p>
+<ul>
+<li>using Maputnik? GeoStyler?</li>
+<li>seems that Mapbox GL/MapLibre GL is CartoCSS follow-up, and can all generate Mapnik styles (?)</li>
+</ul>
+<h2 id="cartocss-kosmtik-poc-14072022">CartoCSS + Kosmtik PoC - 14.07.2022</h2>
+<p>See <code>git/research/carto</code>.</p>
+<p><a href="https://cartocss.readthedocs.io/en/latest/">CartoCSS</a>, 
+originally from MapBox, is a higer level styling 
+language based on CSS (Less). 
+The <code>carto</code> command can generate a <code>Mapnik</code> XML file. This is 
+still used in the main OSM Map, with a style also called "Carto".</p>
+<p><a href="https://github.com/kosmtik/kosmtik">Kosmtik</a> is mainly a server through which you can quickly see edits
+in CartoCSS. It is <em>not</em> a CartoCSS editor (as I thought).
+But still very useful to see edits, done in e.g. vi.</p>
+<h3 id="the-example">The Example</h3>
+<p>Very simple example with just water Dutch generalized Shapefile for demo. </p>
+<ul>
+<li>project in work/example1/project.yml.mml.</li>
+<li>style in work/example1/style.mss.</li>
+</ul>
+<h3 id="carto">Carto</h3>
+<p>Using a Dockerfile:</p>
+<pre><code>./build.sh
+
+Run the carto command to convert a CartoCSS project to Mapnik XML.
+Usage: ./carto.sh "command line"
+Examples:
+./carto.sh "carto --version"
+
+Files must have a .mss or .mml extension!
+./carto.sh "carto example1/style.mss"
+./carto.sh "carto example1/project.yml.mml"
+./carto.sh "carto example1/project.yml.mml &gt; example1/project.xml"
+</code></pre>
+<h3 id="kosmtik">Kosmtik</h3>
+<p>Using an existing Docker Image and Bash script <code>kosmtik.sh</code>. 
+by https://github.com/Joxit/docker-kosmtik.</p>
+<ul>
+<li>script: https://github.com/Joxit/docker-kosmtik/blob/master/tools/kosmtik</li>
+<li>Docker Image: joxit/kosmtik from DockerHub</li>
+</ul>
+<p>Thus:</p>
+<pre><code>./kosmtik.sh serve work/example1/project.yml.mml
+
+browse http://0.0.0.0:6789
+Change polygon color in style.mss, see almost instant changes
+</code></pre>
+<h2 id="cartocss-topo-style-15072022">CartoCSS + Topo Style - 15.07.2022</h2>
+<p>If going the 'CartoCSS' way there is an enormous amount of styles to choose, as starting point.
+For example the official OSM slippy map uses a style called 'Carto', which is maintained
+by Andy Allan (Gravitystorm and Thunderforest) and community:</p>
+<ul>
+<li>https://github.com/gravitystorm/openstreetmap-carto</li>
+</ul>
+<p>Now CartoCSS has many degrees of freedom how one structures the project file and style files.</p>
+<p>MapBox developed a CartoCSS style called "OSM Bright" which may be used as a starter
+for specific styles:</p>
+<ul>
+<li>https://github.com/mapbox/osm-bright</li>
+</ul>
+<p>The nice thing about "OSM Bright" is that it provides a very structured 
+file and style editing convention starting with 
+the <a href="https://github.com/mapbox/osm-bright/blob/master/osm-bright/osm-bright.osm2pgsql.mml">'project mml</a> 
+which includes just four style (<code>.mss</code>) files:</p>
+<ul>
+<li><a href="https://github.com/mapbox/osm-bright/blob/master/osm-bright/palette.mss">palette.mss</a> - literally define you palette as symbolic vars: colors fonts etc.</li>
+<li><a href="https://github.com/mapbox/osm-bright/blob/master/osm-bright/base.mss">base.mss</a> basic styles for landuse, water, admin boundaries </li>
+<li><a href="https://github.com/mapbox/osm-bright/blob/master/osm-bright/roads.mss">roads.mss</a> - how to style alle roads</li>
+<li><a href="https://github.com/mapbox/osm-bright/blob/master/osm-bright/labels.mss">labels.mss</a> - all labels</li>
+</ul>
+<p>These styles can be edited with <a href="https://tilemill-project.github.io/tilemill/">TileMill</a>. 
+TileMill is more advanced than Kosmik (see above) in that it can provide editing on-the-fly.
+But still an export to Mapnik is eventually possible.</p>
+<p>One example of a topographic "OSM Bright" based style is:</p>
+<ul>
+<li>https://github.com/duvifn/jnet_style</li>
+</ul>
+<p>Not actively maintained, but may be good starting point.</p>
+<p>Tilemill: recent, via Docker file: https://github.com/schachmett/docker-tilemill
+See: https://simon-fischer.info/2020/12/09/run-tilemill-in-a-docker-container/</p>
+<h2 id="png-vs-jpeg-tiles-17072022">PNG vs JPEG tiles - 17.07.2022</h2>
+<p>JPEG is a better choice, especially for tiles with lots of detail like hillshading.
+This finding also came out of map5 development for the OpenTopo map,
+see <a href="https://justobjects.nl/jpeg-is-dead-long-live-jpeg/">Justs Blog on JPEG is Dead, long live JPEG</a>.</p>
+<p>A small experiment with the map5topo map gave similar results:</p>
+<ul>
+<li>same image quality</li>
+<li>PNG 8 bit: too low quality for rich coloured map</li>
+<li><strong>JPEG image about 4 times as small as PNG</strong> (24 bit)</li>
+<li>and: image generation, overall turnaround time in browser: <strong>JPEG twice as fast!</strong></li>
+</ul>
+<p>So the choice is clear: use JPEG but with higher quality in encoding. This
+is like with OpenTopo, arranged in MapProxy config:</p>
+<pre><code># image/transformation options
+image:
+# resampling_method: nearest
+resampling_method: bilinear
+paletted: true
+formats:
+  # UNUSED
+  png8:
+    format: image/png
+    colors: 256
+
+  png24:
+    format: image/png; mode=24bit
+    colors: 0
+
+  image/jpeg:
+    encoding_options:
+      jpeg_quality: 90
+</code></pre>
+<p>Below some results from tiles in JPEG and PGN24.</p>
+<p>Zoom 11:</p>
+<h3 id="png">PNG</h3>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../assets/images/png-vs-jpeg/z11-1069.png"><img alt="" src="../assets/images/png-vs-jpeg/z11-1069.png"></a></p>
+<h3 id="jpeg">JPEG</h3>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../assets/images/png-vs-jpeg/z11-1069.jpeg"><img alt="" src="../assets/images/png-vs-jpeg/z11-1069.jpeg"></a></p>
+<p>Zoom 13:</p>
+<h3 id="png_1">PNG</h3>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../assets/images/png-vs-jpeg/z13-4258.png"><img alt="" src="../assets/images/png-vs-jpeg/z13-4258.png"></a></p>
+<h3 id="jpeg_1">JPEG</h3>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../assets/images/png-vs-jpeg/z13-4258.jpeg"><img alt="" src="../assets/images/png-vs-jpeg/z13-4258.jpeg"></a></p>
+<h2 id="see-changes-in-mapnik-style-files-directly">See changes in Mapnik style files directly</h2>
+<p>Requirement: need a mechanism to directly see the results in map images 
+when changes made in Mapnik style files. Similar to Kosmtik and TileMill.
+We can then easily make an HTML page showing images or with a map-viewer that has
+permalinks in the address-bar. Or even a primitive edit app!</p>
+<p>Our "engine" is MapProxy: it generates map images via WMS, TMS or WMTS
+from the Mapnik styles. This is the first choice. 
+Investigate
+what can be done, otherwise need dedicated software like a WMS server directly on
+Mapnik styles. There is 
+a <a href="https://github.com/mapnik/OGCServer">Mapnik OGC Server</a>, but would take quite
+some effort to get working is expected. Or we need to develop ourselves.</p>
+<p>But we need to tackle some problems using MapProxy:</p>
+<ul>
+<li>caching: so changes are not visible unless removing cache</li>
+<li>MapFile object reuse: the (enhanced) Mapnik soure backend for MapProxy caches Mapfile objects</li>
+</ul>
+<p>The first problem can be solved by making a dedicated "direct" layer in MP config like:</p>
+<pre><code>layers:
+    - name: map5topo
+    title: Map5 Topomap - powered by map5.nl
+    sources: [ map5topo_cache ]
+
+    - name: map5topo_direct
+    title: Map5 Topomap - direct - no cache
+    sources: [ map5topo_no_cache ]
+.
+.
+caches:
+
+    map5topo_no_cache:
+        grids: [ dutch_grid_lev13, webmerc_grid_lev19 ]
+        sources: [ map5topo_source ]
+        disable_storage: true
+        format: image/jpeg
+        meta_buffer: 64
+        meta_size: [ 4,4 ]
+        upscale_tiles: 4
+</code></pre>
+<p>Now tiles are always newly generated. </p>
+<p>Second problem is caching of Mapnik objects (the parsed XML) in the Mapproxy
+<a href="https://github.com/map5nl/map5topo/blob/main/services/mapproxy/mapnik.py">mapnik.py</a>.
+We use a file from a MP PR that caches Mapnik objects.
+Solution: have that Python code use
+<a href="https://linuxhint.com/see-directory-changes-python/">watchdog from pypi</a>.</p>
+<h2 id="refactor-scale-delineation">Refactor Scale Delineation</h2>
+<p>This determines the Rules that are 'hit' per scale range. The initial list assumes
+Web Mercator scales (at equator 0.28 mm per pixel). This does not match RD scales (resolutions)
+defined in the Geonovum tiling scheme. In some cases multiple resolutions will fall in a single
+scale range. This may have lead to multiple Rules being fired, maybe that was the reason
+for the performance penalty (?).</p>
+<p>Like done in Map5 for OpenTopo, TopRaster and more, define scale ranges where each range 
+captures a single zoom/resolution for both WebMerc and RD tiling. ALso reflect this in Entity naming.</p>
+<p>Original from OpenTopoMap and OSM in general:</p>
+<pre><code>&lt;!ENTITY maxscale_zoom0 "&lt;MaxScaleDenominator&gt;250000000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom1 "&lt;MaxScaleDenominator&gt;500000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom1 "&lt;MinScaleDenominator&gt;200000000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom2 "&lt;MaxScaleDenominator&gt;200000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom2 "&lt;MinScaleDenominator&gt;100000000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom3 "&lt;MaxScaleDenominator&gt;100000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom3 "&lt;MinScaleDenominator&gt;50000000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom4 "&lt;MaxScaleDenominator&gt;50000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom4 "&lt;MinScaleDenominator&gt;25000000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom5 "&lt;MaxScaleDenominator&gt;25000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom5 "&lt;MinScaleDenominator&gt;12500000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom6 "&lt;MaxScaleDenominator&gt;12500000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom6 "&lt;MinScaleDenominator&gt;6500000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom7 "&lt;MaxScaleDenominator&gt;6500000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom7 "&lt;MinScaleDenominator&gt;3000000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom8 "&lt;MaxScaleDenominator&gt;3000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom8 "&lt;MinScaleDenominator&gt;1500000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom9 "&lt;MaxScaleDenominator&gt;1500000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom9 "&lt;MinScaleDenominator&gt;750000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom10 "&lt;MaxScaleDenominator&gt;750000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom10 "&lt;MinScaleDenominator&gt;400000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom11 "&lt;MaxScaleDenominator&gt;400000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom11 "&lt;MinScaleDenominator&gt;200000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom12 "&lt;MaxScaleDenominator&gt;200000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom12 "&lt;MinScaleDenominator&gt;100000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom13 "&lt;MaxScaleDenominator&gt;100000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom13 "&lt;MinScaleDenominator&gt;50000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom14 "&lt;MaxScaleDenominator&gt;50000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom14 "&lt;MinScaleDenominator&gt;25000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom15 "&lt;MaxScaleDenominator&gt;25000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom15 "&lt;MinScaleDenominator&gt;12500&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom16 "&lt;MaxScaleDenominator&gt;12500&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom16 "&lt;MinScaleDenominator&gt;5000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom17 "&lt;MaxScaleDenominator&gt;5000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom17 "&lt;MinScaleDenominator&gt;2500&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom18 "&lt;MaxScaleDenominator&gt;2500&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom18 ""&gt;
+</code></pre>
+<p>This was changed to:</p>
+<pre><code>&lt;!ENTITY maxscale_zoom0 "&lt;MaxScaleDenominator&gt;250000000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom1 "&lt;MaxScaleDenominator&gt;500000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom1 "&lt;MinScaleDenominator&gt;200000000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom2 "&lt;MaxScaleDenominator&gt;200000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom2 "&lt;MinScaleDenominator&gt;100000000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom3 "&lt;MaxScaleDenominator&gt;100000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom3 "&lt;MinScaleDenominator&gt;50000000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom4 "&lt;MaxScaleDenominator&gt;50000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom4 "&lt;MinScaleDenominator&gt;25000000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom5_rd0 "&lt;MaxScaleDenominator&gt;25000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom5_rd0 "&lt;MinScaleDenominator&gt;12000000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom6_rd1 "&lt;MaxScaleDenominator&gt;12000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom6_rd1 "&lt;MinScaleDenominator&gt;6000000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom7_rd2 "&lt;MaxScaleDenominator&gt;6000000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom7_rd2 "&lt;MinScaleDenominator&gt;2400000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom8_rd3 "&lt;MaxScaleDenominator&gt;2400000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom8_rd3 "&lt;MinScaleDenominator&gt;1200000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom9_rd4 "&lt;MaxScaleDenominator&gt;1200000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom9_rd4 "&lt;MinScaleDenominator&gt;600000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom10_rd5 "&lt;MaxScaleDenominator&gt;600000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom10_rd5 "&lt;MinScaleDenominator&gt;300000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom11_rd6 "&lt;MaxScaleDenominator&gt;300000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom11_rd6 "&lt;MinScaleDenominator&gt;150000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom12_rd7 "&lt;MaxScaleDenominator&gt;150000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom12_rd7 "&lt;MinScaleDenominator&gt;80000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom13_rd8 "&lt;MaxScaleDenominator&gt;80000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom13_rd8 "&lt;MinScaleDenominator&gt;40000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom14_rd9 "&lt;MaxScaleDenominator&gt;40000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom14_rd9 "&lt;MinScaleDenominator&gt;20000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom15_rd10 "&lt;MaxScaleDenominator&gt;20000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom15_rd10 "&lt;MinScaleDenominator&gt;10000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom16_rd11 "&lt;MaxScaleDenominator&gt;10000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom16_rd11 "&lt;MinScaleDenominator&gt;5000&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom17_rd12 "&lt;MaxScaleDenominator&gt;5000&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom17_rd12 "&lt;MinScaleDenominator&gt;2500&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom18_rd13 "&lt;MaxScaleDenominator&gt;2500&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom18_rd13 "&lt;MinScaleDenominator&gt;1250&lt;/MinScaleDenominator&gt;"&gt;
+&lt;!ENTITY maxscale_zoom19 "&lt;MaxScaleDenominator&gt;1250&lt;/MaxScaleDenominator&gt;"&gt;
+&lt;!ENTITY minscale_zoom19 ""&gt;
+</code></pre>
+<p>Needs testing if this really captures wht is intended. E.g. the Entity 
+range  <code>minscale_zoom10_rd5-maxscale_zoom10_rd5</code>
+schould be the range for WebMerc Zoom 10 and RD 5.</p>
+<h2 id="refs">Refs</h2>
+<ul>
+<li>[1] https://observablehq.com/@geodan/how-to-make-a-vectortile-basemap</li>
+<li>[2] https://www.pdok.nl/-/vector-tiles-brt-en-bgt-via-pdok</li>
+<li>[3] https://github.com/der-stefan/OpenTopoMap</li>
+<li>[4] https://github.com/nst-guide/osm-liberty-topo</li>
+<li>[5] https://github.com/mkeller3/FastVector</li>
+<li>[6] https://github.com/developmentseed/timvt </li>
+</ul></div>
+<br><br>
+<div class="git-info">
+<div class="dates-container">
+<span class="date-item" title="This page was first created on September 18, 2025">
+<span class="hover-item">📅</span> Created 0 days ago
+    </span>
+<span class="date-item" title="This page was last updated on September 18, 2025">
+<span class="hover-item">✏️</span> Updated 0 days ago
+    </span>
+</div>
+<div class="authors-container">
+<a class="author-link" href="https://github.com/justb4" title="justb4 (1 change)">
+<img alt="justb4" class="hover-item" loading="lazy" src="https://avatars.githubusercontent.com/u/582630?v=4&amp;s=96">
+</a>
+</div></div></article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      © 2023 Just Objects B.V.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script src="../assets/javascripts/termynal.js"></script>
+<script src="../assets/javascripts/custom.js"></script>
+
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

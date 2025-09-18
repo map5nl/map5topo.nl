@@ -1,0 +1,1381 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="Describes how the server VM has been setup from the map5topo repo.
+This basically describes how you can setup your local system to start preparing data and creating maps." name="description">
+<meta content="Just van den Broecke" name="author">
+<link href="https://map5topo.nl/create/setup/" rel="canonical">
+<link href="../method/" rel="prev">
+<link href="../data/" rel="next">
+<link href="../../assets/favicon.ico" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.20" name="generator">
+<title>System Setup - map5topo.nl</title>
+<link href="../../assets/stylesheets/main.e53b48f4.min.css" rel="stylesheet">
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/stylesheets/termynal.css" rel="stylesheet">
+<link href="../../assets/stylesheets/custom.css" rel="stylesheet">
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="Setup" name="title"><meta content="website" property="og:type"><meta content="https://map5topo.nl/create/setup" property="og:url"><meta content="Setup" property="og:title"><meta content="Describes how the server VM has been setup from the map5topo repo.
+This basically describes how you can setup your local system to start preparing data and creating maps." property="og:description"><meta content="https://map5topo.nl/assets/images/map5-logo.png" property="og:image"><meta content="summary_large_image" property="twitter:card"><meta content="https://map5topo.nl/create/setup" property="twitter:url"><meta content="Setup" property="twitter:title"><meta content="Describes how the server VM has been setup from the map5topo repo.
+This basically describes how you can setup your local system to start preparing data and creating maps." property="twitter:description"><meta content="https://map5topo.nl/assets/images/map5-logo.png" property="twitter:image"><style>
+.md-content__button[onclick*="copyMarkdownForLLM"] svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: currentColor;
+}
+
+.git-info, .dates-container, .authors-container, .share-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.git-info {
+    font-size: 0.8em;
+    color: grey;
+    margin-bottom: 10px;
+}
+
+.dates-container, .authors-container {
+    margin-bottom: 10px;
+}
+
+.date-item, .author-link, .share-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.date-item {
+    margin-right: 10px;
+}
+
+.hover-item {
+    transition: all 0.2s ease;
+    filter: grayscale(100%);
+}
+
+.date-item .hover-item {
+    font-size: 1.6em;
+    margin-right: 5px;
+}
+
+.author-link .hover-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 3px;
+    background-color: #f0f0f0;  /* Placeholder color */
+    opacity: 0;  /* Start fully transparent */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.author-link .hover-item[src] {
+    opacity: 1;  /* Fade in when src is set (image loaded) */
+}
+
+.share-buttons {
+    margin-top: 10px;
+}
+
+.share-button {
+    background-color: #1da1f2;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: none;
+    font-size: 0.95em;
+    margin: 5px;
+    transition: all 0.2s ease;
+}
+
+.share-button.linkedin {
+    background-color: #0077b5;
+}
+
+.share-button i {
+    margin-right: 5px;
+    font-size: 1.1em;
+}
+
+/* Hover effects */
+.share-button:hover,
+.hover-item:hover {
+    color: var(--md-accent-fg-color);
+    transform: scale(1.1);
+    filter: brightness(1.2) grayscale(0%);
+}
+
+@media (max-width: 1024px) {
+    .git-info {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .dates-container, .authors-container {
+        width: 100%;
+    }
+}
+</style><link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="map5topo" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#setup">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="map5topo.nl" class="md-header__button md-logo" data-md-component="logo" href="../.." title="map5topo.nl">
+<img alt="logo" src="../../assets/images/map5-logo-bg-black.png">
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            map5topo.nl
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              System Setup
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/map5nl/map5topo.nl" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="map5topo.nl" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="map5topo.nl">
+<img alt="logo" src="../../assets/images/map5-logo-bg-black.png">
+</a>
+    map5topo.nl
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/map5nl/map5topo.nl" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox">
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+<span class="md-ellipsis">
+    Design
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Design
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../design/spec/">
+<span class="md-ellipsis">
+    Specification
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../design/architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../design/data/">
+<span class="md-ellipsis">
+    Data
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../design/gitops/">
+<span class="md-ellipsis">
+    Deployment
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox">
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-ellipsis">
+    Creation
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Creation
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../method/">
+<span class="md-ellipsis">
+    Method
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox">
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Setup
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Setup
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-ubuntu-server">
+<span class="md-ellipsis">
+      1. Ubuntu Server
+    </span>
+</a>
+<nav aria-label="1. Ubuntu Server" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#extra-volume">
+<span class="md-ellipsis">
+      Extra Volume
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-prepare-local-system">
+<span class="md-ellipsis">
+      2. Prepare Local System
+    </span>
+</a>
+<nav aria-label="2. Prepare Local System" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#install-ansible">
+<span class="md-ellipsis">
+      Install Ansible:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#install-git-client">
+<span class="md-ellipsis">
+      Install Git client.
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-prepare-new-github-repo">
+<span class="md-ellipsis">
+      3. Prepare New GitHub Repo
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-setup-ansible">
+<span class="md-ellipsis">
+      4. Setup Ansible
+    </span>
+</a>
+<nav aria-label="4. Setup Ansible" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#install-ansible-modules">
+<span class="md-ellipsis">
+      Install Ansible Modules
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ansible-hosts">
+<span class="md-ellipsis">
+      Ansible Hosts
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-ssh-keys">
+<span class="md-ellipsis">
+      Create SSH Keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-authorized_keys">
+<span class="md-ellipsis">
+      Create authorized_keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-github-deploy-key-and-secrets">
+<span class="md-ellipsis">
+      Set GitHub Deploy Key and Secrets
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#adapt-varsyml">
+<span class="md-ellipsis">
+      Adapt vars.yml
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-ansible-vault-password">
+<span class="md-ellipsis">
+      Create Ansible Vault Password
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#encrypt-ansible-files">
+<span class="md-ellipsis">
+      Encrypt Ansible Files
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#disable-github-workflows">
+<span class="md-ellipsis">
+      Disable GitHub Workflows
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-bootstrapprovision-server">
+<span class="md-ellipsis">
+      5 Bootstrap/provision Server
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-docker-storage-in-attached-volume">
+<span class="md-ellipsis">
+      6 Docker storage in attached Volume
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6a-disk-resizing">
+<span class="md-ellipsis">
+      6a Disk Resizing
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-resolve-issues">
+<span class="md-ellipsis">
+      7 Resolve Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-enable-github-workflows">
+<span class="md-ellipsis">
+      8. Enable GitHub Workflows
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../data/">
+<span class="md-ellipsis">
+    Data
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../map/">
+<span class="md-ellipsis">
+    Map
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+<span class="md-ellipsis">
+    Gallery
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Gallery
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2022/">
+<span class="md-ellipsis">
+    2022
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2023/">
+<span class="md-ellipsis">
+    2023
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2024/">
+<span class="md-ellipsis">
+    2024
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2025/">
+<span class="md-ellipsis">
+    2025
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../research/">
+<span class="md-ellipsis">
+    Research
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-ubuntu-server">
+<span class="md-ellipsis">
+      1. Ubuntu Server
+    </span>
+</a>
+<nav aria-label="1. Ubuntu Server" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#extra-volume">
+<span class="md-ellipsis">
+      Extra Volume
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-prepare-local-system">
+<span class="md-ellipsis">
+      2. Prepare Local System
+    </span>
+</a>
+<nav aria-label="2. Prepare Local System" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#install-ansible">
+<span class="md-ellipsis">
+      Install Ansible:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#install-git-client">
+<span class="md-ellipsis">
+      Install Git client.
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-prepare-new-github-repo">
+<span class="md-ellipsis">
+      3. Prepare New GitHub Repo
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-setup-ansible">
+<span class="md-ellipsis">
+      4. Setup Ansible
+    </span>
+</a>
+<nav aria-label="4. Setup Ansible" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#install-ansible-modules">
+<span class="md-ellipsis">
+      Install Ansible Modules
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ansible-hosts">
+<span class="md-ellipsis">
+      Ansible Hosts
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-ssh-keys">
+<span class="md-ellipsis">
+      Create SSH Keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-authorized_keys">
+<span class="md-ellipsis">
+      Create authorized_keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-github-deploy-key-and-secrets">
+<span class="md-ellipsis">
+      Set GitHub Deploy Key and Secrets
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#adapt-varsyml">
+<span class="md-ellipsis">
+      Adapt vars.yml
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-ansible-vault-password">
+<span class="md-ellipsis">
+      Create Ansible Vault Password
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#encrypt-ansible-files">
+<span class="md-ellipsis">
+      Encrypt Ansible Files
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#disable-github-workflows">
+<span class="md-ellipsis">
+      Disable GitHub Workflows
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-bootstrapprovision-server">
+<span class="md-ellipsis">
+      5 Bootstrap/provision Server
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-docker-storage-in-attached-volume">
+<span class="md-ellipsis">
+      6 Docker storage in attached Volume
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6a-disk-resizing">
+<span class="md-ellipsis">
+      6a Disk Resizing
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-resolve-issues">
+<span class="md-ellipsis">
+      7 Resolve Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-enable-github-workflows">
+<span class="md-ellipsis">
+      8. Enable GitHub Workflows
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<div><h1 id="setup">Setup</h1>
+<p>Describes how the server VM has been setup from the <a href="https://github.com/map5nl/map5topo">map5topo repo</a>.
+This basically describes how you can setup your local system to start preparing data and creating maps.</p>
+<p>Below all steps are documented. </p>
+<h2 id="1-ubuntu-server">1. Ubuntu Server</h2>
+<p>Info:</p>
+<ul>
+<li>Hetzner Cloud Linux Ubuntu server Virtual Machine (VM), with Ubuntu 20.4 </li>
+<li>Specs: CX41 2 VCPU  8 GB  RAM  40 GB DISK LOCAL - 15.90 a month</li>
+<li>Extra Volume 300GB  - 12.00 a month</li>
+<li>IP address <code>65.108.253.148</code></li>
+</ul>
+<p>Prepare server steps:</p>
+<ul>
+<li>DNS: create A-record <code>topo.map5.nl</code> for IP address <code>65.108.253.148</code></li>
+<li>local user with full sudo rights e.g. <code>sudo su -</code></li>
+<li>Upgrade server to latest: <code>apt-get update &amp;&amp; apt-get -y upgrade</code></li>
+<li>provide local user direct SSH root access via <code>authorized_keys</code> (needed for Ansible)</li>
+</ul>
+<h3 id="extra-volume">Extra Volume</h3>
+<p>300GB for tile caches and Docker storage.</p>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>mkfs.ext4<span class="w"> </span>/dev/disk/by-id/scsi-0HC_Volume_19990557
+mkdir<span class="w"> </span>/var/map5
+mount<span class="w"> </span>-o<span class="w"> </span>discard,defaults<span class="w"> </span>/dev/disk/by-id/scsi-0HC_Volume_19990557<span class="w"> </span>/var/map5
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"/dev/disk/by-id/scsi-0HC_Volume_19990557 /var/map5 ext4 discard,nofail,defaults 0 0"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
+</code></pre></div></td></tr></tbody></table></div>
+<p>Later we will configure Docker daemon to use this storage.</p>
+<p>600GB for AHN source and hillshade Tiffs. After preparation we'll store in long-term storage and remove this volume.
+Output result is around 90GB Hillshade files.</p>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>mkfs.ext4<span class="w"> </span>/dev/disk/by-id/scsi-0HC_Volume_20257946
+sudo<span class="w"> </span>mkdir<span class="w"> </span>/var/data
+sudo<span class="w"> </span>mount<span class="w"> </span>-o<span class="w"> </span>discard,defaults<span class="w"> </span>/dev/disk/by-id/scsi-0HC_Volume_20257946<span class="w"> </span>/var/data
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"/dev/disk/by-id/scsi-0HC_Volume_20257946 /var/data ext4 discard,nofail,defaults 0 0"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
+sudo<span class="w"> </span>mkdir<span class="w"> </span>/var/data/dem
+</code></pre></div></td></tr></tbody></table></div>
+<h2 id="2-prepare-local-system">2. Prepare Local System</h2>
+<p>On your local system you mainly need to have <code>Ansible</code> and <code>Git</code> (client) installed:</p>
+<h3 id="install-ansible">Install Ansible:</h3>
+<ul>
+<li>have Python 3 (3.7 or better) installed</li>
+<li>OPTIONAL (but recommended) create a Python Virtualenv (for Ansible)  </li>
+<li>install <a href="https://www.ansible.com/">Ansible</a> with <code>pip install ansible</code> 2.9.* or higher</li>
+<li>test: <code>ansible --version</code> - shows <em>ansible 2.9.19 ...</em></li>
+<li>test: <code>ansible-vault --version</code> shows <em>ansible-vault 2.9.19 ...</em></li>
+</ul>
+<p>More on Ansible below.</p>
+<h3 id="install-git-client">Install <code>Git</code> client.</h3>
+<p>Depends on your system. Make sure you have a command line <code>git</code> (CLI).</p>
+<h2 id="3-prepare-new-github-repo">3. Prepare New GitHub Repo</h2>
+<p>Clone the Git repo locally: <code>git clone https://github.com/map5nl/map5topo.git</code></p>
+<p>We will call the root dir of the cloned git repo on your system just <code>git/</code> from here.</p>
+<h2 id="4-setup-ansible">4. Setup Ansible</h2>
+<p>Most of the configuration that is specific to your new server 
+is stored under:</p>
+<ul>
+<li><code>git/ansible/hosts</code> (Ansible inventories)</li>
+<li><code>git/ansible/vars</code> (variables and SSH keys). </li>
+</ul>
+<p>Files under <code>git/ansible/vars</code> need to be always encrypted with <code>Ansible Vault</code>. You will need to 
+create your own (encrypted) version of these encrypted files. 
+For many files an example file is given. </p>
+<h3 id="install-ansible-modules">Install Ansible Modules</h3>
+<p>Called "Roles" these are third-party Ansible components that help with specific tasks.
+Install these as follows:</p>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>git/ansible
+ansible-galaxy<span class="w"> </span>install<span class="w"> </span>--roles-path<span class="w"> </span>./roles<span class="w"> </span>-r<span class="w"> </span>requirements.yml
+</code></pre></div></td></tr></tbody></table></div>
+<h3 id="ansible-hosts">Ansible Hosts</h3>
+<p>The hostname is crucial to services functioning. Two steps:</p>
+<ul>
+<li>set content of <code>git/ansible/hosts/prod.yml</code> (Inventory) to</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">map5topo</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">hosts</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">MAP5TOPO</span><span class="p">:</span>
+<span class="w">       </span><span class="nt">ansible_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22</span>
+<span class="w">       </span><span class="nt">ansible_host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">topo.map5.nl</span>
+<span class="w">       </span><span class="nt">ansible_user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span>
+<span class="w">       </span><span class="nt">ansible_python_interpreter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/bin/python3</span>
+</code></pre></div></td></tr></tbody></table></div>
+<ul>
+<li>note: <code>MAP5TOPO</code> will also be the new hostname, and prompt name </li>
+<li>set content of <code>git/env.sh</code> (common environment Docker-based services) to:</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># Sets global env vars based on host-name</span>
+<span class="c1"># Needed for various host-dependent configs, especiallly Traefik SSL-certs.</span>
+
+<span class="c1"># Export and Defaults</span>
+
+<span class="c1"># You may (or not may) set/export these vars externally</span>
+<span class="c1"># MAP_AREA</span>
+<span class="c1"># "muiden" implies small dataset Muiden area,</span>
+<span class="c1"># "utrecht" implies larger dataset about Utrecht province,</span>
+<span class="c1"># "nl" is full NL dataset</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MAP_AREA</span><span class="o">=</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="si">}</span>
+
+<span class="c1"># DEPLOY_SERVER</span>
+<span class="c1"># "local" implies localhost and http.</span>
+<span class="c1"># "prod" implies a domain and https</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEPLOY_SERVER</span><span class="o">=</span><span class="si">${</span><span class="nv">DEPLOY_SERVER</span><span class="k">:-</span><span class="nv">local</span><span class="si">}</span>
+
+<span class="c1"># Assume local deployment</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">TRAEFIK_DOMAIN</span><span class="o">=</span><span class="s2">"localhost"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">TRAEFIK_SSL_ENDPOINT</span><span class="o">=</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">TRAEFIK_SSL_DOMAIN</span><span class="o">=</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">TRAEFIK_SSL_CERT_RESOLVER</span><span class="o">=</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">TRAEFIK_USE_TLS</span><span class="o">=</span><span class="s2">"false"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MAP5_SITE_URL</span><span class="o">=</span>
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">HOST_UID</span><span class="o">=</span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">HOST_GID</span><span class="o">=</span><span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">HOST_UID_GID</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">HOST_UID</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">HOST_GID</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">VAR_DIR</span><span class="o">=</span><span class="s2">"/var/map5"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GIT_DIR</span><span class="o">=</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">VAR_DIR</span><span class="si">}</span><span class="s2">/data"</span>
+
+<span class="c1"># Set host-dependent vars</span>
+<span class="k">case</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="k">in</span>
+<span class="w">    </span><span class="c1"># map5topo development server</span>
+<span class="w">    </span><span class="s2">"MAP5TOPO"</span><span class="o">)</span>
+<span class="w">        </span><span class="nv">DEPLOY_SERVER</span><span class="o">=</span><span class="s2">"prod"</span>
+<span class="w">        </span><span class="nv">GIT_DIR</span><span class="o">=</span><span class="s2">"/home/madmin/git"</span>
+<span class="w">        </span><span class="nv">MAP_AREA</span><span class="o">=</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="k">:-</span><span class="nv">nl</span><span class="si">}</span>
+<span class="w">        </span><span class="nv">TRAEFIK_SSL_DOMAIN</span><span class="o">=</span><span class="s2">"topo.map5.nl"</span>
+<span class="w">        </span><span class="nv">TRAEFIK_SSL_CERT_RESOLVER</span><span class="o">=</span><span class="s2">"le"</span>
+<span class="w">        </span><span class="p">;;</span>
+<span class="w">    </span><span class="c1"># map5.nl official test server</span>
+<span class="w">    </span><span class="s2">"MAP5TEST"</span><span class="o">)</span>
+<span class="w">        </span><span class="nv">DEPLOY_SERVER</span><span class="o">=</span><span class="s2">"prod"</span>
+<span class="w">        </span><span class="nv">GIT_DIR</span><span class="o">=</span><span class="s2">"/home/madmin/map5topo.git"</span>
+<span class="w">        </span><span class="nv">MAP_AREA</span><span class="o">=</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="k">:-</span><span class="nv">nl</span><span class="si">}</span>
+<span class="w">        </span><span class="nv">TRAEFIK_SSL_DOMAIN</span><span class="o">=</span><span class="s2">"test.map5.nl"</span>
+<span class="w">        </span><span class="nv">TRAEFIK_SSL_CERT_RESOLVER</span><span class="o">=</span><span class="s2">"default"</span>
+<span class="w">        </span><span class="p">;;</span>
+<span class="w">    </span><span class="c1"># Just's Mac</span>
+<span class="w">    </span><span class="s2">"nusa"</span><span class="o">)</span>
+<span class="w">        </span><span class="nv">DEPLOY_SERVER</span><span class="o">=</span><span class="s2">"local"</span>
+<span class="w">        </span><span class="nv">GIT_DIR</span><span class="o">=</span><span class="s2">"/Users/just/project/map5/map5topo.git"</span>
+<span class="w">        </span><span class="nv">MAP_AREA</span><span class="o">=</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="k">:-</span><span class="nv">muiden</span><span class="si">}</span>
+<span class="w">        </span><span class="p">;;</span>
+<span class="w">    </span><span class="c1"># Niene - no 1</span>
+<span class="w">    </span><span class="s2">"niene-ThinkPad-P53s"</span><span class="o">)</span>
+<span class="w">        </span><span class="nv">DEPLOY_SERVER</span><span class="o">=</span><span class="s2">"local"</span>
+<span class="w">        </span><span class="nv">GIT_DIR</span><span class="o">=</span><span class="s2">"/home/niene/Documents/git_projecten/map5topo"</span>
+<span class="w">        </span><span class="p">;;</span>
+<span class="w">    </span><span class="c1"># Niene - no 2</span>
+<span class="w">    </span><span class="s2">"niene-desktop"</span><span class="o">)</span>
+<span class="w">        </span><span class="nv">DEPLOY_SERVER</span><span class="o">=</span><span class="s2">"local"</span>
+<span class="w">        </span><span class="nv">GIT_DIR</span><span class="o">=</span><span class="s2">"/home/niene/Documents/git_projecten/map5topo"</span>
+<span class="w">        </span><span class="p">;;</span>
+<span class="c1"># PLACE HERE THE RESULT 'hostname' on your system, basically your GIT root dir</span>
+<span class="c1"># for the map5topo GH repo.</span>
+<span class="c1">#    "myhost")</span>
+<span class="c1">#        DEPLOY_SERVER="local"</span>
+<span class="c1">#        GIT_DIR="/your/map5topo/git root/dir/git"</span>
+<span class="c1">#        ;;</span>
+<span class="w">    </span>*<span class="o">)</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Your host </span><span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span><span class="s2"> is unknown - PLEASE ADD YOUR HOSTNAME IN git/env.sh - exit"</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">esac</span>
+
+<span class="c1"># default</span>
+<span class="nv">MAP_AREA</span><span class="o">=</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="k">:-</span><span class="nv">utrecht</span><span class="si">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="si">${</span><span class="nv">DEPLOY_SERVER</span><span class="si">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"local"</span><span class="w"> </span><span class="o">]]</span>
+<span class="k">then</span>
+<span class="w">    </span><span class="nv">MAP5_SITE_URL</span><span class="o">=</span><span class="s2">"http://localhost:8000"</span>
+<span class="w">    </span><span class="nv">DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">GIT_DIR</span><span class="si">}</span><span class="s2">/data"</span>
+<span class="w">    </span><span class="nv">VAR_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">GIT_DIR</span><span class="si">}</span><span class="s2">/services/mapproxy/var"</span>
+
+<span class="k">elif</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="si">${</span><span class="nv">DEPLOY_SERVER</span><span class="si">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"prod"</span><span class="w"> </span><span class="o">]]</span>
+<span class="k">then</span>
+<span class="w">    </span><span class="nb">source</span><span class="w"> </span>/etc/environment
+<span class="w">  </span><span class="nv">TRAEFIK_SSL_ENDPOINT</span><span class="o">=</span><span class="s2">"https"</span>
+<span class="w">  </span><span class="nv">TRAEFIK_USE_TLS</span><span class="o">=</span><span class="s2">"true"</span>
+<span class="w">  </span><span class="nv">TRAEFIK_DOMAIN</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">TRAEFIK_SSL_DOMAIN</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span><span class="nv">MAP5_SITE_URL</span><span class="o">=</span><span class="s2">"https://</span><span class="si">${</span><span class="nv">TRAEFIK_SSL_DOMAIN</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">fi</span>
+
+<span class="c1"># Data PostGIS dump download files</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BAG_GZ_FILE_NAME</span><span class="o">=</span><span class="s2">"bagv2-pand-</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="si">}</span><span class="s2">.sql.gz"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BGT_DUMP_FILE_NAME</span><span class="o">=</span><span class="s2">"bgt-lean-</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="si">}</span><span class="s2">.dump"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BRK_GZ_FILE_NAME</span><span class="o">=</span><span class="s2">"kadgrens-</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="si">}</span><span class="s2">.sql.gz"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BRT_TOP10_GZ_FILE_NAME</span><span class="o">=</span><span class="s2">"top10nl-</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="si">}</span><span class="s2">.sql.gz"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BRT_TOP50_GZ_FILE_NAME</span><span class="o">=</span><span class="s2">"top50nl-</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="si">}</span><span class="s2">.sql.gz"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BRT_TOP100_GZ_FILE_NAME</span><span class="o">=</span><span class="s2">"top100nl-</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="si">}</span><span class="s2">.sql.gz"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GRID_RD_1KM_FILE_NAME</span><span class="o">=</span><span class="s2">"grid-rd-1km.sql"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">NWB_GZ_FILE_NAME</span><span class="o">=</span><span class="s2">"nwb-wegen-</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="si">}</span><span class="s2">.sql.gz"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">OSM_SEA_GZ_FILE_NAME</span><span class="o">=</span><span class="s2">"sea-polygons-28992-nl.sql.gz"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">OSM_SEA_SIMP_GZ_FILE_NAME</span><span class="o">=</span><span class="s2">"sea-polygons-simplified-28992-nl.sql.gz"</span>
+
+<span class="c1"># Not used (yet)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BRT_TOP250_GZ_FILE_NAME</span><span class="o">=</span><span class="s2">"top250nl-</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="si">}</span><span class="s2">.sql.gz"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BRT_TOP500_GZ_FILE_NAME</span><span class="o">=</span><span class="s2">"top500nl-</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="si">}</span><span class="s2">.sql.gz"</span>
+
+<span class="c1"># Tools locations</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">TOOLS_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">GIT_DIR</span><span class="si">}</span><span class="s2">/tools"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MAPNIK_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">TOOLS_DIR</span><span class="si">}</span><span class="s2">/mapnik"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEM_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">TOOLS_DIR</span><span class="si">}</span><span class="s2">/dem"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ETL_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">TOOLS_DIR</span><span class="si">}</span><span class="s2">/etl"</span>
+
+<span class="c1"># Local data folders</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BAG_DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span><span class="s2">/bag"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BGT_DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span><span class="s2">/bgt"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BRK_DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span><span class="s2">/brk"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BRT_DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span><span class="s2">/brt"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEM_DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span><span class="s2">/dem/</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GRID_DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span><span class="s2">/grid"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">NWB_DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span><span class="s2">/nwb"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">OSM_DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span><span class="s2">/osm"</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"env.sh: DEPLOY_SERVER=</span><span class="si">${</span><span class="nv">DEPLOY_SERVER</span><span class="si">}</span><span class="s2"> - MAP_AREA=</span><span class="si">${</span><span class="nv">MAP_AREA</span><span class="si">}</span><span class="s2"> - MAP5_SITE_URL=</span><span class="si">${</span><span class="nv">MAP5_SITE_URL</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LOG_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">VAR_DIR</span><span class="si">}</span><span class="s2">/log"</span>
+</code></pre></div></td></tr></tbody></table></div>
+<p>So <code>MAP_AREA=prod</code> here is to discern with a deployment on <code>localhost</code> (<code>MAP_AREA=test</code>, where .e.g. no https/SSL is used).</p>
+<h3 id="create-ssh-keys">Create SSH Keys</h3>
+<p>These are used to invoke actions on the server both from GitHub Actions (via GitHub Sercrets) 
+and from your local Ansible setup. Plus a set of authorized_keys for the admin SSH user.</p>
+<ul>
+<li>cd <code>git/ansible/vars</code></li>
+<li>create new SSH keypair (no password): <code>ssh-keygen -t rsa -q -N "" -f gh-key.rsa</code></li>
+</ul>
+<h3 id="create-authorized_keys">Create authorized_keys</h3>
+<p>Create new <code>git/ansible/vars/authorized_keys</code> with your public key and for others you want to give access to the admin SSH account,
+plus <code>gh-key.rsa.pub</code> .</p>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>cat<span class="w"> </span>gh-key.rsa.pub<span class="w"> </span>&gt;<span class="w"> </span>authorized_keys
+cat<span class="w"> </span>~/.ssh/id_rsa.pub<span class="w"> </span>&gt;&gt;<span class="w"> </span>authorized_keys
+cat<span class="w"> </span>id.rsa.pub.of.joe<span class="w"> </span>&gt;&gt;<span class="w"> </span>authorized_keys<span class="w">   </span><span class="c1"># etc</span>
+</code></pre></div></td></tr></tbody></table></div>
+<p>Set these for the <code>root</code> and <code>&lt;admin user&gt;</code> in their <code>.ssh/authorized_keys</code>.</p>
+<p>See <code>MAP5TOPO_GH</code>  GitHub Deploy key below.</p>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>scp<span class="w"> </span>vars/gh-key.rsa<span class="w"> </span>root@topo.map5.nl:.ssh/id_rsa
+</code></pre></div></td></tr></tbody></table></div>
+<h3 id="set-github-deploy-key-and-secrets">Set GitHub Deploy Key and Secrets</h3>
+<p>Go to GH repo Settings/keys</p>
+<ul>
+<li>set DEPLOY_KEY from <code>git/ansible/vars/gh-key.rsa.pub</code></li>
+</ul>
+<p>Go to GH repo Settings|Secrets and create these secrets for Actions:</p>
+<ul>
+<li>ANSIBLE_SSH_PRIVATE_KEY - with value from <code>git/ansible/vars/gh-key.rsa</code></li>
+<li>ANSIBLE_VAULT_PASSWORD - value from <code>~/.ssh/ansible-vault/map5topo.txt</code> </li>
+</ul>
+<h3 id="adapt-varsyml">Adapt vars.yml</h3>
+<p>Create new <code>git/ansible/vars/vars.yml</code> from example <code>vars.example.yml</code> in that dir.</p>
+<p>The first part of <code>vars.yml</code> contains generic, less-secret, values. 
+Use variables where possible. Format is Python-Jinja2 template-like:</p>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">my_ssh_pubkey_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/.ssh/id_rsa.pub</span>
+<span class="nt">my_email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my@email.nl</span>
+<span class="nt">my_admin_user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">the_admin_username</span>
+<span class="nt">my_admin_home</span><span class="p">:</span><span class="w"> </span><span class="s">"/home/{{</span><span class="nv"> </span><span class="s">my_admin_user</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="nt">my_git_home</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">my_admin_home</span><span class="nv"> </span><span class="s">}}/git"</span>
+<span class="nt">my_github_repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git@github.com:map5nl/map5topo.git</span>
+<span class="nt">var_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/ogcapi</span>
+<span class="nt">logs_dir</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">var_dir</span><span class="nv"> </span><span class="s">}}/log"</span>
+<span class="nt">services_home</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">my_git_home</span><span class="nv"> </span><span class="s">}}/services"</span>
+<span class="nt">pip_install_packages</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker</span>
+<span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Europe/Amsterdam</span>
+<span class="nt">ufw_open_ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">'22'</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">'80'</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">'443'</span><span class="p p-Indicator">]</span>
+</code></pre></div></td></tr></tbody></table></div>
+<p>Note the GitHub repo is SSH-based for deploy-key!</p>
+<p>The second part deals with more secret values, like usernames and passwords for services.
+These will be copied into the VM's <code>/etc/environment</code> file.</p>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">etc_environment</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">PG_DB</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">the_db</span><span class="w">  </span><span class="c1"># PostGIS service</span>
+<span class="w">  </span><span class="nt">PG_USER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">the_user</span><span class="w">  </span><span class="c1"># PostGIS service</span>
+<span class="w">  </span><span class="nt">PG_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">the_pw</span><span class="w">  </span><span class="c1"># PostGIS service</span>
+<span class="w">  </span><span class="nt">PGADMIN_EMAIL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">the_user@the_user.nl</span><span class="w"> </span><span class="c1"># PGadmin service</span>
+<span class="w">  </span><span class="nt">PGADMIN_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">the_pw</span><span class="w">  </span><span class="c1"># PGadmin service</span>
+</code></pre></div></td></tr></tbody></table></div>
+<h3 id="create-ansible-vault-password">Create Ansible Vault Password</h3>
+<ul>
+<li>create strong password  </li>
+<li>store in <code>~/.ssh/ansible-vault/map5topo.txt</code> for convenience</li>
+</ul>
+<h3 id="encrypt-ansible-files">Encrypt Ansible Files</h3>
+<p>VERY IMPORTANT. UNENCRYPTED FILES SHOULD NEVER BE CHECKED IN!!!</p>
+<p>Using <code>ansible-vault</code> with password encrypt these:</p>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>ansible-vault<span class="w"> </span>encrypt<span class="w"> </span>--vault-password-file<span class="w"> </span>~/.ssh/ansible-vault/map5topo.txt<span class="w"> </span>vars/vars.yml
+ansible-vault<span class="w"> </span>encrypt<span class="w"> </span>--vault-password-file<span class="w"> </span>~/.ssh/ansible-vault/map5topo.txt<span class="w"> </span>vars/gh-key.rsa
+ansible-vault<span class="w"> </span>encrypt<span class="w"> </span>--vault-password-file<span class="w"> </span>~/.ssh/ansible-vault/map5topo.txt<span class="w"> </span>vars/gh-key.rsa.pub<span class="w"> </span>
+ansible-vault<span class="w"> </span>encrypt<span class="w"> </span>--vault-password-file<span class="w"> </span>~/.ssh/ansible-vault/map5topo.txt<span class="w"> </span>vars/authorized_keys<span class="w"> </span>
+</code></pre></div></td></tr></tbody></table></div>
+<h3 id="disable-github-workflows">Disable GitHub Workflows</h3>
+<p>We do not want that workflows take effect immediately. 
+So disable them temporary by renaming the dir.</p>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>git/.github/workflows
+git<span class="w"> </span>mv<span class="w"> </span>workflows<span class="w"> </span>workflows.not
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"disable workflows"</span>
+git<span class="w"> </span>push
+</code></pre></div></td></tr></tbody></table></div>
+<h2 id="5-bootstrapprovision-server">5 Bootstrap/provision Server</h2>
+<p>Moment of truth! Bootstrap (provision the server) in single playbook. Save the logfile for analysis.</p>
+<ul>
+<li><code>ansible-playbook -v --vault-password-file ~/.ssh/ansible-vault/map5topo.txt bootstrap.yml -i hosts/prod.yml &gt; bootstrap.log 2&gt;&amp;1</code></li>
+</ul>
+<p>If all goes well, this output should be shown at end:</p>
+<div class="highlight"><pre><span></span><code>PLAY RECAP ***********************************************************************************************************
+apisandbox                 : ok=58   changed=22   unreachable=0    failed=0    skipped=8    rescued=0    ignored=0   
+</code></pre></div>
+<p>Observe output for errors (better is to save output in file via <code>.. &gt; bootstrap.log 2&gt;&amp;1</code>).</p>
+<p>In cases of errors and after fixes, simply rerun the above Playbook.</p>
+<p>Site should be running at: <a href="https://topo.map5.nl">https://topo.map5.nl</a>
+Check with portainer <a href="https://topo.map5.nl/portainer/">https://topo.map5.nl/portainer/</a>.</p>
+<h2 id="6-docker-storage-in-attached-volume">6 Docker storage in attached Volume</h2>
+<p>See https://www.guguweb.com/2019/02/07/how-to-move-docker-data-directory-to-another-location-on-ubuntu/</p>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code>service<span class="w"> </span>docker<span class="w"> </span>stop
+mkdir<span class="w"> </span>-p<span class="w"> </span>/var/map5/docker
+
+<span class="c1"># Add this file</span>
+vi<span class="w"> </span>/etc/docker/daemon.json
+<span class="c1"># add this content</span>
+<span class="o">{</span>
+<span class="w">  </span><span class="s2">"data-root"</span>:<span class="w"> </span><span class="s2">"/var/map5/docker"</span>
+<span class="o">}</span>
+
+<span class="c1"># copy current content</span>
+rsync<span class="w"> </span>-aP<span class="w"> </span>/var/lib/docker/<span class="w"> </span>/var/map5/docker
+
+<span class="c1"># move old dir just in case</span>
+mv<span class="w"> </span>/var/lib/docker<span class="w"> </span>/var/lib/docker.old
+
+service<span class="w"> </span>docker<span class="w"> </span>start
+
+<span class="c1"># remove the old</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/docker.old
+</code></pre></div></td></tr></tbody></table></div>
+<h2 id="6a-disk-resizing">6a Disk Resizing</h2>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>git/services
+./stop.sh
+
+<span class="c1"># as root sudo -</span>
+service<span class="w"> </span>docker<span class="w"> </span>stop
+umount<span class="w"> </span>/var/map5
+
+<span class="c1"># enlarge Volume size in Hetzner Console</span>
+
+<span class="c1"># figure out which disk</span>
+fdisk<span class="w"> </span>-l
+resize2fs<span class="w"> </span>/dev/sdc
+
+mount<span class="w"> </span>/var/map5
+service<span class="w"> </span>docker<span class="w"> </span>stop
+<span class="nb">cd</span><span class="w"> </span>git/services
+./start.sh
+</code></pre></div></td></tr></tbody></table></div>
+<h2 id="7-resolve-issues">7 Resolve Issues</h2>
+<p>These are typical issues found and resolved:</p>
+<ul>
+<li>make sure the <code>gh-key.rsa.pub</code> is present in both <code>/root</code> and <code>/home/&lt;admin user&gt;</code> <code>.ssh/authorized_keys</code></li>
+<li><code>postgis + pgadmin</code>: needed to manually <code>stop.sh</code>, remove all volumes and <code>start.sh</code> otherwise could not login on pgadmin nor postgis from there  </li>
+</ul>
+<h2 id="8-enable-github-workflows">8. Enable GitHub Workflows</h2>
+<p>Enable by renaming:</p>
+<div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>mv<span class="w"> </span>workflows.not<span class="w"> </span>workflows<span class="w"> </span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"enable workflows"</span>
+git<span class="w"> </span>push
+</code></pre></div></td></tr></tbody></table></div></div>
+<br><br>
+<div class="git-info">
+<div class="dates-container">
+<span class="date-item" title="This page was first created on September 18, 2025">
+<span class="hover-item">📅</span> Created 0 days ago
+    </span>
+<span class="date-item" title="This page was last updated on September 18, 2025">
+<span class="hover-item">✏️</span> Updated 0 days ago
+    </span>
+</div>
+<div class="authors-container">
+<a class="author-link" href="https://github.com/justb4" title="justb4 (1 change)">
+<img alt="justb4" class="hover-item" loading="lazy" src="https://avatars.githubusercontent.com/u/582630?v=4&amp;s=96">
+</a>
+</div></div></article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      © 2023 Just Objects B.V.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script src="../../assets/javascripts/termynal.js"></script>
+<script src="../../assets/javascripts/custom.js"></script>
+
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
