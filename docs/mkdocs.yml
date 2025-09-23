@@ -17,7 +17,8 @@ nav:
         - Method: create/method.md
         - Setup: create/setup.md
         - Data: create/data.md
-        - Map: create/map.md
+        - RasterMaps: create/map-raster.md
+        - VectorTiles: create/map-vector.md
     - Gallery:
         - Overview: gallery/index.md
         - 2022: gallery/2022.md

@@ -1,10 +1,10 @@
 ---
-title: Map Preparation
+title: Raster Map Preparation
 ---
 
-# Maps
+# Raster Maps
 
-Describes how to use the prepared data to create maps. 
+Describes how to use the prepared data to create raster maps. 
 
 ![map5topo](../assets/images/map5topo-oosterbeek-2.jpg){ align=left }
 
