@@ -19,7 +19,7 @@ python3 -m venv .
 
 # fork or clone from GitHub
 git clone https://github.com/map5/map5topo.nl.git
-cd src
+cd map5topo.nl/docs
 
 # install required dependencies
 

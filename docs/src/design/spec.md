@@ -1,12 +1,12 @@
 # Specification
 
-Goal: develop a Dutch national classic topographic map (or maps). Below overall specifications and 
-constraints.
+Goal: develop a Dutch national classic topographic map (or maps). 
+Below overall specifications and constraints.
 
 ## Criteria
 
 * at first raster (tiles)-only
-* possibly Vector (Tiles) later
+* Vector (Tiles) later
 * both RD and Web Mercator projections and tiling schemes (EPSG:28992 and EPSG:3857)
 * use Dutch Open Data like Key Registries ("Basisregistraties") as much as possible  (see datasets below)
 * may use OSM or other datasets where they provide more detail
@@ -25,20 +25,20 @@ This is a snapshot in time. Anything abroad: all from OpenStreetMap.
 
 ## Now In use (Dutch Datasets/layers)
 
-* TOP10NL  terrein, water, hoogtepunten, dijkpalen, strandpalen
-* TOP50NL  terrein, water
-* TOP100NL  terrein, water
-* BAG  panden
-* OpenStreetMap niet-BAG panden, huisnummers, verharde infra, onverharde wegen, terreinen (lowzoom), zee, water (lowzoom), bushaltes, boeien, administratieve grenzen (gem/prov)
-* BRK-DKK open digitale kadastrale kaart met perceelgrenzen, van het Kadaster.
+* BRT TOP10NL:  terrein, water, hoogtepunten, dijkpalen, strandpalen
+* BRT TOP50NL:  terrein, water
+* BRT TOP100NL:  terrein, water
+* BAG: panden
+* OpenStreetMap" niet-BAG panden, huisnummers, verharde infra, onverharde wegen, terreinen (lowzoom), zee, water (lowzoom), bushaltes, boeien, administratieve grenzen (gem/prov)
+* BRK-DKK: open digitale kadastrale kaart met perceelgrenzen, van het Kadaster.
 * BGT grootschalige topografie: alleen zoom 13, wegdeel-vlak, alle terrein-gerelateerde vlakken, water 
 * AHN 5m en 50cm: reliëfschaduw en contourlijnen
 * RWS Nationaal Wegenbestand: hectometer en kilometer-bordjes
-* Gridlijnen (kadaster)
+* Gridlines: calculated according to Kadaster conventions
 
 ## Now In use (abroad)
 
-Anything abroad: all data from OpenStreetMap.
+Anything abroad near borders (Germany, Belgium, bit France): only data from OpenStreetMap.
 
 ## To consider for later
 
@@ -58,6 +58,8 @@ Anything abroad: all data from OpenStreetMap.
 * NS/Prorail - stationsnamen
 
 ## Extent
+
+So the map does not stop at NL country borders!
 
 - EPSG:28992 LL: -20000 275000  UR: 300000 650000  
 - EPSG:4326  LL: 2.923846278 50.438927366  UR: 7.588656577	53.815565633    

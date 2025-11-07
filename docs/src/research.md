@@ -402,7 +402,9 @@ Hmm, hardly difference, also tested with `-k` (keep-alive) and different concurr
 One of the main questions is: in these modern times, the best starting point would be
 Vector Tiles, but...
 
-* See https://github.com/mapbox/awesome-vector-tiles, interesting: https://github.com/mkeller3/FastVector, https://github.com/developmentseed/timvt
+* See https://github.com/mapbox/awesome-vector-tiles, 
+* interesting: https://github.com/mkeller3/FastVector,
+* https://github.com/developmentseed/timvt
 
 ## Service Toolchain
 
@@ -431,12 +433,51 @@ See Tom van Tilburg article [1]. At least needed:
 
 * feature reclassification for lower zooms
 * geometry simplification
+* aggregation/dissolving
 * split up (large) polygons
 
 Big question: follow existing OSM/Imposm data schemas or similar to Tom [1] and/or PDOK [2]?
 Or can this be solved by using BRT scales like Top1000, Top500 etc?
 
 Many datasets available via geotoko.nl.
+
+### Aggregation
+
+For lower zooms need to aggregate polygons into larger polygons.
+Also called "dissolving" or 
+
+Approaches:
+
+#### Sandeep Dhakal
+
+https://medium.com/@sandeep.dhakal/efficiently-dissolving-adjacent-polygons-by-attributes-in-a-large-gis-database-5492e54ef951
+
+#### ICA - Cartagen
+
+https://generalisation.icaci.org/
+
+[Morphological amalgamation](https://cartagen.readthedocs.io/en/latest/manual.html#building-blocks).
+
+   > Morphological amalgamation = merging adjacent features based on their shape and size, 
+   > while preserving topology and the visual morphology of the map.
+   > 
+   > Ref: [04_Damen_et_al Bert Spaan ICA 2008](https://kartographie.geo.tu-dresden.de/downloads/ica-gen/workshop2008/04_Damen_et_al.pdf).
+
+https://cartagen.readthedocs.io/
+
+https://github.com/LostInZoom/cartagen/
+
+#### Tom van Tilburg - Geodan
+
+JavaScript and TopoJSON in PostgreSQL!
+
+* https://observablehq.com/@geodan/how-to-make-a-vectortile-basemap
+* https://github.com/Geodan/plv8_geo
+
+#### MapShaper
+
+https://github.com/mbloch/mapshaper/wiki
+
 
 ## Map Design
 
