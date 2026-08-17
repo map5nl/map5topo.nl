@@ -6,7 +6,7 @@ title: Vector Tiles Preparation
 
 Describes how to use the prepared data to create Vector Tiles (VT). for now a compact description.
 
-![map5topo](../assets/images/map5topo-oosterbeek-vec.jpg){ align=left }
+![map5topo vector](../assets/images/map5topo-oosterbeek-vec.jpg){ align=left }
 
 ## 1. Data and ETL
 
@@ -125,6 +125,8 @@ Generated with [Mapterhorn](https://mapterhorn.com) from AHN5+AHN6 source TIFF D
 Work in progress. Note that `justb4` contributes to Mapterhorn project for the AHN5 + AHN6 data.
 See the GitHub issue and related [GitHub PR](https://github.com/mapterhorn/mapterhorn/pull/287).
 
+![map5topo RGB hillshade](../assets/images/map5topo-vector-hillshade.jpg){ align=left }
+
 Eventually the file `map5rgb.pmtiles` (about 95GB) is generated containing both 5m and 50cm AHN data encoded
 as RGB tiles in `.webp` format.
 
@@ -138,6 +140,7 @@ pmtiles:
     - /martin_cache
 
 ```
+
 ## 5. Test the Services
 
 Mainly with `MapLibre`. In a MapLibre Style JSON the layers and styles and hillsahde can be specified.

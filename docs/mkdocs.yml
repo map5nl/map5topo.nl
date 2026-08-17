@@ -25,6 +25,7 @@ nav:
         - 2023: gallery/2023.md
         - 2024: gallery/2024.md
         - 2025: gallery/2025.md
+        - 2026: gallery/2026.md
     - Research: research.md
 
 use_directory_urls: true
