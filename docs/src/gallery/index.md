@@ -17,3 +17,11 @@ captured through the years.
 # Gallery - 2024
 
 [See 2024 Gallery](2024.md)
+
+# Gallery - 2025
+
+[See 2025 Gallery](2025.md)
+
+# Gallery - 2026
+
+[See 2026 Gallery](2026.md)

@@ -63,4 +63,4 @@ Here the access point for various standard (OGC) web mapping protocols is provid
 
 * Finally [Traefik](https://traefik.io/traefik) is a front-end HTTP(S) server to the users and apps that consume the map tiles
 * Traefik is not only a routing Proxy but also automatically handles/creates/updates SSL certificates using the free [Let's Encrypt](https://letsencrypt.org/) service
-* *Just Objects B.V. sponsors Let's Encrypt!*
+* *Just Objects B.V. is sponsor of Let's Encrypt!*
