@@ -1,0 +1,90 @@
+"visualisatiecode","typeinrichtingselement","soortnaam"
+15160,"GPS kernnetpunt",NULL
+-15000,"aanlegsteiger",NULL
+15000,"aanlegsteiger",NULL
+15010,"baak",NULL
+15020,"bomenrij",NULL
+-15020,"bomenrij",NULL
+15030,"boom",NULL
+15870,"botenhelling","openbare botenhelling"
+15870,"botenhelling",NULL
+15870,"botenhelling","niet-openbare botenhelling"
+15880,"busstation",NULL
+15890,"calamiteitendoorgang",NULL
+15100,"dukdalf",NULL
+15110,"gaswinning",NULL
+15120,"gedenkteken, monument","markante steen"
+15120,"gedenkteken, monument",NULL
+-15130,"geluidswering",NULL
+15130,"geluidswering",NULL
+15150,"golfmeetpaal",NULL
+15170,"grenspunt",NULL
+15970,"havenhoofd",NULL
+15180,"heg, haag",NULL
+15190,"hekwerk",NULL
+-15190,"hekwerk",NULL
+-15210,"hoogspanningsleiding",NULL
+15210,"hoogspanningsleiding",NULL
+15220,"hoogspanningsmast",NULL
+15230,"hunebed",NULL
+15240,"kaap",NULL
+15250,"kabelbaan",NULL
+15260,"kabelbaanmast",NULL
+15280,"kilometerpaal",NULL
+15290,"kilometerpaal spoorweg",NULL
+15300,"kilometerpaal water",NULL
+15310,"kilometerraaibord",NULL
+15320,"kilometerraaipaal",NULL
+15980,"klokkenstoel",NULL
+-15090,"koedam",NULL
+15090,"koedam",NULL
+15350,"kogelvanger schietbaan",NULL
+15370,"kraan",NULL
+15380,"kruis",NULL
+15450,"markant object",NULL
+15900,"metrostation",NULL
+15460,"muur",NULL
+-15460,"muur",NULL
+15470,"oliepompinstallatie",NULL
+15860,"overig","markante steen"
+15860,"overig",NULL
+15860,"overig","windbreker"
+15860,"overig","archeologisch object"
+15860,"overig","religieus object"
+15860,"overig","brug"
+15860,"overig","vuursteenmijn"
+15480,"paal",NULL
+15490,"paalwerk",NULL
+15510,"peilschaal",NULL
+15520,"pijler",NULL
+15910,"plaatsnaambord",NULL
+15550,"radiotelescoop",NULL
+15920,"scheepvaartlicht",NULL
+15570,"schietbaan",NULL
+15590,"seinmast",NULL
+15600,"sluisdeur",NULL
+15610,"sluisdeur",NULL
+15930,"sneltramhalte",NULL
+15630,"stormvloedkering",NULL
+15640,"strandpaal",NULL
+-15650,"strekdam, krib, golfbreker",NULL
+15650,"strekdam, krib, golfbreker",NULL
+15660,"stuw",NULL
+15670,"stuw",NULL
+15690,"tol",NULL
+15940,"treinstation","museumtramhalte"
+15940,"treinstation","evenementenhalte"
+15940,"treinstation","museumtreinstation"
+15940,"treinstation",NULL
+15960,"uitzichtpunt",NULL
+15960,"uitzichtpunt","observatiepunt"
+-15720,"verkeersgeleider",NULL
+15720,"verkeersgeleider",NULL
+15740,"vlampijp",NULL
+15950,"vliedberg",NULL
+-15760,"wegafsluiting",NULL
+15760,"wegafsluiting",NULL
+15770,"wegwijzer",NULL
+15810,"windmolentje",NULL
+15840,"zendmast",NULL
+15850,"zichtbaar wrak",NULL

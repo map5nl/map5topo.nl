@@ -1,0 +1,807 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="Describes how to use the prepared data to create Vector Tiles (VT). for now a compact description." name="description">
+<meta content="Just van den Broecke" name="author">
+<link href="https://map5topo.nl/create/map-vector/" rel="canonical">
+<link href="../map-raster/" rel="prev">
+<link href="../../gallery/" rel="next">
+<link href="../../assets/favicon.ico" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator">
+<title>Vector Tiles Preparation - map5topo.nl</title>
+<link href="../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet">
+<link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/stylesheets/termynal.css" rel="stylesheet">
+<link href="../../assets/stylesheets/custom.css" rel="stylesheet">
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="VectorTiles" name="title"><meta content="website" property="og:type"><meta content="https://map5topo.nl/create/map-vector" property="og:url"><meta content="VectorTiles" property="og:title"><meta content="Describes how to use the prepared data to create Vector Tiles (VT). for now a compact description." property="og:description"><meta content="../../assets/images/map5topo-oosterbeek-vec.jpg" property="og:image"><meta content="summary_large_image" property="twitter:card"><meta content="https://map5topo.nl/create/map-vector" property="twitter:url"><meta content="VectorTiles" property="twitter:title"><meta content="Describes how to use the prepared data to create Vector Tiles (VT). for now a compact description." property="twitter:description"><meta content="../../assets/images/map5topo-oosterbeek-vec.jpg" property="twitter:image"><style>
+.md-content__button[onclick*="copyMarkdownForLLM"] svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: currentColor;
+}
+
+.git-info, .dates-container, .authors-container, .share-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.git-info {
+    font-size: 0.8em;
+    color: grey;
+    margin-bottom: 10px;
+}
+
+.dates-container, .authors-container {
+    margin-bottom: 10px;
+}
+
+.date-item, .author-link, .share-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.date-item {
+    margin-right: 10px;
+}
+
+.hover-item {
+    transition: all 0.2s ease;
+    filter: grayscale(100%);
+}
+
+.date-item .hover-item {
+    font-size: 1.6em;
+    margin-right: 5px;
+}
+
+.author-link .hover-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 3px;
+    background-color: #f0f0f0;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.author-link .hover-item[src] {
+    opacity: 1;
+}
+
+.share-buttons {
+    margin-top: 10px;
+}
+
+.share-button {
+    background-color: #1da1f2;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: none;
+    font-size: 0.95em;
+    margin: 5px;
+    transition: all 0.2s ease;
+}
+
+.share-button.linkedin {
+    background-color: #0077b5;
+}
+
+.share-button i {
+    margin-right: 5px;
+    font-size: 1.1em;
+}
+
+.share-button:hover,
+.hover-item:hover {
+    color: var(--md-accent-fg-color);
+    transform: scale(1.1);
+    filter: brightness(1.2) grayscale(0%);
+}
+
+@media (max-width: 1024px) {
+    .git-info {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .dates-container, .authors-container {
+        width: 100%;
+    }
+}
+</style><link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="map5topo" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#vector-tiles">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="map5topo.nl" class="md-header__button md-logo" data-md-component="logo" href="../.." title="map5topo.nl">
+<img alt="logo" src="../../assets/images/map5-logo-bg-black.png">
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            map5topo.nl
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Vector Tiles Preparation
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/map5nl/map5topo.nl" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="map5topo.nl" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="map5topo.nl">
+<img alt="logo" src="../../assets/images/map5-logo-bg-black.png">
+</a>
+    map5topo.nl
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/map5nl/map5topo.nl" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox">
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Design
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../design/spec/">
+<span class="md-ellipsis">
+    
+  
+    Specification
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../design/architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../design/data/">
+<span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../design/gitops/">
+<span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox">
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Creation
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Creation
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../method/">
+<span class="md-ellipsis">
+    
+  
+    Method
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../setup/">
+<span class="md-ellipsis">
+    
+  
+    Setup
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../data/">
+<span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../map-raster/">
+<span class="md-ellipsis">
+    
+  
+    RasterMaps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox">
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    VectorTiles
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    VectorTiles
+  
+
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-data-and-etl">
+<span class="md-ellipsis">
+      
+        1. Data and ETL
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-martin-tileserver">
+<span class="md-ellipsis">
+      
+        2. Martin Tileserver
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-tile-seeding">
+<span class="md-ellipsis">
+      
+        3. Tile Seeding
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-hillshade">
+<span class="md-ellipsis">
+      
+        4. HillShade
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-test-the-services">
+<span class="md-ellipsis">
+      
+        5. Test the Services
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Gallery
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Gallery
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2022/">
+<span class="md-ellipsis">
+    
+  
+    2022
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2023/">
+<span class="md-ellipsis">
+    
+  
+    2023
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2024/">
+<span class="md-ellipsis">
+    
+  
+    2024
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2025/">
+<span class="md-ellipsis">
+    
+  
+    2025
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gallery/2026/">
+<span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../research/">
+<span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-data-and-etl">
+<span class="md-ellipsis">
+      
+        1. Data and ETL
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-martin-tileserver">
+<span class="md-ellipsis">
+      
+        2. Martin Tileserver
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-tile-seeding">
+<span class="md-ellipsis">
+      
+        3. Tile Seeding
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-hillshade">
+<span class="md-ellipsis">
+      
+        4. HillShade
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-test-the-services">
+<span class="md-ellipsis">
+      
+        5. Test the Services
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<div><h1 id="vector-tiles">Vector Tiles</h1>
+<p>Describes how to use the prepared data to create Vector Tiles (VT). for now a compact description.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../assets/images/map5topo-oosterbeek-vec.jpg"><img align="left" alt="map5topo vector" src="../../assets/images/map5topo-oosterbeek-vec.jpg"></a></p>
+<h2 id="1-data-and-etl">1. Data and ETL</h2>
+<p>The data with SQL schema as used with raster tiling via Mapnik is used. 
+The <a href="https://martin.maplibre.org/">Martin server</a> from the <a href="https://maplibre.org/">MapLibre project</a> is used as Vector tile server for Vector Tiles and (RGB) DEM/DTM tiles. </p>
+<p>SQL ETL functions make data selections, based on zoomlevel, and create MVT data output. These functions
+are configured as Vector Tile Layers, and called in the Martin server.</p>
+<p>For example, the Landcover layer <code>FUNCTION</code>:</p>
+<div class="highlight"><pre><span></span><code>--<span class="w"> </span>SQL<span class="w"> </span>Functions<span class="w"> </span><span class="k">for</span><span class="w"> </span>generating<span class="w"> </span>zoom-dependent<span class="w"> </span>Vector<span class="w"> </span>Tiles
+--<span class="w"> </span>Each<span class="w"> </span><span class="k">function</span><span class="w"> </span>gets<span class="w"> </span>an<span class="w"> </span>x,y,z<span class="w"> </span>value<span class="w"> </span><span class="k">in</span><span class="w"> </span>XYZ<span class="w"> </span>tiling<span class="w"> </span>schema.
+--<span class="w"> </span>Zoom<span class="w"> </span><span class="o">(</span>z<span class="o">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>WebMerc<span class="w"> </span>is<span class="w"> </span>used<span class="w"> </span>to<span class="w"> </span>only<span class="w"> </span><span class="k">select</span><span class="w"> </span>rows<span class="w"> </span>within<span class="w"> </span>their<span class="w"> </span>indicated<span class="w"> </span><span class="o">(</span>RD<span class="o">)</span><span class="w"> </span>zoom-range.
+--<span class="w"> </span>As<span class="w"> </span>Zoom<span class="w"> </span>WebMerc<span class="w"> </span>-<span class="w"> </span><span class="m">5</span><span class="w"> </span>equals<span class="w"> </span>Zoom<span class="w"> </span><span class="k">in</span><span class="w"> </span>RD.
+--<span class="w"> </span>e.g.<span class="w"> </span>WebMerc<span class="w"> </span>Zoom<span class="w"> </span><span class="m">18</span><span class="w"> </span>is<span class="w"> </span>NL<span class="w"> </span>RD<span class="w"> </span>tiling<span class="w"> </span>zoom<span class="w"> </span><span class="m">13</span><span class="w"> </span>etc.<span class="w"> </span>BUT<span class="w"> </span><span class="k">in</span><span class="w"> </span>Vector<span class="w"> </span>Tiles<span class="w"> </span>zoomlevels<span class="w"> </span>start<span class="w"> </span>at<span class="w"> </span><span class="m">0</span>,<span class="w"> </span>not<span class="w"> </span><span class="m">1</span>
+--<span class="w"> </span>so<span class="w"> </span>WebMerc<span class="w"> </span><span class="m">18</span><span class="w"> </span>is<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>VT<span class="w"> </span>etc...
+
+--<span class="w"> </span>landcover<span class="w"> </span>polygons
+CREATE<span class="w"> </span>OR<span class="w"> </span>REPLACE
+<span class="w">    </span>FUNCTION<span class="w"> </span>map5.vt_landcover<span class="o">(</span>z<span class="w"> </span>integer,<span class="w"> </span>x<span class="w"> </span>integer,<span class="w"> </span>y<span class="w"> </span>integer<span class="o">)</span>
+<span class="w">    </span>RETURNS<span class="w"> </span>bytea<span class="w"> </span>AS<span class="w"> </span><span class="nv">$$</span>
+DECLARE
+<span class="w">  </span>mvt<span class="w"> </span>bytea<span class="p">;</span>
+<span class="w">  </span>rdz<span class="w"> </span>integer<span class="w"> </span>:<span class="o">=</span><span class="w"> </span>z<span class="w"> </span>-<span class="w"> </span><span class="m">4</span><span class="p">;</span>
+BEGIN
+<span class="w">  </span>SELECT<span class="w"> </span>INTO<span class="w"> </span>mvt<span class="w"> </span>ST_AsMVT<span class="o">(</span>tile,<span class="w"> </span><span class="s1">'landcover'</span>,<span class="w"> </span><span class="m">4096</span>,<span class="w"> </span><span class="s1">'geom'</span><span class="o">)</span><span class="w"> </span>FROM<span class="w"> </span><span class="o">(</span>
+<span class="w">    </span>SELECT
+<span class="w">        </span>ST_AsMVTGeom<span class="o">(</span>
+<span class="w">            </span>ST_Transform<span class="o">(</span>geom,<span class="w"> </span><span class="m">3857</span><span class="o">)</span>,
+<span class="w">            </span>ST_TileEnvelope<span class="o">(</span>z,<span class="w"> </span>x,<span class="w"> </span>y<span class="o">)</span>,
+<span class="w">            </span><span class="m">4096</span>,<span class="w"> </span><span class="m">64</span>,<span class="w"> </span><span class="nb">true</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>geom,
+<span class="w">        </span>gid,
+<span class="w">        </span>lod1,
+<span class="w">        </span>lod2,
+<span class="w">        </span>lod3,
+<span class="w">        </span>area,
+<span class="w">        </span>z_index
+<span class="w">    </span>FROM<span class="w"> </span>map5.landcover
+<span class="w">    </span>WHERE<span class="w"> </span><span class="o">(</span>rdz<span class="w"> </span>BETWEEN<span class="w"> </span>rdz_min<span class="w"> </span>AND<span class="w"> </span>rdz_max<span class="o">)</span><span class="w"> </span>AND<span class="w"> </span><span class="o">(</span>geom<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ST_Transform<span class="o">(</span>ST_TileEnvelope<span class="o">(</span>z,<span class="w"> </span>x,<span class="w"> </span>y<span class="o">)</span>,<span class="w"> </span><span class="m">28992</span><span class="o">))</span><span class="w"> </span>
+<span class="w">  </span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tile<span class="w"> </span>WHERE<span class="w"> </span>geom<span class="w"> </span>IS<span class="w"> </span>NOT<span class="w"> </span>NULL<span class="w"> </span><span class="p">;</span>
+
+<span class="w">  </span>RETURN<span class="w"> </span>mvt<span class="p">;</span>
+END
+<span class="nv">$$</span><span class="w"> </span>LANGUAGE<span class="w"> </span>plpgsql<span class="w"> </span>IMMUTABLE<span class="w"> </span>STRICT<span class="w"> </span>PARALLEL<span class="w"> </span>SAFE<span class="p">;</span>
+</code></pre></div>
+<h2 id="2-martin-tileserver">2. Martin Tileserver</h2>
+<p>The above SQL Functions are configured as layers in the Martin configuration. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="c1"># Associative arrays of function sources</span>
+<span class="w">  </span><span class="c1"># See tools/etl/sql/map5/vector-tiles.sql for these SQL functions</span>
+<span class="w">  </span><span class="nt">functions</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">landcover</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># Schema name (required)</span>
+<span class="w">      </span><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">map5</span>
+
+<span class="w">      </span><span class="c1"># Function name (required)</span>
+<span class="w">      </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vt_landcover</span>
+
+<span class="w">      </span><span class="c1"># An integer specifying the minimum zoom level</span>
+<span class="w">      </span><span class="nt">minzoom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+
+<span class="w">      </span><span class="c1"># An integer specifying the maximum zoom level. MUST be &gt;= minzoom</span>
+<span class="w">      </span><span class="nt">maxzoom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">17</span>
+
+<span class="w">      </span><span class="c1"># The maximum extent of available map tiles. Bounds MUST define an area</span>
+<span class="w">      </span><span class="c1"># covered by all zoom levels. The bounds are represented in WGS:84</span>
+<span class="w">      </span><span class="c1"># latitude and longitude values, in the order left, bottom, right, top.</span>
+<span class="w">      </span><span class="c1"># Values may be integers or floating point numbers.</span>
+<span class="w">      </span><span class="nt">bounds</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">2.923846</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">50.438927</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">7.588657</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">53.815566</span><span class="w"> </span><span class="p p-Indicator">]</span>
+
+<span class="w">    </span><span class="nt">place</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># Schema name (required)</span>
+<span class="w">      </span><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">map5</span>
+
+<span class="w">      </span><span class="c1"># Function name (required)</span>
+<span class="w">      </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vt_place</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+</code></pre></div>
+<p>For testing and inspection, these layers can be called directly, but for production "MBTiles" files are generated, "seeded", and served.</p>
+<h2 id="3-tile-seeding">3. Tile Seeding</h2>
+<p>Using <code>martin-cp</code>:</p>
+<div class="highlight"><pre><span></span><code>martin-cp<span class="w"> </span>--source<span class="w"> </span><span class="si">${</span><span class="nv">POSTGIS_SOURCES</span><span class="si">}</span><span class="w"> </span>-c<span class="w"> </span>config.yml<span class="w"> </span>-o<span class="w"> </span>map5.mbtiles<span class="w"> </span>--mbtiles-type<span class="w"> </span>normalized<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>--bbox<span class="w"> </span><span class="si">${</span><span class="nv">SEED_BBOX</span><span class="si">}</span><span class="w"> </span>--on-duplicate<span class="w"> </span>ignore<span class="w"> </span>--concurrency<span class="w"> </span><span class="m">8</span><span class="w"> </span>--min-zoom<span class="w"> </span><span class="m">5</span><span class="w"> </span>--max-zoom<span class="w"> </span><span class="m">17</span>
+</code></pre></div>
+<p>The resulting file can be served directly by Martin via its config:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Publish MBTiles files - available as /map5</span>
+<span class="nt">mbtiles</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">paths</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># specific mbtiles file will be published as mbtiles source</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/martin_cache/map5.mbtiles</span>
+</code></pre></div>
+<h2 id="4-hillshade">4. HillShade</h2>
+<p>Using 'terrarium' RGB in PMTiles archive. 
+Generated with <a href="https://mapterhorn.com">Mapterhorn</a> from AHN5+AHN6 source TIFF DTM data.
+Work in progress. Note that <code>justb4</code> contributes to Mapterhorn project for the AHN5 + AHN6 data.
+See the GitHub issue and related <a href="https://github.com/mapterhorn/mapterhorn/pull/287">GitHub PR</a>.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../assets/images/map5topo-vector-hillshade.jpg"><img align="left" alt="map5topo RGB hillshade" src="../../assets/images/map5topo-vector-hillshade.jpg"></a></p>
+<p>Eventually the file <code>map5rgb.pmtiles</code> (about 95GB) is generated containing both 5m and 50cm AHN data encoded
+as RGB tiles in <code>.webp</code> format.</p>
+<p>In the Martin config this and other <code>.pmtiles</code> files can be directly published.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">## Publish PMTiles files from local disk or proxy to a web server</span>
+<span class="nt">pmtiles</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">paths</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># scan this whole dir, matching all *.pmtiles files</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/martin_cache</span>
+</code></pre></div>
+<h2 id="5-test-the-services">5. Test the Services</h2>
+<p>Mainly with <code>MapLibre</code>. In a MapLibre Style JSON the layers and styles and hillsahde can be specified.</p>
+<p>Several services are available.</p>
+<ul>
+<li>Run service stack: <code>cd services; ./start.sh</code></li>
+<li>Local: http://localhost:8000/app/vtiles/maplibre/ (MapLibre)   </li>
+<li>PostGIS data: http://localhost:8000/pgadmin (pgadmin)</li>
+<li>Vector Tiles from Martin: http://vt.local.map5.nl:8000/landcover,transport,transport_area,water,place,structure </li>
+<li>Production: https://topo.map5.nl/app/vtiles/maplibre/</li>
+<li>Inspection of RGB hillshade: https://topo.map5.nl/app/vtiles/maplibre/map5hill.html</li>
+<li>Inspection (OpenLayers App): https://topo.map5.nl/app/vtiles/inspect/</li>
+</ul></div>
+<br><br>
+<div class="git-info">
+<div class="dates-container">
+<span class="date-item" title="This page was first created on August 20, 2026">
+<span class="hover-item">📅</span> Created 0 days ago
+    </span>
+<span class="date-item" title="This page was last updated on August 20, 2026">
+<span class="hover-item">✏️</span> Updated 0 days ago
+    </span>
+</div>
+<div class="authors-container">
+<a class="author-link" href="https://github.com/justb4" title="justb4 (1 change)">
+<img alt="justb4" class="hover-item" loading="lazy" src="https://avatars.githubusercontent.com/u/582630?v=4&amp;s=96">
+</a>
+</div></div></article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      © 2023 Just Objects B.V.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../assets/javascripts/termynal.js"></script>
+<script src="../../assets/javascripts/custom.js"></script>
+
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
