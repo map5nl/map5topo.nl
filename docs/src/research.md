@@ -45,7 +45,14 @@ log_line_prefix = '%m [%p]: [%l-1] user=%u,db=%d '  # Time, process ID, line num
 The essential line is `log_min_duration_statement = <millis>`. Instead of `log_statement = 'all'` to switch on/off we can use a psql statement:
 
 ```
-ALTER DATABASE gis SET log_min_duration_statement = 1000;
+-- Log all queries that take longer than 2000ms
+ALTER SYSTEM SET log_min_duration_statement = 2000;
+
+-- Apply without restart
+SELECT pg_reload_conf();
+
+-- Verify the setting
+SHOW log_min_duration_statement;
 ```
 
 Switching logging off is sometimes hard, 
