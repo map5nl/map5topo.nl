@@ -1,8 +1,8 @@
-mkdocs
-mkdocs-material
-mkdocs-video
-mkdocs-glightbox
+mkdocs==1.6.1
+mkdocs-material==9.5.35
+mkdocs-video==1.5.0
+mkdocs-glightbox==0.4.0
 # mkdocs-meta-manager
-mkdocs-ultralytics-plugin
-mkdocs-table-reader-plugin
+mkdocs-ultralytics-plugin==0.1.8
+mkdocs-table-reader-plugin==3.1.0
 # mkdocs-git-authors-plugin
