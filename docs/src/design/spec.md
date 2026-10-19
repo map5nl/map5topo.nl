@@ -32,13 +32,30 @@ This is a snapshot in time. Anything abroad: all from OpenStreetMap.
 * OpenStreetMap" niet-BAG panden, huisnummers, verharde infra, onverharde wegen, terreinen (lowzoom), zee, water (lowzoom), bushaltes, boeien, administratieve grenzen (gem/prov)
 * BRK-DKK: open digitale kadastrale kaart met perceelgrenzen, van het Kadaster.
 * BGT grootschalige topografie: alleen zoom 13, wegdeel-vlak, alle terrein-gerelateerde vlakken, water 
-* AHN 5m en 50cm: reliëfschaduw en contourlijnen
+* AHN5+AHN6 5m en 50cm: reliëfschaduw en contourlijnen
 * RWS Nationaal Wegenbestand: hectometer en kilometer-bordjes
 * Gridlines: calculated according to Kadaster conventions
 
 ## Now In use (abroad)
 
-Anything abroad near borders (Germany, Belgium, bit France): only data from OpenStreetMap.
+Anything abroad near borders (Germany, Belgium, bit France): 
+
+* All vector data from OpenStreetMap.
+
+For relief/hillshade and extracting contourlines the following DEM datasets are used:
+
+### Belgium
+
+* Flanders: [Digitaal Hoogtemodel Vlaanderen II, DTM, raster, 1m](https://www.vlaanderen.be/datavindplaats/catalogus/digitaal-hoogtemodel-vlaanderen-ii-dtm-raster-1-m): DTM, version 2014.01 - EPSG:31370 Lambert 1972 projection - [License](http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations)
+* Wallonie: [Relief de la Wallonie - Modèle Numérique de Terrain 2021-2022 0.5m](https://geoportail.wallonie.be/catalogue/a004e570-99d6-4fe5-b83d-49b774409278.html): DTM version 2021-2022-  EPSG:3812 Lambert Belge 2008 [License](https://creativecommons.org/licenses/by/4.0/)
+
+### Germany
+
+* Nordrhein-Westfalen: [Digitales Geländemodell - Rasterweite 1 m](https://www.opengeodata.nrw.de/produkte/geobasis/hm/dgm1_tiff/dgm1_tiff/), DTM version 2022-2025 - EPSG:25832 - [License](https://creativecommons.org/licenses/by/4.0/)
+* Niedersachsen: [Digitales Geländemodell 1m - DGM1](https://www.lgln.niedersachsen.de/startseite/geodaten_karten/3d_geobasisdaten/dgm/digitale-gelandemodelle-dgm-143150.html) - EPSG:25832 (ETRS89/UTM 32N) - [License](https://www.govdata.de/dl-de/zero-2-0)
+
+### France
+TODO
 
 ## To consider for later
 
@@ -51,10 +68,7 @@ Anything abroad near borders (Germany, Belgium, bit France): only data from Open
 * RWS Nationaal Wegenbestand: vaarwegen; 
 * RWS Bewegwijzeringsdienst: paddenstoelen
 * Hydrografische Dienst Defensie: dieptelijnen en kleurrasters zoetwater; (toestemming nodig!)
-* AGIV: hoogtedata en grondgebonden gebouwen (GBG) in Vlaanderen, zie www.geopunt.be
-* Reliëf Wallonië: Dép. de la Géomatique, Wallonie (TODO)
-* Reliëf NRW : Landesreg. Nordrhein-Westfalen (TODO)
-* EU-DEM: reliëfschaduw + hoogtelijnen buitenland (TODO)
+* EU-DEM: France DEM
 * NS/Prorail - stationsnamen
 
 ## Extent

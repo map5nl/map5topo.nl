@@ -121,7 +121,7 @@ mbtiles:
 ## 4. HillShade
 
 Using 'terrarium' RGB in PMTiles archive. 
-Generated with [Mapterhorn](https://mapterhorn.com) from AHN5+AHN6 source TIFF DTM data.
+Generated with [Mapterhorn](https://mapterhorn.com) from AHN5+AHN6 source TIFF DTM data (1m and 5m) plus provinces in Belgium (Flanders and Wallonie) and Germany (TODO: NRW and Niedersachsen).
 Work in progress. Note that `justb4` contributes to Mapterhorn project for the AHN5 + AHN6 data.
 See the GitHub issue and related [GitHub PR](https://github.com/mapterhorn/mapterhorn/pull/287).
 

@@ -51,7 +51,7 @@ Most tools for Vector Tiles come from the [MapLibre ecosystem](https://maplibre.
 * [Martin](https://martin.maplibre.org/) from the MapLibre organization is a versatile Vector Tile server
 * Martin can use various vector sources: PostGIS (directly) and tilecaches like MBTiles, and PMTiles
 * Martin also provides resources such as Fonts, Glyphs to be used in client-side styling
-* Not shown: also a "pure" DEM tiling service is used
+* Hillshade and contours: 'terrarium' encoded RGB in PMTiles archive generated with [Mapterhorn](https://mapterhorn.com). From AHN5+AHN6 source TIFF DTM data (1m and 5m) plus provinces in Belgium (Flanders and Wallonie) and Germany (TODO: NRW and Niedersachsen).
 
 Per definition, Vector Tile servers do not provide styled images. This is done
 in Vector Tile clients like [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/), that are also developed with the project as part of the apps.
