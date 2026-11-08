@@ -24,6 +24,8 @@ Please see the left-hand navigation for the table of contents.
 
 View [map5topo in full](https://app.map5.nl/map5topo/full/) interactively.
 
+More demos, including Vector Tiles and comparisons with other maps, via the [map5topo demo page](https://app.map5.nl/map5topo/).
+
 # Mobile App
 
 There is a free map5topo app for mobile phone (Android, iPhone).
@@ -38,14 +40,14 @@ Watch work in progress screenshots in the [Gallery](gallery/index.md).
 
 # Newsletter
 
-Stay uptodate through the [Newsletter](https://us10.campaign-archive.com/home/?u=dc76804d91aeb81849bd5071c&id=53b2ade233).
-For map5topo developments, start with [Newsletter nr 5](https://us10.campaign-archive.com/?u=dc76804d91aeb81849bd5071c&id=60a3514e90).
-(In Dutch, sorry).
+Stay uptodate by subscribing to the [Newsletter](https://news.map5.nl/subscription/form) (in Dutch, sorry).
+See the complete archive at: [news.map5.nl/archive](https://news.map5.nl/archive).
 
 # Presentations
 
 map5topo and its development has been presented on multiple events, latest first:
 
+* *_"No Fear of Heights! - Mapping Open Elevation Data for NL" - [MaptimeAMS - Autumn Meetup - Oct 12, 2026](https://www.meetup.com/maptime-ams/events/316610212/)_* - [\[PDF Slides\]](https://files.justobjects.nl/presentation/maptime-2026/elevation-maptime-just-2026.pdf).
 * *_"Wie MapLibre und Vektorkarten die Welt übernehmen" - In German - [FOSSGIS 2025, Múnster, Germany](https://fossgis-konferenz.de/2025/) - March 26, 2025_* - [abstract](https://pretalx.com/fossgis2025/talk/7BYCBD/) - [VIDEO](https://ffmuc.media.ccc.de//events/fossgis/2025/h264-hd/fossgis2025-58293-deu-Wie_MapLibre_und_Vektorkarten_die_Welt_uebernehmen_hd.mp4) - [\[PDF Slides\]](https://files.justobjects.nl/presentation/fossgis2025/maplibre-fossgis-2025.pdf).
 * *_"Basisregistraties en OpenStreetMap mixen voor map5topo kaarten" - [FOSS4G-BE-NL - Baarle - Sept 26, 2024](https://foss4g.nl/)_* - [\[PDF Slides\]](https://files.justobjects.nl/presentation/foss4gbenl-2024/map5-data-foss4gbenl-just-2024.pdf).
 * *"Melting Dutch open data and OpenStreetMap into a single schema"* - [Maptime AMS - September 19, 2024](https://www.meetup.com/maptime-ams/events/301851869) - [\[PDF Slides\]](https://files.justobjects.nl/presentation/maptime-2024/map5-data-maptime-just-2024.pdf)
