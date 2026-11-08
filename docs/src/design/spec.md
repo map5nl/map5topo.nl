@@ -7,16 +7,16 @@ Below overall specifications and constraints.
 
 * at first raster (tiles)-only
 * Vector (Tiles) later
-* both RD and Web Mercator projections and tiling schemes (EPSG:28992 and EPSG:3857)
+* both Dutch and Web Mercator projections and tiling schemes (EPSG:28992 and EPSG:3857)
 * use Dutch Open Data like Key Registries ("Basisregistraties") as much as possible  (see datasets below)
 * may use OSM or other datasets where they provide more detail
-* try **not** to use Corine and Natural Earth
+* try **not** to use Corine and Natural Earth for landcover
 * Hillshading from Dutch DEM Open Data: "AHN" in 5m and 50cm resolutions
 * attempt classical design, but keep fresh
 * services: tiling and WMS (may use MapProxy)
 * High-quality *Retina Tiles* (512x512 pixels) 
-* license and openness: start proprietary, then make open source when all in place: clean code, documentation.
-* NL neighbouring countries/vicinity: Germany/Belgium/Northern France
+* license and openness (for Git repos): make open source when all in place: clean code, documentation.
+* NL neighboring countries/vicinity: Germany/Belgium/Northern France
 * guard copyrights of existing maps!
 
 ## Datasets
@@ -40,7 +40,7 @@ This is a snapshot in time. Anything abroad: all from OpenStreetMap.
 
 Anything abroad near borders (Germany, Belgium, bit France): 
 
-* All vector data from OpenStreetMap.
+* All vector data comes from OpenStreetMap.
 
 For relief/hillshade and extracting contourlines the following DEM datasets are used:
 
@@ -63,7 +63,7 @@ TODO
 * TOP10NL  spoorwegen, inrichtings- elementen, niet-BAG panden, hoogbouw, hoogtelijnen, dieptelijnen, grenzen (ook bebouwde kommen).
 * BAG  woonplaatsgrenzen, postcode centroid labels.
 * OpenStreetMap  stoplichten, max snelheden op wegen, toeristische punten.
-* BGT grootschalige topografie: alleen zoom 13, overige objecten, bomen(?) 
+* BGT grootschalige topografie: now only for zoom RD 13 (WebMerc 18)
 * Provinciale Risicokaart: risicogevende objecten ; buisleidingen ; dijkringen.
 * RWS Nationaal Wegenbestand: vaarwegen; 
 * RWS Bewegwijzeringsdienst: paddenstoelen
@@ -85,8 +85,9 @@ So the map does not stop at NL country borders!
  
 This is the extent to be provided in EPSG:28992: LL: -20000 275000  UR: 300000 650000.
 
-## References
+## Inspiration
 
-* https://www.freemap.sk/?map=15/48.552055/19.321260&layers=X  https://github.com/FreemapSlovakia/freemap-mapnik/ nice hillshading!
+* https://www.freemap.sk/?map=15/48.552055/19.321260&layers=X  
+* https://github.com/FreemapSlovakia/freemap-mapnik/ nice hillshading!
 * https://github.com/Amsterdam/tiles/ nice stack: DB T-rex, Tileserver-gl, mapproxy
 * https://github.com/der-stefan/OpenTopoMap
