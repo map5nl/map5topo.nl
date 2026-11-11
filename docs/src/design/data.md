@@ -315,7 +315,8 @@ records from that table.
 
 ![map5 schema query](../assets/images/design/metadata-create.png){ data-title="Map5 Schema metadata create records" align=left }  
 
-Below are actual classification values for each table, `lod1` and `lod2` (`lod3` is currently only used within `landcover`) 
-for each table.
+Below are actual hierarchical classification values for each table, `lod1` and `lod2` and some `lod3`.
+
+### Classification
 
 {{ read_csv("classification.csv") }}.
