@@ -58,7 +58,7 @@ $$ LANGUAGE plpgsql IMMUTABLE STRICT PARALLEL SAFE;
 
 ## 2. Martin Tileserver
 
-The above SQL Functions are configured as layers in the Martin configuration. For example:
+The above SQL Functions are configured as layers in the Martin configuration (`git/services/martin/etc/config.yml`). For example:
 
 
 ```yaml
@@ -95,19 +95,41 @@ The above SQL Functions are configured as layers in the Martin configuration. Fo
 
 ```
 
-For testing and inspection, these layers can be called directly, but for production "MBTiles" files are generated, "seeded", and served.
+For testing and inspection, these layers can be called directly, but for production "MBTiles" files are generated, "seeded", and served, see next.
 
 ## 3. Tile Seeding
 
-Using `martin-cp`:
+From within the `git/services/martin` directory.
+
+Using `martin-cp`. See `martin-cp.sh` which calls Docker Compose, with this essential command:
 
 ```shell
-martin-cp --source ${POSTGIS_SOURCES} -c config.yml -o map5.mbtiles --mbtiles-type normalized \
-      --bbox ${SEED_BBOX} --on-duplicate ignore --concurrency 8 --min-zoom 5 --max-zoom 17
+martin-cp --source ${POSTGIS_SOURCES} -c /martin_etc/config.yml \
+     -o /martin_cache/map5.stage.mbtiles \
+    --mbtiles-type normalized --bbox ${SEED_BBOX} \
+    --on-duplicate ignore --concurrency 8 --min-zoom 5 --max-zoom 17
 
 ```
 
-The resulting file can be served directly by Martin via its config:
+The `${POSTGIS_SOURCES}` (in `env.sh`) is the list of layers, each represented as above and via PostGIS Functions.
+The current list is:
+
+```
+landcover,landuse,transport,transport_area,water,waterway,place,poi,structure,border,contour_line,housenumber,area_label
+```
+
+Best is to do seeding within a `screen` terminal and capture the output like:
+
+```shell
+
+screen -S tiling
+cd git/services/martin
+./martin-cp.sh > ~/martin.log 2>&1
+
+# takes a while
+
+```
+The resulting MBTiles file is served directly by Martin via its config:
 
 ```YAML
 # Publish MBTiles files - available as /map5
@@ -144,13 +166,23 @@ pmtiles:
 ## 5. Test the Services
 
 Mainly with `MapLibre`. In a MapLibre Style JSON the layers and styles and hillsahde can be specified.
+As a minimum start the services: `traefik`, `martin`, `postgis`, `apps` under `git/services`.
+Traefik should run under `http://localhost:8000`. 
 
-Several services are available.
+* Local: http://localhost:8000/app/vtiles/maplibre/ - MapLibre from local MBTiles   
+* Local: http://localhost:8000/app/vtiles/maplibre/index-pg.html - MapLibre direct from PostGIS, slow!  
+* Dev: https://topo.map5.nl/app/vtiles/maplibre/
+* Production: https://app.map5.nl/map5topo/vtiles/maplibre
+* Production: https://app.map5.nl/map5topo/vtiles/inspect/ - Inspector MBTiles
 
-* Run service stack: `cd services; ./start.sh`
-* Local: http://localhost:8000/app/vtiles/maplibre/ (MapLibre)   
+### Inspection and analysis of Vector Tiles
+
+* Vector Tiles from Martin: http://localhost:8000/vt/map5 - MBTiles
+* http://localhost:8000/vt/landcover,landuse,transport,transport_area,water,waterway,place,structure,border,contour_line,poi,housenumber,area_label - direct from PostGIS
 * PostGIS data: http://localhost:8000/pgadmin (pgadmin)
-* Vector Tiles from Martin: http://vt.local.map5.nl:8000/landcover,transport,transport_area,water,place,structure 
-* Production: https://topo.map5.nl/app/vtiles/maplibre/
 * Inspection of RGB hillshade: https://topo.map5.nl/app/vtiles/maplibre/map5hill.html
-* Inspection (OpenLayers App): https://topo.map5.nl/app/vtiles/inspect/
+* Inspector: https://topo.map5.nl/app/vtiles/inspect/ from MBTiles
+* Inspector: https://topo.map5.nl/app/vtiles/inspect/index-pg.html for direct from PostGIS (slow!)
+* Inspector: https://stevage.github.io/vector-inspector - by Steve Bennett
+* Analyzer: https://franks.tools/en/vector-tile-analyzer - by Frank Hommers
+
